@@ -1,8 +1,8 @@
 /**
  * Product Pricing Data
  * 
- * This file contains dummy/placeholder prices for products.
- * Update these values with actual prices from your dealershop when available.
+ * Prices sourced from: leader_dbp_prices_2026-03-03.csv (DBP ex GST column)
+ * Last updated: 2026-03-03
  * 
  * Structure:
  * - productPrices[productName][serviceType][term] = price (in AUD, ex GST)
@@ -11,328 +11,298 @@
  * Note: Set price to 0 or null if price is TBC (To Be Confirmed)
  */
 
-// Tabletop Firebox prices (dummy data - update with real prices)
+// Tabletop Firebox prices (updated from leader_dbp_prices_2026-03-03.csv, DBP ex GST)
 const tabletopPrices = {
   'Firebox T115-W': {
-    'Appliance Only': 550,
+    'Appliance Only': 271,
     'Standard Support': {
-      '1 Year': 750,
-      '3 Year': 1850,
-      '5 Year': 2950,
+      '1 Year': 467,
+      '3 Year': 836,
+      '5 Year': 1205,
     },
     'Basic Security': {
-      '1 Year': 950,
-      '3 Year': 2450,
-      '5 Year': 3950,
+      '1 Year': 627,
+      '3 Year': 1144,
+      '5 Year': 2066,
     },
     'Total Security': {
-      '1 Year': 1250,
-      '3 Year': 3250,
-      '5 Year': 5250,
+      '1 Year': 1021,
+      '3 Year': 1919,
+      '5 Year': 3456,
     },
   },
   'Firebox T125': {
-    'Appliance Only': 750,
+    'Appliance Only': 320,
     'Standard Support': {
-      '1 Year': 950,
-      '3 Year': 2450,
-      '5 Year': 3950,
+      '1 Year': 467,
+      '3 Year': 873,
+      '5 Year': 1279,
     },
     'Basic Security': {
-      '1 Year': 1250,
-      '3 Year': 3250,
-      '5 Year': 5250,
+      '1 Year': 646,
+      '3 Year': 1211,
+      '5 Year': 2202,
     },
     'Total Security': {
-      '1 Year': 1650,
-      '3 Year': 4350,
-      '5 Year': 7050,
+      '1 Year': 1076,
+      '3 Year': 2048,
+      '5 Year': 3714,
     },
   },
   'Firebox T125-W': {
-    'Appliance Only': 850,
+    'Appliance Only': 369,
     'Standard Support': {
-      '1 Year': 1050,
-      '3 Year': 2750,
-      '5 Year': 4450,
+      '1 Year': 578,
+      '3 Year': 1070,
+      '5 Year': 1562,
     },
     'Basic Security': {
-      '1 Year': 1350,
-      '3 Year': 3550,
-      '5 Year': 5750,
+      '1 Year': 799,
+      '3 Year': 1476,
+      '5 Year': 2669,
     },
     'Total Security': {
-      '1 Year': 1750,
-      '3 Year': 4650,
-      '5 Year': 7550,
+      '1 Year': 1316,
+      '3 Year': 2472,
+      '5 Year': 4477,
     },
   },
   'Firebox T145': {
-    'Appliance Only': 1250,
+    'Appliance Only': 486,
     'Standard Support': {
-      '1 Year': 1550,
-      '3 Year': 4050,
-      '5 Year': 6550,
+      '1 Year': 830,
+      '3 Year': 1476,
+      '5 Year': 2208,
     },
     'Basic Security': {
-      '1 Year': 1950,
-      '3 Year': 5150,
-      '5 Year': 8350,
+      '1 Year': 1113,
+      '3 Year': 2060,
+      '5 Year': 3727,
     },
     'Total Security': {
-      '1 Year': 2450,
-      '3 Year': 6450,
-      '5 Year': 10450,
+      '1 Year': 1747,
+      '3 Year': 3481,
+      '5 Year': 6334,
     },
   },
   'Firebox T185': {
-    'Appliance Only': 1850,
+    'Appliance Only': 959,
     'Standard Support': {
-      '1 Year': 2250,
-      '3 Year': 5950,
-      '5 Year': 9650,
+      '1 Year': 1679,
+      '3 Year': 3001,
+      '5 Year': 5375,
     },
     'Basic Security': {
-      '1 Year': 2850,
-      '3 Year': 7550,
-      '5 Year': 12250,
+      '1 Year': 2239,
+      '3 Year': 4157,
+      '5 Year': 7515,
     },
     'Total Security': {
-      '1 Year': 3550,
-      '3 Year': 9350,
-      '5 Year': 15150,
+      '1 Year': 3751,
+      '3 Year': 7023,
+      '5 Year': 12761,
     },
   },
   'Firebox T185 (High Availability)': {
-    'Appliance Only': 1650,
+    'Appliance Only': 959,
     'Standard Support': {
-      '1 Year': 1850,
-      '3 Year': 4850,
-      '5 Year': 7850,
-    },
-    'Basic Security': {
-      '1 Year': 2250,
-      '3 Year': 5950,
-      '5 Year': 9650,
-    },
-    'Total Security': {
-      '1 Year': 2750,
-      '3 Year': 7250,
-      '5 Year': 11750,
+      '1 Year': 627,
+      '3 Year': 1421,
+      '5 Year': 2853,
     },
   },
 };
 
-// M-Series Firebox prices (dummy data - update with real prices)
+// M-Series Firebox prices (updated from leader_dbp_prices_2026-03-03.csv, DBP ex GST)
+// Note: M-Series only has 1-Year and 3-Year terms in this price list
 const mSeriesPrices = {
   'Firebox M295': {
-    'Appliance Only': 2850,
+    'Appliance Only': 1280,
     'Standard Support': {
-      '1 Year': 3450,
-      '3 Year': 9150,
-      '5 Year': 14850,
+      '1 Year': 2202,
+      '3 Year': 3862,
     },
     'Basic Security': {
-      '1 Year': 4250,
-      '3 Year': 11250,
-      '5 Year': 18250,
+      '1 Year': 2940,
+      '3 Year': 5461,
     },
     'Total Security': {
-      '1 Year': 5250,
-      '3 Year': 13950,
-      '5 Year': 22650,
+      '1 Year': 4637,
+      '3 Year': 9458,
     },
   },
   'Firebox M395': {
-    'Appliance Only': 4250,
+    'Appliance Only': 1968,
     'Standard Support': {
-      '1 Year': 5150,
-      '3 Year': 13650,
-      '5 Year': 22150,
+      '1 Year': 3874,
+      '3 Year': 6642,
     },
     'Basic Security': {
-      '1 Year': 6350,
-      '3 Year': 16850,
-      '5 Year': 27350,
+      '1 Year': 5129,
+      '3 Year': 9397,
     },
     'Total Security': {
-      '1 Year': 7850,
-      '3 Year': 20850,
-      '5 Year': 33850,
+      '1 Year': 7995,
+      '3 Year': 16211,
     },
   },
   'Firebox M495': {
-    'Appliance Only': 6250,
+    'Appliance Only': 2952,
     'Standard Support': {
-      '1 Year': 7550,
-      '3 Year': 20050,
-      '5 Year': 32550,
+      '1 Year': 7294,
+      '3 Year': 12017,
     },
     'Basic Security': {
-      '1 Year': 9350,
-      '3 Year': 24850,
-      '5 Year': 40350,
+      '1 Year': 9532,
+      '3 Year': 17035,
     },
     'Total Security': {
-      '1 Year': 11550,
-      '3 Year': 30650,
-      '5 Year': 49750,
+      '1 Year': 14563,
+      '3 Year': 29014,
     },
   },
   'Firebox M595': {
-    'Appliance Only': 9250,
+    'Appliance Only': 3936,
     'Standard Support': {
-      '1 Year': 11150,
-      '3 Year': 29650,
-      '5 Year': 48150,
+      '1 Year': 10307,
+      '3 Year': 16789,
     },
     'Basic Security': {
-      '1 Year': 13850,
-      '3 Year': 36750,
-      '5 Year': 59650,
+      '1 Year': 13370,
+      '3 Year': 23787,
     },
     'Total Security': {
-      '1 Year': 17150,
-      '3 Year': 45550,
-      '5 Year': 73950,
+      '1 Year': 20380,
+      '3 Year': 40428,
     },
   },
   'Firebox M695': {
-    'Appliance Only': 14250,
+    'Appliance Only': 5412,
     'Standard Support': {
-      '1 Year': 17250,
-      '3 Year': 45850,
-      '5 Year': 74450,
+      '1 Year': 13148,
+      '3 Year': 21696,
     },
     'Basic Security': {
-      '1 Year': 21350,
-      '3 Year': 56750,
-      '5 Year': 92150,
+      '1 Year': 17158,
+      '3 Year': 30761,
     },
     'Total Security': {
-      '1 Year': 26450,
-      '3 Year': 70250,
-      '5 Year': 114050,
+      '1 Year': 26296,
+      '3 Year': 58199,
     },
   },
   'Firebox M4800': {
-    'Appliance Only': 28500,
+    'Appliance Only': 8671,
     'Standard Support': {
-      '1 Year': 34500,
-      '3 Year': 91650,
-      '5 Year': 148800,
+      '1 Year': 11334,
+      '3 Year': 16678,
     },
     'Basic Security': {
-      '1 Year': 42750,
-      '3 Year': 113550,
-      '5 Year': 184350,
+      '1 Year': 15663,
+      '3 Year': 30330,
     },
     'Total Security': {
-      '1 Year': 52950,
-      '3 Year': 140650,
-      '5 Year': 228350,
+      '1 Year': 25528,
+      '3 Year': 65140,
     },
   },
   'Firebox M5800': {
-    'Appliance Only': 45000,
+    'Appliance Only': 11561,
     'Standard Support': {
-      '1 Year': 54500,
-      '3 Year': 144850,
-      '5 Year': 235200,
+      '1 Year': 34894,
+      '3 Year': 47310,
     },
     'Basic Security': {
-      '1 Year': 67500,
-      '3 Year': 179350,
-      '5 Year': 291150,
+      '1 Year': 44961,
+      '3 Year': 94503,
     },
     'Total Security': {
-      '1 Year': 83650,
-      '3 Year': 222250,
-      '5 Year': 360850,
+      '1 Year': 82872,
+      '3 Year': 151127,
     },
   },
 };
 
-// Wi-Fi 6 Access Point prices (dummy data - update with real prices)
+// Wi-Fi 6 Access Point prices (updated from leader_dbp_prices_2026-03-03.csv, DBP ex GST)
 const wifiPrices = {
   // Indoor Access Points
   'AP130': {
-    'Appliance Only': 450,
+    'Appliance Only': 428,
     'Standard Wi-Fi': {
-      '1 Year': 550,
-      '3 Year': 750,
-      '5 Year': 950,
+      '1 Year': 92,
+      '3 Year': 183,
+      '5 Year': 275,
     },
     'USP Wi-Fi': {
-      '1 Year': 650,
-      '3 Year': 950,
-      '5 Year': 1250,
+      '1 Year': 153,
+      '3 Year': 306,
+      '5 Year': 458,
     },
   },
   'AP230W': {
-    'Appliance Only': 550,
+    'Appliance Only': 623,
     'Standard Wi-Fi': {
-      '1 Year': 650,
-      '3 Year': 950,
-      '5 Year': 1250,
+      '1 Year': 92,
+      '3 Year': 183,
+      '5 Year': 275,
     },
     'USP Wi-Fi': {
-      '1 Year': 750,
-      '3 Year': 1150,
-      '5 Year': 1550,
+      '1 Year': 153,
+      '3 Year': 306,
+      '5 Year': 458,
     },
   },
   'AP330': {
-    'Appliance Only': 650,
+    'Appliance Only': 754,
     'Standard Wi-Fi': {
-      '1 Year': 750,
-      '3 Year': 1050,
-      '5 Year': 1350,
+      '1 Year': 92,
+      '3 Year': 183,
+      '5 Year': 275,
     },
     'USP Wi-Fi': {
-      '1 Year': 850,
-      '3 Year': 1250,
-      '5 Year': 1650,
+      '1 Year': 153,
+      '3 Year': 306,
+      '5 Year': 458,
     },
   },
   'AP432': {
-    'Appliance Only': 850,
+    'Appliance Only': 923,
     'Standard Wi-Fi': {
-      '1 Year': 950,
-      '3 Year': 1350,
-      '5 Year': 1750,
+      '1 Year': 92,
+      '3 Year': 183,
+      '5 Year': 275,
     },
     'USP Wi-Fi': {
-      '1 Year': 1050,
-      '3 Year': 1550,
-      '5 Year': 2050,
+      '1 Year': 153,
+      '3 Year': 306,
+      '5 Year': 458,
     },
   },
   // Outdoor Access Points
   'AP332CR': {
-    'Appliance Only': 750,
+    'Appliance Only': 900,
     'Standard Wi-Fi': {
-      '1 Year': 850,
-      '3 Year': 1250,
-      '5 Year': 1650,
+      '1 Year': 92,
+      '3 Year': 183,
+      '5 Year': 275,
     },
     'USP Wi-Fi': {
-      '1 Year': 950,
-      '3 Year': 1450,
-      '5 Year': 1950,
+      '1 Year': 153,
+      '3 Year': 306,
+      '5 Year': 458,
     },
   },
   'AP430CR': {
-    'Appliance Only': 950,
+    'Appliance Only': 1674,
     'Standard Wi-Fi': {
-      '1 Year': 1050,
-      '3 Year': 1550,
-      '5 Year': 2050,
+      '1 Year': 92,
+      '3 Year': 183,
+      '5 Year': 275,
     },
     'USP Wi-Fi': {
-      '1 Year': 1150,
-      '3 Year': 1750,
-      '5 Year': 2350,
+      '1 Year': 153,
+      '3 Year': 306,
+      '5 Year': 458,
     },
   },
 };

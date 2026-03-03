@@ -3,8 +3,6 @@ import { ShoppingCartSimple, CaretDown } from '@phosphor-icons/react';
 import styles from './ProductCard.module.css';
 import { useQuote } from '../../context/QuoteContext.jsx';
 
-const BASE_URL = import.meta.env.BASE_URL;
-
 export default function ProductCard({ product, onSelectHardware, onSelectSubscription }) {
   const { addItem } = useQuote();
   const [featuresOpen, setFeaturesOpen] = useState(false);
@@ -58,7 +56,9 @@ export default function ProductCard({ product, onSelectHardware, onSelectSubscri
     ) || null;
   }, [details, subType, termYears]);
 
-  const imageSrc = product.image_file ? `${BASE_URL}products/${product.image_file}` : null;
+  const imageSrc = product.appliance?.full_sku
+    ? `https://partner.leadersystems.com.au/Images/${product.appliance.full_sku}.jpg`
+    : null;
   const applianceUrl = product.appliance?.url || '#';
   const applianceMsrp = product.appliance?.msrp || 0;
 

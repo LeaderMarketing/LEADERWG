@@ -1,4 +1,5 @@
 // Seed the database from WG Hardware SKUS_full.csv
+// Prices come from the DBP_ex_GST column in the CSV
 // Run: node server/seed.js
 
 const fs = require('fs');
@@ -196,8 +197,8 @@ function seed() {
     const fields = parseCsvLine(line);
     if (fields.length < 7) continue;
 
-    const [fullSku, name, msrpRaw, deliveryMethod, family, group, url] = fields;
-    const msrp = parseMsrp(msrpRaw);
+    const [fullSku, name, priceRaw, deliveryMethod, family, group, url] = fields;
+    const price = parseMsrp(priceRaw);
     const skuCode = fullSku.replace(/^NWG-/, '');
     const { type, subType } = classifySku(name, deliveryMethod);
     const term = extractTerm(name);
@@ -206,7 +207,7 @@ function seed() {
       groupSet.set(group, { family, category: familyToCategory(family) });
     }
 
-    parsedRows.push({ fullSku, skuCode, name, msrp, deliveryMethod, family, group, url, type, subType, term });
+    parsedRows.push({ fullSku, skuCode, name, msrp: price, deliveryMethod, family, group, url, type, subType, term });
   }
 
   // Insert product groups

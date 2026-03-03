@@ -2,135 +2,114 @@
 
 export const mSeriesProductSkus = {
   'Firebox M295': {
-    'Appliance Only': 'WGM29500',
+    'Appliance Only': 'NWG-WGM295000',
     'Standard Support': {
-      '1 Year': 'WGM29531',
-      '3 Year': 'WGM29533',
-      '5 Year': 'WGM29535',
+      '1 Year': 'NWG-WGM2950061',
+      '3 Year': 'NWG-WGM2950063',
     },
     'Basic Security': {
-      '1 Year': 'WGM29541',
-      '3 Year': 'WGM29543',
-      '5 Year': 'WGM29545',
+      '1 Year': 'NWG-WGM2950071',
+      '3 Year': 'NWG-WGM2950073',
     },
     'Total Security': {
-      '1 Year': 'WGM29571',
-      '3 Year': 'WGM29573',
-      '5 Year': 'WGM29575',
+      '1 Year': 'NWG-WGM2950081',
+      '3 Year': 'NWG-WGM2950083',
     },
   },
 
   'Firebox M395': {
-    'Appliance Only': 'WGM39500',
+    'Appliance Only': 'NWG-WGM395000',
     'Standard Support': {
-      '1 Year': 'WGM39531',
-      '3 Year': 'WGM39533',
-      '5 Year': 'WGM39535',
+      '1 Year': 'NWG-WGM3950061',
+      '3 Year': 'NWG-WGM3950063',
     },
     'Basic Security': {
-      '1 Year': 'WGM39541',
-      '3 Year': 'WGM39543',
-      '5 Year': 'WGM39545',
+      '1 Year': 'NWG-WGM3950071',
+      '3 Year': 'NWG-WGM3950073',
     },
     'Total Security': {
-      '1 Year': 'WGM39571',
-      '3 Year': 'WGM39573',
-      '5 Year': 'WGM39575',
+      '1 Year': 'NWG-WGM3950081',
+      '3 Year': 'NWG-WGM3950083',
     },
   },
 
   'Firebox M495': {
-    'Appliance Only': 'WGM49500',
+    'Appliance Only': 'NWG-WGM495000',
     'Standard Support': {
-      '1 Year': 'WGM49531',
-      '3 Year': 'WGM49533',
-      '5 Year': 'WGM49535',
+      '1 Year': 'NWG-WGM4950061',
+      '3 Year': 'NWG-WGM4950063',
     },
     'Basic Security': {
-      '1 Year': 'WGM49541',
-      '3 Year': 'WGM49543',
-      '5 Year': 'WGM49545',
+      '1 Year': 'NWG-WGM4950071',
+      '3 Year': 'NWG-WGM4950073',
     },
     'Total Security': {
-      '1 Year': 'WGM49571',
-      '3 Year': 'WGM49573',
-      '5 Year': 'WGM49575',
+      '1 Year': 'NWG-WGM4950081',
+      '3 Year': 'NWG-WGM4950083',
     },
   },
 
   'Firebox M595': {
-    'Appliance Only': 'WGM59500',
+    'Appliance Only': 'NWG-WGM595000',
     'Standard Support': {
-      '1 Year': 'WGM59531',
-      '3 Year': 'WGM59533',
-      '5 Year': 'WGM59535',
+      '1 Year': 'NWG-WGM5950061',
+      '3 Year': 'NWG-WGM5950063',
     },
     'Basic Security': {
-      '1 Year': 'WGM59541',
-      '3 Year': 'WGM59543',
-      '5 Year': 'WGM59545',
+      '1 Year': 'NWG-WGM5950071',
+      '3 Year': 'NWG-WGM5950073',
     },
     'Total Security': {
-      '1 Year': 'WGM59571',
-      '3 Year': 'WGM59573',
-      '5 Year': 'WGM59575',
+      '1 Year': 'NWG-WGM5950081',
+      '3 Year': 'NWG-WGM5950083',
     },
   },
 
   'Firebox M695': {
-    'Appliance Only': 'WGM69500',
+    'Appliance Only': 'NWG-WGM695000',
     'Standard Support': {
-      '1 Year': 'WGM69531',
-      '3 Year': 'WGM69533',
-      '5 Year': 'WGM69535',
+      '1 Year': 'NWG-WGM6950061',
+      '3 Year': 'NWG-WGM6950063',
     },
     'Basic Security': {
-      '1 Year': 'WGM69541',
-      '3 Year': 'WGM69543',
-      '5 Year': 'WGM69545',
+      '1 Year': 'NWG-WGM6950071',
+      '3 Year': 'NWG-WGM6950073',
     },
     'Total Security': {
-      '1 Year': 'WGM69571',
-      '3 Year': 'WGM69573',
-      '5 Year': 'WGM69575',
+      '1 Year': 'NWG-WGM6950081',
+      '3 Year': 'NWG-WGM6950083',
     },
   },
 
   'Firebox M4800': {
-    'Appliance Only': 'WGM48500',
+    'Appliance Only': 'NWG-WGM48000',
     'Standard Support': {
-      '1 Year': 'WGM48531',
-      '3 Year': 'WGM48533',
-      '5 Year': 'WGM48535',
+      '1 Year': 'NWG-WGM48000061',
+      '3 Year': 'NWG-WGM48000063',
     },
     'Basic Security': {
-      '1 Year': 'WGM48541',
-      '3 Year': 'WGM48543',
-      '5 Year': 'WGM48545',
+      '1 Year': 'NWG-WGM48000071',
+      '3 Year': 'NWG-WGM48000073',
     },
     'Total Security': {
-      '1 Year': 'WGM48571',
-      '3 Year': 'WGM48573',
-      '5 Year': 'WGM48575',
+      '1 Year': 'NWG-WGM48000081',
+      '3 Year': 'NWG-WGM48000083',
     },
   },
 
   'Firebox M5800': {
-    'Appliance Only': 'WGM58500',
+    'Appliance Only': 'NWG-WGM58000',
     'Standard Support': {
-      '1 Year': 'WGM58531',
-      '3 Year': 'WGM58533',
-      '5 Year': 'WGM58535',
+      '1 Year': 'NWG-WGM58000061',
+      '3 Year': 'NWG-WGM58000063',
     },
     'Basic Security': {
-      '1 Year': 'WGM58541',
-      '3 Year': 'WGM58543',
-      '5 Year': 'WGM58545',
+      '1 Year': 'NWG-WGM58000071',
+      '3 Year': 'NWG-WGM58000073',
     },
     'Total Security': {
-      '1 Year': 'WGM58571',
-      '3 Year': 'WGM58573',
-      '5 Year': 'WGM58575',
+      '1 Year': 'NWG-WGM58000081',
+      '3 Year': 'NWG-WGM58000083',
     },
   },
 };

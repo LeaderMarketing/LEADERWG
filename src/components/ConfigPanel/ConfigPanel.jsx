@@ -3,8 +3,6 @@ import { ShoppingCartSimple } from '@phosphor-icons/react';
 import styles from './ConfigPanel.module.css';
 import { useQuote } from '../../context/QuoteContext.jsx';
 
-const BASE_URL = import.meta.env.BASE_URL;
-
 const formatPrice = (p) => {
   if (!p || p === 0) return '$0.00';
   return '$' + p.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -74,8 +72,8 @@ export default function ConfigPanel({ selectedHardware, selectedSubscription: in
     ) || null;
   }, [details, subType, termYears]);
 
-  const imageSrc = selectedHardware?.image_file
-    ? `${BASE_URL}products/${selectedHardware.image_file}`
+  const imageSrc = selectedHardware?.appliance?.full_sku
+    ? `https://partner.leadersystems.com.au/Images/${selectedHardware.appliance.full_sku}.jpg`
     : null;
 
   // Don't show until something is selected
