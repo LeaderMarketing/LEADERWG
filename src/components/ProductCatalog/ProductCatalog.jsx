@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { ShoppingCartSimple, CaretDown, Package } from '@phosphor-icons/react';
+import { ShoppingCartSimple, CaretDown, CaretLeft, CaretRight, Package } from '@phosphor-icons/react';
 import styles from './ProductCatalog.module.css';
 import { useQuote } from '../../context/QuoteContext.jsx';
 import { SECTION_DEFS, getSpecValue } from '../../data/featureSpecs.js';
+import SecurityBundles from '../SecurityBundles/SecurityBundles.jsx';
+import SecuritySuiteTable from '../SecuritySuiteTable/SecuritySuiteTable.jsx';
+import WifiSubscriptions from '../WifiSubscriptions/WifiSubscriptions.jsx';
+import RenewalsSection from '../RenewalsSection/RenewalsSection.jsx';
 
 const BASE_URL = import.meta.env.BASE_URL;
 
@@ -34,8 +38,7 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
   const [categories, setCategories] = useState(null);
   const [activeTab, setActiveTab] = useState('tabletop');
   const [loading, setLoading] = useState(true);
-  const [specsOpen, setSpecsOpen] = useState(false);
-  const [subsOpen, setSubsOpen] = useState(true);
+  const [specsOpen, setSpecsOpen] = useState(true);
 
   // Per-product subscription state: { [slug]: { subType, termYears, details } }
   const [productStates, setProductStates] = useState({});
@@ -79,8 +82,7 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
   // Reset when tab changes
   useEffect(() => {
     setProductStates({});
-    setSpecsOpen(false);
-    setSubsOpen(true);
+    setSpecsOpen(true);
   }, [activeTab]);
 
   // ── Subscription helpers ──
@@ -209,14 +211,29 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
 
   return (
     <div className={styles.catalog}>
-      <h2 className={styles.sectionTitle}>Select Your Device</h2>
-      <p className={styles.intro}>
-        Choose the WatchGuard appliance that best fits your network requirements.
-      </p>
-
       {/* Banner */}
       <div className={styles.bannerWrap}>
         <img src={BANNERS[activeTab]} alt={TAB_LABELS[activeTab]} className={styles.banner} />
+        <button
+          className={`${styles.bannerNav} ${styles.bannerNavLeft}`}
+          onClick={() => {
+            const idx = TAB_ORDER.indexOf(activeTab);
+            setActiveTab(TAB_ORDER[(idx - 1 + TAB_ORDER.length) % TAB_ORDER.length]);
+          }}
+          aria-label="Previous category"
+        >
+          <CaretLeft size={18} weight="bold" />
+        </button>
+        <button
+          className={`${styles.bannerNav} ${styles.bannerNavRight}`}
+          onClick={() => {
+            const idx = TAB_ORDER.indexOf(activeTab);
+            setActiveTab(TAB_ORDER[(idx + 1) % TAB_ORDER.length]);
+          }}
+          aria-label="Next category"
+        >
+          <CaretRight size={18} weight="bold" />
+        </button>
       </div>
 
       {/* Tabs */}
@@ -265,7 +282,7 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
           {products.map((product) => (
             <div key={`price-${product.slug}`} className={styles.priceCell}>
               <span className={styles.priceValue}>{formatPrice(product.appliance?.msrp)}</span>
-              <span className={styles.priceNote}>ex GST</span>
+              <span className={styles.priceNote}>ex.GST</span>
               <span className={styles.priceInfo}>
                 i
                 <span className={styles.priceTooltip}>Pricing is for appliance only. License not included and requires separate purchase.</span>
@@ -288,6 +305,44 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
               )}
             </div>
           ))}
+
+          {/* ═══ SUBSCRIPTION SECTION (inside grid) ═══ */}
+          <div className={styles.subLabelCell}>Watchguard Licence</div>
+          {products.map((product) => {
+            const subTypes = getSubscriptionTypes(product.slug);
+            const terms = getAvailableTerms(product.slug);
+            const st = getSubState(product.slug);
+            const currentSub = getCurrentSub(product.slug);
+            return (
+              <div key={`sub-${product.slug}`} className={styles.subCell}>
+                {subTypes.length > 0 ? (
+                  <>
+                    <select className={styles.subSelect} value={st.subType || ''} onChange={(e) => setSubType(product.slug, e.target.value)}>
+                      {subTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+                    </select>
+                    <select className={styles.subSelect} value={st.termYears || 1} onChange={(e) => setTermYears(product.slug, Number(e.target.value))}>
+                      {terms.map((y) => <option key={y} value={y}>{termLabel(y)}</option>)}
+                    </select>
+                    <div className={styles.subPrice}>
+                      {currentSub ? formatPrice(currentSub.msrp) : '—'}
+                      {currentSub && <span className={styles.priceNote}>ex.GST</span>}
+                    </div>
+                    <button className={styles.addSubBtn} onClick={() => handleAddSubscription(product)} disabled={!currentSub} title="Add subscription to quote cart">
+                      <ShoppingCartSimple size={14} weight="bold" />
+                      Add to Cart
+                    </button>
+                    {currentSub?.url && (
+                      <a href={currentSub.url} target="_blank" rel="noopener noreferrer" className={styles.skuLink}>
+                        {currentSub.sku_code}
+                      </a>
+                    )}
+                  </>
+                ) : (
+                  <span className={styles.noSub}>—</span>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* ═══ COLLAPSIBLE SPECS ═══ */}
@@ -324,55 +379,22 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
             </div>
           </div>
         </div>
-
-        {/* ═══ SUBSCRIPTION SECTION ═══ */}
-        <button className={styles.specsToggle} onClick={() => setSubsOpen(!subsOpen)}>
-          Buy Subscription
-          <span className={`${styles.chevron} ${subsOpen ? styles.chevronOpen : ''}`}>
-            <CaretDown size={14} weight="bold" />
-          </span>
-        </button>
-
-        <div className={`${styles.collapseWrapper} ${subsOpen ? styles.collapseOpen : ''}`}>
-          <div className={styles.collapseInner}>
-            <div className={styles.grid} style={{ gridTemplateColumns: gridCols }}>
-              <div className={styles.subLabelCell}></div>
-          {products.map((product) => {
-            const subTypes = getSubscriptionTypes(product.slug);
-            const terms = getAvailableTerms(product.slug);
-            const st = getSubState(product.slug);
-            const currentSub = getCurrentSub(product.slug);
-            return (
-              <div key={`sub-${product.slug}`} className={styles.subCell}>
-                {subTypes.length > 0 ? (
-                  <>
-                    <select className={styles.subSelect} value={st.subType || ''} onChange={(e) => setSubType(product.slug, e.target.value)}>
-                      {subTypes.map((t) => <option key={t} value={t}>{t}</option>)}
-                    </select>
-                    <select className={styles.subSelect} value={st.termYears || 1} onChange={(e) => setTermYears(product.slug, Number(e.target.value))}>
-                      {terms.map((y) => <option key={y} value={y}>{termLabel(y)}</option>)}
-                    </select>
-                    <div className={styles.subPrice}>{currentSub ? formatPrice(currentSub.msrp) : '—'}</div>
-                    <button className={styles.addSubBtn} onClick={() => handleAddSubscription(product)} disabled={!currentSub} title="Add subscription to quote cart">
-                      <ShoppingCartSimple size={14} weight="bold" />
-                      Add Subscription
-                    </button>
-                    {currentSub?.url && (
-                      <a href={currentSub.url} target="_blank" rel="noopener noreferrer" className={styles.skuLink}>
-                        {currentSub.sku_code}
-                      </a>
-                    )}
-                  </>
-                ) : (
-                  <span className={styles.noSub}>—</span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-          </div>
-        </div>
       </div>
+
+      {/* ═══ SECURITY BUNDLES / WIFI LICENSE SECTION ═══ */}
+      {(activeTab === 'tabletop' || activeTab === 'mseries') && (
+        <>
+          <SecurityBundles />
+          <SecuritySuiteTable />
+        </>
+      )}
+
+      {activeTab === 'wifi' && (
+        <WifiSubscriptions />
+      )}
+
+      {/* ═══ RENEWALS & UPGRADES ═══ */}
+      <RenewalsSection />
     </div>
   );
 }

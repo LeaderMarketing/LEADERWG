@@ -224,7 +224,7 @@ function ComparisonTabs({
                 className={`${styles.priceCell} ${isSelected ? styles.selectedCell : ''}`}
               >
                 <span className={styles.priceValue}>{formatPrice(price)}</span>
-                <span className={styles.priceNote}>ex GST</span>
+                <span className={styles.priceNote}>ex.GST</span>
               </div>
             );
           })}

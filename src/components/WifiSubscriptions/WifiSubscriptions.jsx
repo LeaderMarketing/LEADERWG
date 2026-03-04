@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CaretDown } from '@phosphor-icons/react';
 import styles from './WifiSubscriptions.module.css';
 
 const wifiFeatures = [
@@ -20,63 +21,59 @@ const wifiFeatures = [
   { feature: 'Future Security and Wi-Fi Features*', standard: false, usp: true },
 ];
 
-function WifiSubscriptions({ selectedWifiLicense, onSelectWifiLicense, disabled }) {
-  const [tableOpen, setTableOpen] = useState(false);
+function WifiSubscriptions() {
+  const [tableOpen, setTableOpen] = useState(true);
 
   return (
     <section className={styles.section}>
-      <h2>Select Access Point Management Licence</h2>
-      <p>
+      <h2 className={styles.heading}>Access Point Management Licence</h2>
+      <p className={styles.intro}>
         Choose the management license that best suits your Wi-Fi deployment needs. 
         Both options provide comprehensive cloud management with different feature sets.
       </p>
       
       <div className={styles.licensesGrid}>
-        <button
-          type="button"
-          className={`${styles.licenseCard} ${
-            selectedWifiLicense === 'Standard Wi-Fi' ? styles.selected : ''
-          }`}
-          onClick={() => onSelectWifiLicense && onSelectWifiLicense('Standard Wi-Fi')}
-        >
-          <h3>Standard Wi-Fi</h3>
-          <p>
-            A standard license for Wi-Fi in WatchGuard Cloud offers basic Cloud management features 
-            including 24-hour reporting, comprehensive 24/7 support, diagnostics, inventory management 
-            and beyond.
-          </p>
-        </button>
+        <div className={styles.licenseCard}>
+          <img src={`${import.meta.env.BASE_URL}licence sku images/standard_wi-fi.webp`} alt="Standard Wi-Fi" className={styles.cardImage} />
+          <div className={styles.cardContent}>
+            <h3>Standard Wi-Fi</h3>
+            <p>
+              A standard license for Wi-Fi in WatchGuard Cloud offers basic Cloud management features 
+              including 24-hour reporting, comprehensive 24/7 support, diagnostics, inventory management 
+              and beyond.
+            </p>
+          </div>
+        </div>
 
-        <button
-          type="button"
-          className={`${styles.licenseCard} ${
-            selectedWifiLicense === 'USP Wi-Fi' ? styles.selected : ''
-          }`}
-          onClick={() => onSelectWifiLicense && onSelectWifiLicense('USP Wi-Fi')}
-        >
-          <h3>Unified Security Platform® (USP) Wi-Fi</h3>
-          <p>
-            WatchGuard USP licenses for Wi-Fi in WatchGuard Cloud offer everything included in 
-            standard licenses plus 30 days of reporting, VPN configuration, advanced PSA integration 
-            and much more.
-          </p>
-          <span className={styles.recommendedBadge}>Recommended</span>
-        </button>
+        <div className={styles.licenseCard}>
+          <img src={`${import.meta.env.BASE_URL}licence sku images/unified_security_platform_wi-fi.webp`} alt="Unified Security Platform Wi-Fi" className={styles.cardImage} />
+          <div className={styles.cardContent}>
+            <h3>Unified Security Platform® (USP) Wi-Fi</h3>
+            <p>
+              WatchGuard USP licenses for Wi-Fi in WatchGuard Cloud offer everything included in 
+              standard licenses plus 30 days of reporting, VPN configuration, advanced PSA integration 
+              and much more.
+            </p>
+            <span className={styles.recommendedBadge}>Recommended</span>
+          </div>
+        </div>
       </div>
 
       {/* Collapsible Feature Comparison Table */}
-      <div className={styles.comparisonSection}>
-        <button
-          type="button"
-          className={styles.collapseToggle}
-          onClick={() => setTableOpen((prev) => !prev)}
-          aria-expanded={tableOpen}
-        >
-          <span>Compare Wi-Fi License Features</span>
-          <span className={`${styles.arrow} ${tableOpen ? styles.open : ''}`}>▼</span>
-        </button>
+      <button
+        type="button"
+        className={styles.collapseToggle}
+        onClick={() => setTableOpen((prev) => !prev)}
+        aria-expanded={tableOpen}
+      >
+        Compare Wi-Fi License Features
+        <span className={`${styles.chevron} ${tableOpen ? styles.chevronOpen : ''}`}>
+          <CaretDown size={14} weight="bold" />
+        </span>
+      </button>
 
-        {tableOpen && (
+      <div className={`${styles.collapseWrapper} ${tableOpen ? styles.collapseOpen : ''}`}>
+        <div className={styles.collapseInner}>
           <div className={styles.tableWrapper}>
             <table className={styles.featureTable}>
               <thead>
@@ -105,7 +102,7 @@ function WifiSubscriptions({ selectedWifiLicense, onSelectWifiLicense, disabled 
               Some features may require additional products from WatchGuard to work.
             </p>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

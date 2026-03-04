@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { CaretDown } from '@phosphor-icons/react';
 import styles from './SecuritySuiteTable.module.css';
 
 function SecuritySuiteTable() {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   return (
     <section className={styles.section}>
@@ -11,12 +12,15 @@ function SecuritySuiteTable() {
         aria-expanded={expanded}
         onClick={() => setExpanded((v) => !v)}
       >
-        <span>Compare Security Suite Features</span>
-        <span className={styles.icon}>▼</span>
+        Compare Security Suite Features
+        <span className={`${styles.chevron} ${expanded ? styles.chevronOpen : ''}`}>
+          <CaretDown size={14} weight="bold" />
+        </span>
       </button>
 
-      {expanded && (
-        <div className={styles.tableContainer}>
+      <div className={`${styles.collapseWrapper} ${expanded ? styles.collapseOpen : ''}`}>
+        <div className={styles.collapseInner}>
+          <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -242,8 +246,9 @@ function SecuritySuiteTable() {
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
-      )}
+      </div>
     </section>
   );
 }

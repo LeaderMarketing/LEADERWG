@@ -437,7 +437,7 @@ function SummaryPanel({
           {/* Price Display */}
           {selectedProductData && (
             <div className={styles.priceDisplay}>
-              <span className={styles.priceLabel}>Price (ex GST):</span>
+              <span className={styles.priceLabel}>Price (ex.GST):</span>
               <span className={styles.priceValue}>{formatPrice(currentPrice)}</span>
             </div>
           )}

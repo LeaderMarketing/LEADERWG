@@ -1,40 +1,56 @@
 .section {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
-/* Collapsible Toggle Button - matches Wi-Fi style */
+/* Toggle button - WG red style matching Compare Specs */
 .toggle {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 1rem 1.25rem;
-  background: #f8f9fa;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  gap: 8px;
+  width: fit-content;
+  padding: 10px 0;
+  background: none;
+  border: none;
   cursor: pointer;
   font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  transition: background 0.15s ease;
+  font-weight: 700;
+  color: var(--wgrd-red, #e81410);
+  letter-spacing: 0.3px;
+  transition: color 0.15s;
 }
 
 .toggle:hover {
-  background: #f0f0f0;
+  color: #b4001e;
 }
 
-.icon {
-  display: inline-block;
-  font-size: 0.8rem;
-  transition: transform 0.2s ease;
+.chevron {
+  transition: transform 0.25s;
+  display: flex;
+  align-items: center;
 }
 
-.toggle[aria-expanded='true'] .icon {
+.chevronOpen {
   transform: rotate(180deg);
 }
 
+/* Slide animation */
+.collapseWrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.collapseWrapper.collapseOpen {
+  grid-template-rows: 1fr;
+}
+
+.collapseInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
 .tableContainer {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   background: #fff;
@@ -45,24 +61,28 @@
   width: 100%;
   border-collapse: collapse;
   min-width: 800px;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
 }
 
 .table th {
   background: #1a1a2e;
   color: #fff;
-  padding: 0.875rem 1rem;
+  padding: 0.625rem 0.75rem;
   text-align: left;
   font-weight: 600;
+  font-size: 0.78rem;
+}
+
+.table th:first-child {
+  width: 50%;
 }
 
 .table th:not(:first-child) {
   text-align: center;
-  width: 150px;
 }
 
 .table td {
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   text-align: left;
   border-bottom: 1px solid #e8e8e8;
   vertical-align: top;
@@ -72,7 +92,7 @@
   text-align: center;
   color: var(--wgrd-red);
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 
 .table tbody tr:nth-child(even) {
@@ -95,14 +115,14 @@
 .textCell {
   color: #333 !important;
   font-weight: 500 !important;
-  font-size: 0.9rem !important;
+  font-size: 0.78rem !important;
 }
 
 /* Gold text - highlighted in red */
 .goldText {
   color: var(--wgrd-red) !important;
   font-weight: 600 !important;
-  font-size: 0.9rem !important;
+  font-size: 0.78rem !important;
 }
 
 /* Sub-rows for nested data like retention periods */
