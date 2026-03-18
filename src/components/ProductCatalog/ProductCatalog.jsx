@@ -10,10 +10,12 @@ import {
   StickyHeader,
   CategoryBanner,
   CategoryTabs,
+  CategoryFilters,
   ProductColumns,
   SubscriptionRow,
   SpecsSection,
 } from './parts/index.js';
+import { CATEGORY_FILTERS } from './parts/CategoryFilters.jsx';
 
 // Sections below the comparison grid
 import SecurityBundles from '../SecurityBundles/SecurityBundles.jsx';
@@ -45,13 +47,25 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
 
   // ── UI state ──
   const [specsOpen, setSpecsOpen] = useState(true);
+  const [filterOn, setFilterOn] = useState(false);
+
+  // Reset filter when tab changes
+  React.useEffect(() => setFilterOn(false), [activeTab]);
+
+  // ── Filtered products ──
+  const filteredProducts = React.useMemo(() => {
+    if (!filterOn) return products;
+    const cfg = CATEGORY_FILTERS[activeTab];
+    if (!cfg) return products;
+    return products.filter((p) => cfg.test(p.slug));
+  }, [products, activeTab, filterOn]);
 
   // ── Behaviours ──
   useDragScroll(scrollRef, [products]);
   const { headerRowRef, stickyScrollRef, isSticky } = useStickyHeader(scrollRef, [products]);
 
   // ── Grid columns (shared across all rows) ──
-  const gridCols = `200px repeat(${products.length}, 220px)`;
+  const gridCols = `200px repeat(${filteredProducts.length}, 220px)`;
 
   // ── Cart actions ──
   const handleAddHardware = useCallback(
@@ -105,26 +119,33 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
   return (
     <div className={styles.catalog}>
       <StickyHeader
-        products={products}
+        products={filteredProducts}
         gridCols={gridCols}
         isSticky={isSticky}
         stickyScrollRef={stickyScrollRef}
       />
 
       <CategoryBanner activeTab={activeTab} setActiveTab={setActiveTab} />
-      <CategoryTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <CategoryTabs
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        categoryCounts={categories ? Object.fromEntries(
+          Object.entries(categories).map(([k, v]) => [k, v.products?.length ?? 0])
+        ) : null}
+      />
+      <CategoryFilters activeTab={activeTab} filterOn={filterOn} setFilterOn={setFilterOn} />
 
       {/* ═══ COMPARISON GRID ═══ */}
       <div className={styles.tableWrapper} ref={scrollRef}>
         <div className={styles.grid} style={{ gridTemplateColumns: gridCols }}>
           <ProductColumns
-            products={products}
+            products={filteredProducts}
             headerRowRef={headerRowRef}
             getImageSrc={getImageSrc}
             onAddHardware={handleAddHardware}
           />
           <SubscriptionRow
-            products={products}
+            products={filteredProducts}
             {...subs}
             onAddSubscription={handleAddSubscription}
           />
@@ -132,7 +153,7 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
 
         <SpecsSection
           activeTab={activeTab}
-          products={products}
+          products={filteredProducts}
           gridCols={gridCols}
           specsOpen={specsOpen}
           setSpecsOpen={setSpecsOpen}

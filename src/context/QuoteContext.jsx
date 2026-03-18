@@ -6,6 +6,7 @@ const initialState = {
   customerInfo: {
     name: '',
     email: '',
+    accountManagerEmail: '',
   },
   notes: '',
 };

@@ -27,7 +27,21 @@ export default function SubscriptionRow({
 }) {
   return (
     <>
-      <div className={styles.subLabelCell}>Watchguard Licence</div>
+      <div className={styles.subLabelCell}>
+        <div>
+          Watchguard Licence
+          <a
+            href="#security-bundles"
+            className={styles.bundlesLink}
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('security-bundles')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            What are the WatchGuard security service bundles?
+          </a>
+        </div>
+      </div>
       {products.map((product) => {
         const subTypes = getSubscriptionTypes(product.slug);
         const terms = getAvailableTerms(product.slug);

@@ -1,30 +1,37 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styles from './TopLevelNav.module.css';
-import { navigationConfig } from '../../data/navigationConfig.js';
 
-function TopLevelNav({ activeSection, onSectionChange }) {
-  const handleTabClick = (sectionId) => {
-    // Update hash in URL
-    window.location.hash = sectionId;
-    onSectionChange(sectionId);
-  };
+const NAV_ITEMS = [
+  { path: '/', label: 'Security Appliances' },
+  { path: '/virtual', label: 'Virtual' },
+  { path: '/renewals', label: 'Renewals/Upgrades' },
+  { path: '/mdr-xdr', label: 'MDR & XDR' },
+  { path: '/endpoint', label: 'Endpoint & Mobile' },
+  { path: '/cloud', label: 'Cloud & Server' },
+  { path: '/identity', label: 'Identity & Access' },
+  { path: '/email', label: 'Email Security' },
+];
 
+export default function TopLevelNav() {
   return (
     <nav className={styles.topNav}>
-      <div className={styles.tabContainer}>
-        {navigationConfig.map((section) => (
-          <button
-            key={section.id}
-            className={`${styles.tab} ${activeSection === section.id ? styles.active : ''}`}
-            onClick={() => handleTabClick(section.id)}
-            type="button"
+      <div className={styles.navInner}>
+        {NAV_ITEMS.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            end={item.path === '/'}
+            className={({ isActive }) =>
+              `${styles.navItem} ${isActive ? styles.navActive : ''}`
+            }
           >
-            {section.label}
-          </button>
+            {item.label}
+          </NavLink>
         ))}
       </div>
     </nav>
   );
 }
 
-export default TopLevelNav;
+export { NAV_ITEMS };

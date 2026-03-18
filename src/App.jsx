@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { ShoppingCartSimple } from '@phosphor-icons/react';
 import styles from './App.module.css';
+import TopLevelNav from './components/TopLevelNav/TopLevelNav.jsx';
 import ProductCatalog from './components/ProductCatalog/ProductCatalog.jsx';
 import QuoteCartPanel from './components/QuoteCartPanel/QuoteCartPanel.jsx';
 import { useQuote } from './context/QuoteContext.jsx';
+
+function ComingSoon({ title }) {
+  return (
+    <div style={{ padding: 80, textAlign: 'center', color: '#888' }}>
+      <h2 style={{ marginBottom: 12, color: '#333' }}>{title}</h2>
+      <p>Coming soon.</p>
+    </div>
+  );
+}
 
 function App() {
   const { state: quoteState } = useQuote();
@@ -13,12 +24,19 @@ function App() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <h1>WatchGuard Security Appliances</h1>
-        </header>
+      <TopLevelNav />
 
-        <ProductCatalog />
+      <div className={styles.container}>
+        <Routes>
+          <Route path="/" element={<ProductCatalog />} />
+          <Route path="/virtual" element={<ComingSoon title="Virtual" />} />
+          <Route path="/renewals" element={<ComingSoon title="Renewals/Upgrades" />} />
+          <Route path="/mdr-xdr" element={<ComingSoon title="MDR & XDR" />} />
+          <Route path="/endpoint" element={<ComingSoon title="Endpoint & Mobile" />} />
+          <Route path="/cloud" element={<ComingSoon title="Cloud & Server" />} />
+          <Route path="/identity" element={<ComingSoon title="Identity & Access" />} />
+          <Route path="/email" element={<ComingSoon title="Email Security" />} />
+        </Routes>
       </div>
 
       {/* Quote Cart modal overlay */}

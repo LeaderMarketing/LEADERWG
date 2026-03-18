@@ -4,21 +4,14 @@
   color: #212529;
   background-color: #f8f9fa;
   margin: 0;
-  padding: 20px;
+  padding: 0;
   line-height: 1.5;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 30px;
-}
-
-.header h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: 700;
-  color: #212529;
 }
 
 .mainLayout {

@@ -1,73 +1,73 @@
 .topNav {
   width: 100%;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid var(--table-border);
-  margin-bottom: 24px;
-  border-radius: 8px 8px 0 0;
+  background-color: #363636;
+  margin-bottom: 0;
 }
 
-.tabContainer {
+.navInner {
+  max-width: 1140px;
+  margin: 0 auto;
   display: flex;
+  justify-content: center;
   gap: 0;
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--wgrd-red) #e9ecef;
+  scrollbar-color: var(--wgrd-red, #e81410) #555;
   -webkit-overflow-scrolling: touch;
   white-space: nowrap;
 }
 
 /* Custom scrollbar for webkit browsers */
-.tabContainer::-webkit-scrollbar {
-  height: 4px;
+.navInner::-webkit-scrollbar {
+  height: 3px;
 }
 
-.tabContainer::-webkit-scrollbar-track {
-  background: #e9ecef;
+.navInner::-webkit-scrollbar-track {
+  background: #555;
+}
+
+.navInner::-webkit-scrollbar-thumb {
+  background-color: var(--wgrd-red, #e81410);
   border-radius: 2px;
 }
 
-.tabContainer::-webkit-scrollbar-thumb {
-  background-color: var(--wgrd-red);
-  border-radius: 2px;
-}
-
-.tab {
+.navItem {
   flex-shrink: 0;
-  padding: 16px 24px;
+  padding: 14px 20px;
   background: transparent;
   border: none;
   border-bottom: 3px solid transparent;
   font-family: inherit;
   font-weight: 500;
-  font-size: 15px;
-  color: #555;
+  font-size: 13px;
+  color: #bbb;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
+  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
 }
 
-.tab:hover {
-  color: var(--wgrd-red);
-  background-color: rgba(232, 20, 16, 0.05);
+.navItem:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
-.tab.active {
-  color: var(--wgrd-red);
-  border-bottom-color: var(--wgrd-red);
+.navActive {
+  color: #fff;
+  border-bottom-color: var(--wgrd-red, #e81410);
   font-weight: 600;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .tab {
-    padding: 14px 18px;
-    font-size: 14px;
+  .navItem {
+    padding: 12px 16px;
+    font-size: 13px;
   }
 }
 
 @media (max-width: 480px) {
-  .tab {
-    padding: 12px 14px;
-    font-size: 13px;
+  .navItem {
+    padding: 10px 12px;
+    font-size: 12px;
   }
 }

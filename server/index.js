@@ -2,6 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const { initDb } = require('./db');
+const { seedIfNeeded } = require('./seed');
+const { SECTION_DEFS } = require('../src/data/featureSpecs.shared.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,6 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+seedIfNeeded();
 const db = initDb();
 
 // ── GET /api/categories ───────────────────────────────────
@@ -66,7 +69,7 @@ app.get('/api/products/:slug', (req, res) => {
   const features = db.prepare(`
     SELECT feature_category, feature_name, feature_value, sort_order
     FROM product_features WHERE product_group_id = ?
-    ORDER BY feature_category, sort_order
+    ORDER BY id
   `).all(group.id);
 
   // Group features by category
@@ -90,6 +93,7 @@ app.get('/api/products/:slug', (req, res) => {
     tradeUps,
     highAvailability: ha,
     activationBundles: bundles,
+    specSections: SECTION_DEFS[group.category] || [],
     features: featureGroups,
   });
 });

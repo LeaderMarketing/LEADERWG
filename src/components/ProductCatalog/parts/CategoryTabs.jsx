@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../ProductCatalog.module.css';
 import { TAB_ORDER, TAB_LABELS } from './CategoryBanner.jsx';
 
-export default function CategoryTabs({ activeTab, setActiveTab }) {
+export default function CategoryTabs({ activeTab, setActiveTab, categoryCounts }) {
   return (
     <div className={styles.tabBar}>
       {TAB_ORDER.map((key) => (
@@ -12,6 +12,9 @@ export default function CategoryTabs({ activeTab, setActiveTab }) {
           onClick={() => setActiveTab(key)}
         >
           {TAB_LABELS[key]}
+          {categoryCounts?.[key] != null && (
+            <span className={styles.tabCount}>{categoryCounts[key]}</span>
+          )}
         </button>
       ))}
     </div>

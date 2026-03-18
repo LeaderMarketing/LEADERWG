@@ -3,7 +3,7 @@ import styles from './SecurityBundles.module.css';
 
 function SecurityBundles() {
   return (
-    <section className={styles.section}>
+    <section id="security-bundles" className={styles.section}>
       <h2 className={styles.heading}>What Are the WatchGuard Security Service Bundles</h2>
       <p className={styles.intro}>
         Find out what fits your network&apos;s needs. Designed for maximum protection against

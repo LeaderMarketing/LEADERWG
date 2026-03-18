@@ -5,7 +5,6 @@ import {
   Package,
   ShoppingCartSimple,
   Spinner,
-  Storefront,
   Trash,
   X,
 } from '@phosphor-icons/react';
@@ -14,22 +13,11 @@ import 'jspdf-autotable';
 import styles from './QuoteCartPanel.module.css';
 import { useQuote } from '../../context/QuoteContext';
 import { formatPrice } from '../../data/productPrices.js';
-import { addMultipleToCart } from '../../data/cartUtils.js';
-
-// Dummy Account Managers - replace with actual names later
-const accountManagers = [
-  { id: 1, name: 'John Smith', email: 'john.smith@example.com' },
-  { id: 2, name: 'Sarah Johnson', email: 'sarah.johnson@example.com' },
-  { id: 3, name: 'Michael Chen', email: 'michael.chen@example.com' },
-  { id: 4, name: 'Emily Davis', email: 'emily.davis@example.com' },
-  { id: 5, name: 'David Wilson', email: 'david.wilson@example.com' },
-];
 
 function QuoteCartPanel({ isOpen, onClose }) {
   const { state, removeItem, updateQuantity, clearCart, setCustomerInfo, setNotes } = useQuote();
   const { items, subtotal, itemCount, customerInfo, notes } = state;
 
-  const [selectedAM, setSelectedAM] = useState('');
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [showQuoteOptions, setShowQuoteOptions] = useState(false);
 
@@ -77,9 +65,8 @@ function QuoteCartPanel({ isOpen, onClose }) {
         yPos += 6;
       }
 
-      const selectedManager = accountManagers.find((am) => am.id === parseInt(selectedAM));
-      if (selectedManager) {
-        doc.text(`Account Manager: ${selectedManager.name}`, 14, yPos);
+      if (customerInfo.accountManagerEmail) {
+        doc.text(`Account Manager Email: ${customerInfo.accountManagerEmail}`, 14, yPos);
         yPos += 6;
       }
 
@@ -165,53 +152,9 @@ function QuoteCartPanel({ isOpen, onClose }) {
     }
   };
 
-  // Add all quote items to the real Leader Systems shopping cart
-  const [addingToLeaderCart, setAddingToLeaderCart] = useState(false);
-  const [leaderCartMessage, setLeaderCartMessage] = useState('');
-
-  const handleAddAllToLeaderCart = async () => {
-    if (!hasItems || addingToLeaderCart) return;
-
-    // Map quote cart items to configurations for addMultipleToCart
-    const configurations = items.map((item) => {
-      const descParts = item.description.match(/^(.+?)\s*\((.+?)\)$/);
-      if (descParts) {
-        return {
-          productName: item.name,
-          serviceType: descParts[1],
-          term: descParts[2],
-          quantity: item.quantity,
-        };
-      }
-      return {
-        productName: item.name,
-        serviceType: item.description,
-        term: null,
-        quantity: item.quantity,
-      };
-    });
-
-    setAddingToLeaderCart(true);
-    setLeaderCartMessage('Adding items to Leader Cart...');
-
-    try {
-      const result = await addMultipleToCart(configurations);
-      setLeaderCartMessage(result.message);
-      setTimeout(() => setLeaderCartMessage(''), 6000);
-    } catch {
-      setLeaderCartMessage('Failed to add items — unexpected error.');
-      setTimeout(() => setLeaderCartMessage(''), 6000);
-    } finally {
-      setAddingToLeaderCart(false);
-    }
-  };
-
   // Email to Account Manager
   const handleEmailAM = () => {
-    if (!hasItems || !selectedAM) return;
-
-    const selectedManager = accountManagers.find((am) => am.id === parseInt(selectedAM));
-    if (!selectedManager) return;
+    if (!hasItems || !customerInfo.accountManagerEmail) return;
 
     const itemsList = items
       .map(
@@ -220,10 +163,10 @@ function QuoteCartPanel({ isOpen, onClose }) {
       )
       .join('%0A');
 
-    const emailBody = `Hi ${selectedManager.name},%0A%0AI would like to request a quote for the following WatchGuard products:%0A%0A${itemsList}%0A%0A${subtotal > 0 ? `Quote Total (ex.GST): $${subtotal.toLocaleString()}%0A` : ''}%0A${customerInfo.name ? `Customer Name: ${customerInfo.name}%0A` : ''}${customerInfo.email ? `Customer Email: ${customerInfo.email}%0A` : ''}${notes ? `%0ANotes: ${notes}%0A` : ''}%0APlease confirm availability and pricing.%0A%0AThank you.`;
+    const emailBody = `Hello,%0A%0AI would like to request a quote for the following WatchGuard products:%0A%0A${itemsList}%0A%0A${subtotal > 0 ? `Quote Total (ex.GST): $${subtotal.toLocaleString()}%0A` : ''}%0A${customerInfo.name ? `Customer Name: ${customerInfo.name}%0A` : ''}${customerInfo.email ? `Customer Email: ${customerInfo.email}%0A` : ''}${notes ? `%0ANotes: ${notes}%0A` : ''}%0APlease confirm availability and pricing.%0A%0AThank you.`;
 
     const subject = `WatchGuard Quote Request - ${new Date().toLocaleDateString('en-AU')}`;
-    window.location.href = `mailto:${selectedManager.email}?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
+    window.location.href = `mailto:${encodeURIComponent(customerInfo.accountManagerEmail)}?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
   };
 
   if (!isOpen) return null;
@@ -424,18 +367,13 @@ function QuoteCartPanel({ isOpen, onClose }) {
                     />
                   </div>
                   <div className={styles.inputGroup}>
-                    <label>Account Manager</label>
-                    <select
-                      value={selectedAM}
-                      onChange={(e) => setSelectedAM(e.target.value)}
-                    >
-                      <option value="">Select Account Manager...</option>
-                      {accountManagers.map((am) => (
-                        <option key={am.id} value={am.id}>
-                          {am.name}
-                        </option>
-                      ))}
-                    </select>
+                    <label>Account Manager Email</label>
+                    <input
+                      type="email"
+                      placeholder="Enter account manager email..."
+                      value={customerInfo.accountManagerEmail || ''}
+                      onChange={(e) => setCustomerInfo({ accountManagerEmail: e.target.value })}
+                    />
                   </div>
                 </div>
               )}
@@ -448,22 +386,9 @@ function QuoteCartPanel({ isOpen, onClose }) {
           <div className={styles.modalFooter}>
             <button
               type="button"
-              className={styles.leaderCartBtn}
-              onClick={handleAddAllToLeaderCart}
-              disabled={addingToLeaderCart}
-              title="Add all items to the real Leader Systems shopping cart"
-            >
-              <Storefront size={18} weight="bold" />
-              {addingToLeaderCart ? 'Adding...' : 'Add All to Leader Cart'}
-            </button>
-            {leaderCartMessage && (
-              <div className={styles.leaderCartMsg}>{leaderCartMessage}</div>
-            )}
-            <button
-              type="button"
               className={styles.emailBtn}
               onClick={handleEmailAM}
-              disabled={!selectedAM}
+              disabled={!customerInfo.accountManagerEmail}
             >
               <EnvelopeSimple size={18} weight="bold" />
               Email to AM

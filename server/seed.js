@@ -4,9 +4,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const { initDb } = require('./db');
+const { initDb, DB_PATH } = require('./db');
+const { buildFeatureRecords } = require('../src/data/featureSpecs.shared.cjs');
 
-const CSV_PATH = path.join(__dirname, '..', 'WG Hardware SKUS_full.csv');
+const CSV_PATH = path.join(__dirname, 'data', 'WG Hardware SKUS_full.csv');
+const DATA_DIR = path.join(__dirname, 'data');
+const FEATURE_SPECS_PATH = path.join(__dirname, '..', 'src', 'data', 'featureSpecs.shared.cjs');
 
 // ── Parse CSV (handles quoted fields with commas) ─────────
 function parseCsvLine(line) {
@@ -33,6 +36,54 @@ function parseMsrp(raw) {
   const cleaned = raw.replace(/[$,\s]/g, '');
   const val = parseFloat(cleaned);
   return isNaN(val) ? 0 : val;
+}
+
+function findLatestLeaderPriceCsv() {
+  const files = fs
+    .readdirSync(DATA_DIR)
+    .filter((file) => /^leader_dbp_prices_\d{4}-\d{2}-\d{2}\.csv$/i.test(file))
+    .sort();
+
+  if (files.length === 0) return null;
+  return path.join(DATA_DIR, files[files.length - 1]);
+}
+
+function loadLeaderPriceMap() {
+  const latestPriceCsv = findLatestLeaderPriceCsv();
+  if (!latestPriceCsv) {
+    return { priceMap: new Map(), source: null };
+  }
+
+  const raw = fs.readFileSync(latestPriceCsv, 'utf-8');
+  const lines = raw.split(/\r?\n/).filter((line) => line.trim());
+  const rows = lines.slice(1);
+  const priceMap = new Map();
+
+  for (const line of rows) {
+    const fields = parseCsvLine(line);
+    if (fields.length < 13) continue;
+
+    const [skuInput, partNum, _productName, dbpExGst, _dbpIncGst, _rrpExGst, _rrpIncGst, _syd, _mel, _brs, _adl, _wa, status] = fields;
+    const sku = (partNum || skuInput || '').trim();
+    const normalizedStatus = (status || '').trim().toUpperCase();
+
+    if (!sku || normalizedStatus === 'NOT FOUND') continue;
+
+    const price = parseMsrp(dbpExGst);
+    if (price > 0) {
+      priceMap.set(sku, price);
+    }
+  }
+
+  return {
+    priceMap,
+    source: path.basename(latestPriceCsv),
+  };
+}
+
+function getSeedSourceFiles() {
+  const latestLeaderPriceCsv = findLatestLeaderPriceCsv();
+  return [CSV_PATH, latestLeaderPriceCsv, FEATURE_SPECS_PATH].filter(Boolean);
 }
 
 // ── Classify SKU type from name ───────────────────────────
@@ -141,37 +192,21 @@ const DESCRIPTIONS = {
   'T45-W-PoE': 'Tabletop firewall with Wi-Fi and PoE ports',
 };
 
-// ── Seed dummy feature data ───────────────────────────────
-function seedFeatures(db, groupId, slug, family) {
+// ── Seed shared feature data ──────────────────────────────
+function seedFeatures(db, groupId, slug, category) {
   const insert = db.prepare(`
     INSERT INTO product_features (product_group_id, feature_category, feature_name, feature_value, sort_order)
     VALUES (?, ?, ?, ?, ?)
   `);
 
-  if (family === 'T-Series') {
-    insert.run(groupId, 'Overview', 'Ideal For', 'Small to mid-size businesses', 1);
-    insert.run(groupId, 'Performance', 'UTM (Full Scan)', 'See datasheet', 1);
-    insert.run(groupId, 'Performance', 'Firewall (UDP 1518)', 'See datasheet', 2);
-    insert.run(groupId, 'Performance', 'VPN (UDP 1518)', 'See datasheet', 3);
-    insert.run(groupId, 'Performance', 'IPS (Full Scan)', 'See datasheet', 4);
-    insert.run(groupId, 'VPN Tunnels', 'Branch Office VPN', 'See datasheet', 1);
-    insert.run(groupId, 'VPN Tunnels', 'Mobile VPN', 'See datasheet', 2);
-    insert.run(groupId, 'Hardware', 'Interfaces', 'See datasheet', 1);
-  } else if (family === 'M-Series') {
-    insert.run(groupId, 'Overview', 'Ideal For', 'Medium to large enterprises', 1);
-    insert.run(groupId, 'Performance', 'UTM (Full Scan)', 'See datasheet', 1);
-    insert.run(groupId, 'Performance', 'Firewall (UDP 1518)', 'See datasheet', 2);
-    insert.run(groupId, 'Performance', 'VPN (UDP 1518)', 'See datasheet', 3);
-    insert.run(groupId, 'Performance', 'IPS (Full Scan)', 'See datasheet', 4);
-    insert.run(groupId, 'VPN Tunnels', 'Branch Office VPN', 'See datasheet', 1);
-    insert.run(groupId, 'VPN Tunnels', 'Mobile VPN', 'See datasheet', 2);
-    insert.run(groupId, 'Hardware', 'Interfaces', 'See datasheet', 1);
-  } else if (family === 'Access Points') {
-    insert.run(groupId, 'Overview', 'Recommended Use Cases', DESCRIPTIONS[slug] || 'See datasheet', 1);
-    insert.run(groupId, 'Technical Specs', 'Radios & Streams', 'See datasheet', 1);
-    insert.run(groupId, 'Technical Specs', 'Maximum Data Rate', 'See datasheet', 2);
-    insert.run(groupId, 'Technical Specs', 'Ports', 'See datasheet', 3);
-    insert.run(groupId, 'Technical Specs', 'Power Consumption', 'See datasheet', 4);
+  for (const feature of buildFeatureRecords(category, slug)) {
+    insert.run(
+      groupId,
+      feature.featureCategory,
+      feature.featureName,
+      feature.featureValue,
+      feature.sortOrder,
+    );
   }
 }
 
@@ -179,8 +214,8 @@ function seedFeatures(db, groupId, slug, family) {
 function seed() {
   const raw = fs.readFileSync(CSV_PATH, 'utf-8');
   const lines = raw.split(/\r?\n/).filter(l => l.trim());
-  const header = lines[0]; // skip header
   const rows = lines.slice(1);
+  const { priceMap, source: leaderPriceSource } = loadLeaderPriceMap();
 
   const db = initDb();
 
@@ -198,7 +233,8 @@ function seed() {
     if (fields.length < 7) continue;
 
     const [fullSku, name, priceRaw, deliveryMethod, family, group, url] = fields;
-    const price = parseMsrp(priceRaw);
+    const csvPrice = parseMsrp(priceRaw);
+    const price = priceMap.get(fullSku) ?? csvPrice;
     const skuCode = fullSku.replace(/^NWG-/, '');
     const { type, subType } = classifySku(name, deliveryMethod);
     const term = extractTerm(name);
@@ -223,7 +259,7 @@ function seed() {
     const img = IMAGE_MAP[slug] || null;
     const result = insertGroup.run(slug, displayName, info.family, info.category, desc, img);
     groupIdMap[slug] = result.lastInsertRowid;
-    seedFeatures(db, result.lastInsertRowid, slug, info.family);
+    seedFeatures(db, result.lastInsertRowid, slug, info.category);
   }
 
   // Insert SKUs
@@ -252,8 +288,39 @@ function seed() {
   console.log(`  ${groupCount} product groups`);
   console.log(`  ${skuCount} SKUs`);
   console.log(`  ${featureCount} feature entries`);
+  if (leaderPriceSource) {
+    console.log(`  pricing source override: ${leaderPriceSource}`);
+  } else {
+    console.log('  pricing source override: none (using WG Hardware SKUS_full.csv prices)');
+  }
 
   db.close();
 }
 
-seed();
+function seedIfNeeded() {
+  const sourceFiles = getSeedSourceFiles();
+
+  if (!fs.existsSync(DB_PATH)) {
+    seed();
+    return;
+  }
+
+  const dbMtime = fs.statSync(DB_PATH).mtimeMs;
+  const newestSourceMtime = sourceFiles.reduce((latest, filePath) => {
+    const mtime = fs.statSync(filePath).mtimeMs;
+    return Math.max(latest, mtime);
+  }, 0);
+
+  if (newestSourceMtime > dbMtime) {
+    seed();
+  }
+}
+
+if (require.main === module) {
+  seed();
+}
+
+module.exports = {
+  seed,
+  seedIfNeeded,
+};

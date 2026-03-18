@@ -21,11 +21,17 @@ export default function useSubscriptions(productDetails, activeTab) {
   // Initialise defaults whenever productDetails arrives for a slug
   useEffect(() => {
     if (!productDetails) return;
+    const PREFERRED_ORDER = ['Standard Support', 'Basic Security Suite', 'Total Security Suite'];
     setSelections((prev) => {
       const next = { ...prev };
       Object.entries(productDetails).forEach(([slug, data]) => {
         if (next[slug]) return; // already initialised
         const types = [...new Set((data.subscriptions || []).map((s) => s.subscription_type))];
+        types.sort((a, b) => {
+          const ai = PREFERRED_ORDER.indexOf(a);
+          const bi = PREFERRED_ORDER.indexOf(b);
+          return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+        });
         next[slug] = { subType: types[0] || '', termYears: 1 };
       });
       return next;
@@ -55,7 +61,13 @@ export default function useSubscriptions(productDetails, activeTab) {
     (slug) => {
       const d = productDetails[slug];
       if (!d?.subscriptions) return [];
-      return [...new Set(d.subscriptions.map((s) => s.subscription_type))];
+      const PREFERRED_ORDER = ['Standard Support', 'Basic Security Suite', 'Total Security Suite'];
+      const types = [...new Set(d.subscriptions.map((s) => s.subscription_type))];
+      return types.sort((a, b) => {
+        const ai = PREFERRED_ORDER.indexOf(a);
+        const bi = PREFERRED_ORDER.indexOf(b);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      });
     },
     [productDetails],
   );
