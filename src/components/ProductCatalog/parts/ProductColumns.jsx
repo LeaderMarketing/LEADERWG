@@ -53,7 +53,7 @@ export default function ProductColumns({ products, headerRowRef, getImageSrc, on
       {products.map((product) => (
         <div key={`price-${product.slug}`} className={styles.priceCell}>
           <span className={styles.priceValue}>{formatPrice(product.appliance?.msrp)}</span>
-          <span className={styles.priceNote}>ex.GST</span>
+          <span className={styles.priceNote}>MSRP</span>
           <span className={styles.priceInfo}>
             i
             <span className={styles.priceTooltip}>

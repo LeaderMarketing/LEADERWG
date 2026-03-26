@@ -6,6 +6,12 @@ const leaderPriceFiles = import.meta.glob('../../server/data/leader_dbp_prices_*
   query: '?raw',
 });
 
+const wgDataFiles = import.meta.glob('../../WGdata_*.csv', {
+  eager: true,
+  import: 'default',
+  query: '?raw',
+});
+
 function parseCsvLine(line) {
   const fields = [];
   let current = '';
@@ -46,29 +52,41 @@ function getLatestLeaderPriceFile() {
 }
 
 function buildPriceLookup() {
-  const latestFile = getLatestLeaderPriceFile();
-  if (!latestFile) {
-    return {
-      sourceFile: null,
-      pricesBySku: new Map(),
-    };
-  }
-
-  const [sourceFile, csvRaw] = latestFile;
   const pricesBySku = new Map();
-  const lines = csvRaw.split(/\r?\n/).filter((line) => line.trim());
+  let sourceFile = null;
+
+  // Parse leader CSV (13-column format) — use RRP_ex_GST (col 5)
+  const latestFile = getLatestLeaderPriceFile();
+  if (latestFile) {
+    const [leaderSource, csvRaw] = latestFile;
+    sourceFile = leaderSource;
+    const lines = csvRaw.split(/\r?\n/).filter((line) => line.trim());
 
   for (const line of lines.slice(1)) {
     const fields = parseCsvLine(line);
     if (fields.length < 13) continue;
 
-    const [skuInput, partNum, _productName, dbpExGst, _dbpIncGst, _rrpExGst, _rrpIncGst, _syd, _mel, _brs, _adl, _wa, status] = fields;
+    const [skuInput, partNum, _productName, _dbpExGst, _dbpIncGst, rrpExGst, _rrpIncGst, _syd, _mel, _brs, _adl, _wa, status] = fields;
     const sku = (partNum || skuInput || '').trim();
     const normalizedStatus = (status || '').trim().toUpperCase();
-    const price = parsePrice(dbpExGst);
+    const price = parsePrice(rrpExGst);
 
     if (!sku || normalizedStatus === 'NOT FOUND' || price === null) continue;
     pricesBySku.set(sku, price);
+  }
+  }
+
+  // Parse WGdata CSV (8-column format: STOCK CODE,SUBCATEGORY,DESC,IMAGE,MFR,MFR SKU,DBP,RRP)
+  for (const [, wgCsvRaw] of Object.entries(wgDataFiles)) {
+    const wgLines = wgCsvRaw.split(/\r?\n/).filter((l) => l.trim());
+    for (const wgLine of wgLines.slice(1)) {
+      const wgFields = parseCsvLine(wgLine);
+      if (wgFields.length < 8) continue;
+      const wgSku = wgFields[0].trim();
+      const wgRrp = parsePrice(wgFields[7]);
+      if (!wgSku || wgRrp === null) continue;
+      pricesBySku.set(wgSku, wgRrp);
+    }
   }
 
   return {

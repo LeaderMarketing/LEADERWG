@@ -7,11 +7,13 @@
 import { tabletopProductSkus } from './productSkus/tabletop.js';
 import { mSeriesProductSkus } from './productSkus/mSeries.js';
 import { wifiProductSkus } from './productSkus/wifi.js';
+import { fireboxVProductSkus } from './productSkus/fireboxV.js';
 
 const mergedProductSkus = {
   ...tabletopProductSkus,
   ...mSeriesProductSkus,
   ...wifiProductSkus,
+  ...fireboxVProductSkus,
 };
 
 export const productSkus = mergedProductSkus;

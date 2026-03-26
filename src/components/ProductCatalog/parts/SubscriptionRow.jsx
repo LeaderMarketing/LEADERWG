@@ -78,7 +78,7 @@ export default function SubscriptionRow({
 
                 <div className={styles.subPrice}>
                   {currentSub ? formatPrice(currentSub.msrp) : '—'}
-                  {currentSub && <span className={styles.priceNote}>ex.GST</span>}
+                  {currentSub && <span className={styles.priceNote}>MSRP</span>}
                 </div>
 
                 <button

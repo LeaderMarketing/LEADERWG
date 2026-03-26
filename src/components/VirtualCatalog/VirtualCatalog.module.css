@@ -1,0 +1,1077 @@
+/* ═══════════════════════════════════════════════════════════
+   VirtualCatalog — FireboxV Virtual Appliance Grid
+   Mirrors ProductCatalog layout patterns (sticky left column,
+   collapsible specs, subscription-row styling)
+   ═══════════════════════════════════════════════════════════ */
+
+.catalog {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ─── Hero Section Navigation ─── */
+.sectionNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  padding: 12px 0;
+}
+
+.navItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1.5px solid #dee2e6;
+  border-radius: 24px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.navItem:hover {
+  border-color: var(--wgrd-red, #e81410);
+  color: var(--wgrd-red, #e81410);
+  background: #fff5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(232, 20, 16, 0.1);
+}
+
+/* ─── Header ─── */
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: #1a1a1a;
+}
+
+.intro {
+  color: #555;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLLABLE TABLE WRAPPER (matches Security Appliances)
+   ═══════════════════════════════════════════════════════════ */
+.tableWrapper {
+  overflow-x: auto;
+  cursor: grab;
+  margin-bottom: 2rem;
+}
+
+.tableWrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: #eeeff1;
+  border-radius: 0;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: var(--wgrd-red, #e81410);
+  border-radius: 4px;
+  border-top: 1px solid #eeeff1;
+  border-bottom: 1px solid #eeeff1;
+}
+
+.tableWrapper::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.tableWrapper {
+  scrollbar-width: thin;
+  scrollbar-color: var(--wgrd-red, #e81410) #eeeff1;
+}
+
+/* ─── CSS Grid ─── */
+.grid,
+.specsGrid {
+  display: grid;
+  min-width: max-content;
+  column-gap: 4px;
+}
+
+/* ─── Header Label (top-left sticky cell) ─── */
+.headerLabel {
+  position: sticky;
+  left: 0;
+  z-index: 20;
+  background: #f9fafb;
+  border: none;
+  padding: 20px 16px;
+  display: flex;
+  align-items: flex-end;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* ─── Product Card Columns ─── */
+.productCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 16px 4px 16px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  transition: background-color 0.15s;
+  position: relative;
+}
+
+.productImage {
+  width: 190px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.productName {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.productDesc {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NEW PURCHASE ROW (mirrors Security Appliances licence row)
+   ═══════════════════════════════════════════════════════════ */
+.subLabelCell {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: #f9fafb;
+  border: none;
+  border-top: 1px solid #eee;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #333;
+  display: flex;
+  align-items: flex-start;
+}
+
+.bundlesLink {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--wgrd-red, #e81410);
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.3;
+}
+
+.bundlesLink:hover {
+  text-decoration: underline;
+}
+
+.subCell {
+  padding: 12px 10px;
+  border: 1px solid #eee;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #fff;
+}
+
+.subSelect {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #1e293b;
+  background: #fff;
+  cursor: pointer;
+}
+
+.subSelect:focus {
+  outline: none;
+  border-color: var(--wgrd-red, #e81410);
+  box-shadow: 0 0 0 2px rgba(232, 20, 16, 0.15);
+}
+
+.subPrice {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--wgrd-red, #e81410);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.priceNote {
+  font-family: 'SuisseIntlMono', 'Courier New', monospace;
+  font-size: 10px;
+  color: #888;
+  font-weight: 400;
+}
+
+.addSubBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--wgrd-red, #e81410);
+  color: #fff;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.addSubBtn:hover {
+  background: #b4001e;
+  transform: translateY(-1px);
+}
+
+.addSubBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── SKU Links ─── */
+.skuLink {
+  font-family: 'SuisseIntlMono', monospace;
+  font-size: 10px;
+  color: var(--wgrd-red, #e81410);
+  text-decoration: none;
+}
+
+.skuLink:hover {
+  text-decoration: underline;
+}
+
+.skuCode {
+  font-family: 'SuisseIntlMono', monospace;
+  font-size: 10px;
+  color: #999;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COLLAPSIBLE SPECS (matches Security Appliances pattern)
+   ═══════════════════════════════════════════════════════════ */
+.specsToggle {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 14px 20px;
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--wgrd-red, #e81410);
+  transition: color 0.15s;
+}
+
+.specsToggle:hover {
+  color: #b4001e;
+}
+
+.chevron {
+  transition: transform 0.25s;
+  display: flex;
+  align-items: center;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* ─── Slide animation for collapsible sections ─── */
+.collapseWrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.collapseWrapper.collapseOpen {
+  grid-template-rows: 1fr;
+}
+
+.collapseInner {
+  min-height: 0;
+  overflow-x: visible;
+  overflow-y: clip;
+}
+
+/* ─── Section Headers (dark bar spanning full grid) ─── */
+.sectionHeader {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: #1a1a2e;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.sectionHeaderSpacer {
+  background: #1a1a2e;
+  border-bottom: 1px solid #eee;
+}
+
+/* ─── Spec Row Labels (sticky left) ─── */
+.featureLabel {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: #f9fafb;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Spec Value Cells ─── */
+.cell {
+  padding: 12px 16px;
+  font-size: 0.78rem;
+  color: #333;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.4;
+  background: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENEWAL CONFIGURATORS (50/50 two-column layout)
+   ═══════════════════════════════════════════════════════════ */
+.renewalRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.renewalSection {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.renewalHeader {
+  padding: 16px 20px 12px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #eee;
+}
+
+.renewalTitle {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.renewalDesc {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.renewalBody {
+  display: flex;
+  gap: 0;
+}
+
+.renewalImageSide {
+  flex: 0 0 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #fff;
+}
+
+.renewalImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.renewalConfigSide {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.fieldGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fieldLabel {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.renewalConfigSide .addSubBtn {
+  align-self: stretch;
+  justify-content: center;
+}
+
+.renewalSelect {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #1e293b;
+  background: #fff;
+  cursor: pointer;
+}
+
+.renewalSelect:focus {
+  outline: none;
+  border-color: var(--wgrd-red, #e81410);
+  box-shadow: 0 0 0 2px rgba(232, 20, 16, 0.15);
+}
+
+.renewalPriceRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.renewalPrice {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--wgrd-red, #e81410);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CARD-BASED SERVICE SECTIONS (below main grid)
+   ═══════════════════════════════════════════════════════════ */
+.serviceSections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.serviceSection {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ─── Accordion toggle ─── */
+.sectionToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: #fafafa;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+
+.sectionToggle:hover {
+  background: #f0f0f0;
+}
+
+.sectionToggleText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sectionToggleTitle {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.sectionToggleDesc {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+/* ─── Card grid (4 columns) ─── */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.serviceCard {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #f0f0f0;
+}
+
+.serviceCard:last-child {
+  border-right: none;
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem 0.5rem;
+  background: linear-gradient(180deg, #f8f9fb 0%, #fff 100%);
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.cardModelLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.cardModelDesc {
+  font-size: 0.72rem;
+  color: #999;
+}
+
+.cardBody {
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.cardSelects {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.cardSelect {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #1e293b;
+  cursor: pointer;
+}
+
+.cardSelect:focus {
+  outline: none;
+  border-color: var(--wgrd-red, #e81410);
+  box-shadow: 0 0 0 2px rgba(232, 20, 16, 0.15);
+}
+
+/* ─── Individual Subscription rows (inside cards) ─── */
+.subRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #f5f5f5;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.subRow:last-of-type {
+  border-bottom: none;
+}
+
+.subInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.subName {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subTerm {
+  font-size: 0.65rem;
+  color: #aaa;
+}
+
+.subActions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.subRowPrice {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--wgrd-red, #e81410);
+}
+
+.addBtnSmall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--wgrd-red, #e81410);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.addBtnSmall:hover {
+  background: #b4001e;
+}
+
+.addBtnSmall:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INDIVIDUAL SUBSCRIPTIONS — 4×2 card grid
+   ═══════════════════════════════════════════════════════════ */
+.indSection {
+  margin-bottom: 2rem;
+}
+
+.indSectionHeader {
+  padding: 1rem 1.25rem;
+  text-align: center;
+}
+
+.indSectionHeader .renewalTitle {
+  color: #1a1a1a;
+}
+
+.indSectionHeader .renewalDesc {
+  color: #888;
+}
+
+.indGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.indCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.indCardImageWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px 6px;
+  background: #fff;
+}
+
+.indCardImage {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.indCardBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 14px 14px;
+  gap: 8px;
+  flex: 1;
+  text-align: center;
+}
+
+.indCardName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.indCardDesc {
+  font-size: 0.78rem;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.indCardBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── Bottom Info Section ─── */
+.infoSection {
+  margin-top: 2rem;
+}
+
+.infoBlock {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.infoBlock h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #1a1a1a;
+}
+
+.infoBlock p {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 0.5rem;
+}
+
+.hypervisorList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hypervisorList li {
+  padding: 0.3rem 0.75rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  font-size: 0.78rem;
+  color: #444;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .renewalRow {
+    grid-template-columns: 1fr;
+  }
+
+  .renewalBody {
+    flex-direction: column;
+  }
+
+  .renewalImageSide {
+    flex: 0 0 auto;
+    padding: 16px;
+  }
+
+  .renewalImage {
+    max-width: 160px;
+    height: auto;
+  }
+
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .serviceCard:nth-child(2) {
+    border-right: none;
+  }
+
+  .serviceCard:nth-child(n+3) {
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .indGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sectionNav {
+    gap: 6px;
+  }
+
+  .navItem {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerLabel,
+  .featureLabel,
+  .subLabelCell {
+    min-width: 140px;
+    width: 140px;
+  }
+
+  .renewalImage {
+    width: 160px;
+    height: auto;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .serviceCard {
+    border-right: none;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .serviceCard:last-child {
+    border-bottom: none;
+  }
+
+  .indGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionNav {
+    gap: 4px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 8px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .navItem {
+    flex-shrink: 0;
+  }
+
+  .bannerCarousel {
+    height: 220px;
+  }
+
+  .bannerCarouselContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .bannerCarouselText {
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .bannerCarouselText h2 {
+    font-size: 1.1rem;
+  }
+
+  .bannerCarouselText p {
+    font-size: 0.78rem;
+  }
+
+  .bannerCarouselHeroWrap {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BANNER CAROUSEL — subscription service showcase
+   ═══════════════════════════════════════════════════════════ */
+.bannerCarousel {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 1.25rem;
+  transition: background-image 0.5s ease;
+}
+
+.bannerCarouselOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.1) 100%);
+}
+
+.bannerCarouselContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 32px 40px;
+  gap: 24px;
+}
+
+.bannerCarouselText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 55%;
+}
+
+.bannerCarouselText h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.bannerCarouselText p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+.bannerCarouselCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 10px 24px;
+  background: var(--wgrd-red, #e81410);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  width: fit-content;
+}
+
+.bannerCarouselCta:hover {
+  background: #b4001e;
+  transform: translateY(-1px);
+}
+
+.bannerCarouselHeroWrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 35%;
+}
+
+.bannerCarouselHero {
+  max-height: 200px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 24px rgba(0,0,0,0.3));
+}
+
+.bannerCarouselBullets {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.bannerCarouselBullet,
+.bannerCarouselBulletActive {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+.bannerCarouselBullet:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.bannerCarouselBulletActive {
+  background: #fff;
+  border-color: #fff;
+}

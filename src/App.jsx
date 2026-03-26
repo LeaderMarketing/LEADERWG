@@ -4,6 +4,7 @@ import { ShoppingCartSimple } from '@phosphor-icons/react';
 import styles from './App.module.css';
 import TopLevelNav from './components/TopLevelNav/TopLevelNav.jsx';
 import ProductCatalog from './components/ProductCatalog/ProductCatalog.jsx';
+import VirtualCatalog from './components/VirtualCatalog/VirtualCatalog.jsx';
 import QuoteCartPanel from './components/QuoteCartPanel/QuoteCartPanel.jsx';
 import { useQuote } from './context/QuoteContext.jsx';
 
@@ -29,7 +30,7 @@ function App() {
       <div className={styles.container}>
         <Routes>
           <Route path="/" element={<ProductCatalog />} />
-          <Route path="/virtual" element={<ComingSoon title="Virtual" />} />
+          <Route path="/virtual" element={<VirtualCatalog />} />
           <Route path="/renewals" element={<ComingSoon title="Renewals/Upgrades" />} />
           <Route path="/mdr-xdr" element={<ComingSoon title="MDR & XDR" />} />
           <Route path="/endpoint" element={<ComingSoon title="Endpoint & Mobile" />} />

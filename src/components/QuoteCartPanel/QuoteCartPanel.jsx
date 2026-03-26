@@ -114,7 +114,7 @@ function QuoteCartPanel({ isOpen, onClose }) {
 
       doc.setFontSize(10);
       doc.setTextColor(100, 100, 100);
-      doc.text('Quote Total (ex.GST):', pageWidth - 76, finalY + 10);
+      doc.text('Quote Total (MSRP):', pageWidth - 76, finalY + 10);
 
       doc.setFontSize(14);
       doc.setFont('helvetica', 'bold');
@@ -163,7 +163,7 @@ function QuoteCartPanel({ isOpen, onClose }) {
       )
       .join('%0A');
 
-    const emailBody = `Hello,%0A%0AI would like to request a quote for the following WatchGuard products:%0A%0A${itemsList}%0A%0A${subtotal > 0 ? `Quote Total (ex.GST): $${subtotal.toLocaleString()}%0A` : ''}%0A${customerInfo.name ? `Customer Name: ${customerInfo.name}%0A` : ''}${customerInfo.email ? `Customer Email: ${customerInfo.email}%0A` : ''}${notes ? `%0ANotes: ${notes}%0A` : ''}%0APlease confirm availability and pricing.%0A%0AThank you.`;
+    const emailBody = `Hello,%0A%0AI would like to request a quote for the following WatchGuard products:%0A%0A${itemsList}%0A%0A${subtotal > 0 ? `Quote Total (MSRP): $${subtotal.toLocaleString()}%0A` : ''}%0A${customerInfo.name ? `Customer Name: ${customerInfo.name}%0A` : ''}${customerInfo.email ? `Customer Email: ${customerInfo.email}%0A` : ''}${notes ? `%0ANotes: ${notes}%0A` : ''}%0APlease confirm availability and pricing.%0A%0AThank you.`;
 
     const subject = `WatchGuard Quote Request - ${new Date().toLocaleDateString('en-AU')}`;
     window.location.href = `mailto:${encodeURIComponent(customerInfo.accountManagerEmail)}?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
@@ -318,7 +318,7 @@ function QuoteCartPanel({ isOpen, onClose }) {
                   <span>{itemCount}</span>
                 </div>
                 <div className={`${styles.summaryRow} ${styles.totalRow}`}>
-                  <span>Total (ex.GST):</span>
+                  <span>Total (MSRP):</span>
                   <span className={styles.totalValue}>
                     {subtotal > 0 ? formatPrice(subtotal) : 'TBC'}
                   </span>
