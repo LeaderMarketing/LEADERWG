@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   EndpointCatalog — Endpoint & Mobile Security
+   EmailCatalog — Email Security
    ═══════════════════════════════════════════════════════════ */
 
 .catalog {
@@ -26,8 +26,8 @@
   left: 0;
 }
 
-.bannerFallbackEndpoint {
-  background: linear-gradient(135deg, #1a1a2e 0%, #2d1640 40%, #7c3aed 100%);
+.bannerFallbackEmail {
+  background: linear-gradient(135deg, #1a1a2e 0%, #4a1a00 40%, #f59e0b 100%);
 }
 
 .bannerOverlay {
@@ -68,92 +68,6 @@
   text-align: left;
 }
 
-/* ─── Category Tabs ─── */
-.tabBar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-
-.tabBtn {
-  background: #fff;
-  border: 2px solid #dee2e6;
-  padding: 10px 24px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #212529;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.tabBtn:hover {
-  border-color: var(--wgrd-red, #e81410);
-  color: var(--wgrd-red, #e81410);
-}
-
-.tabActive {
-  background-color: var(--wgrd-red, #e81410);
-  border-color: var(--wgrd-red, #e81410);
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(232, 20, 16, 0.3);
-}
-
-.tabCount {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 6px;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.08);
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.tabActive .tabCount {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
-}
-
-/* ─── Info Callout (Legacy Panda link) ─── */
-.infoCallout {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  margin-bottom: 1.5rem;
-  background: #f0f4ff;
-  border: 1px solid #d0d8f0;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  color: #444;
-}
-
-.infoCalloutBtn {
-  background: none;
-  border: none;
-  color: var(--wgrd-red, #e81410);
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0;
-  font-family: inherit;
-  font-size: inherit;
-  text-decoration: underline;
-}
-
-.infoCalloutBtn:hover {
-  color: #c41210;
-}
-
 /* ─── Section Dividers ─── */
 .sectionDivider {
   margin: 2rem 0 1.25rem;
@@ -174,34 +88,9 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PRODUCT CARDS
+   PRODUCT CARD
    ═══════════════════════════════════════════════════════════ */
 
-/* 4-column grid for core products */
-.coreGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 2.5rem;
-}
-
-/* 3-column grid for modules & legacy panda */
-.modulesGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 2.5rem;
-}
-
-/* General 3-col grid */
-.productGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 2.5rem;
-}
-
-/* Single-card wrapper (DNSWatchGO, Passport) */
 .singleCardWrap {
   max-width: 380px;
   margin-bottom: 2.5rem;
@@ -265,39 +154,6 @@
   color: #666;
   margin: 0;
   line-height: 1.4;
-}
-
-/* ─── Tier Badges ─── */
-.tierBadge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.tierBadgeGood {
-  background: #e8f5e9;
-  color: #2e7d32;
-}
-
-.tierBadgeBetter {
-  background: #e3f2fd;
-  color: #1565c0;
-}
-
-.tierBadgeBest {
-  background: #fff3e0;
-  color: #e65100;
-}
-
-.tierBadgePremium {
-  background: #f3e5f5;
-  color: #6a1b9a;
 }
 
 /* ─── Form Fields ─── */
@@ -431,21 +287,13 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   COMPARISON TABLE — EPP vs EDR vs EPDR vs Advanced EPDR
+   FEATURES LIST
    ═══════════════════════════════════════════════════════════ */
-.comparisonSection {
+.featuresSection {
   margin-bottom: 2.5rem;
 }
 
-.sectionHeadline {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  text-align: center;
-  margin: 0 0 1.25rem;
-}
-
-.comparisonHeadline {
+.featuresHeadline {
   font-size: 1.2rem;
   font-weight: 700;
   color: #1a1a1a;
@@ -453,7 +301,7 @@
   margin: 0 0 8px;
 }
 
-.comparisonDesc {
+.featuresDesc {
   font-size: 0.85rem;
   color: #555;
   line-height: 1.5;
@@ -461,106 +309,39 @@
   text-align: left;
 }
 
-.tableWrap {
-  overflow-x: auto;
-  border-radius: 10px;
-  border: 1px solid #c8cacd;
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
-.comparisonTable {
-  width: 100%;
-  border-collapse: collapse;
+.featureCard {
+  background: #f8f9fa;
+  border: 1px solid #e0e3e8;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.featureIcon {
+  color: var(--wgrd-red, #e81410);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.featureText {
   font-size: 0.82rem;
-  table-layout: fixed;
-}
-
-.comparisonTable thead {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #fff;
-}
-
-.comparisonTable th {
-  padding: 14px 16px;
-  font-weight: 600;
-  text-align: center;
-  white-space: nowrap;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.comparisonTable th:first-child {
-  text-align: left;
-  width: 320px;
-  min-width: 320px;
-}
-
-.comparisonTable th:last-child {
-  border-right: none;
-}
-
-.comparisonTable td {
-  padding: 10px 16px;
-  border-bottom: 1px solid #c8cacd;
-  border-right: 1px solid #c8cacd;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.comparisonTable td:first-child {
-  text-align: left;
   color: #333;
   font-weight: 500;
-  width: 320px;
-  min-width: 320px;
-}
-
-.comparisonTable td:last-child {
-  border-right: none;
-}
-
-.comparisonTable tbody tr:nth-child(odd) {
-  background: #dcddde;
-}
-
-.comparisonTable tbody tr:nth-child(even) {
-  background: #fff;
-}
-
-.comparisonTable tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.checkIcon {
-  color: var(--wgrd-red, #e81410);
-}
-
-.noCheckIcon {
-  color: #d0d5dd;
+  line-height: 1.4;
 }
 
 /* ═══════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════ */
-@media (max-width: 1200px) {
-  .coreGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .modulesGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .productGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 768px) {
-  .coreGrid,
-  .modulesGrid,
-  .productGrid {
-    grid-template-columns: 1fr;
-  }
-
   .singleCardWrap {
     max-width: 100%;
   }
@@ -574,14 +355,7 @@
     font-size: 1.2rem;
   }
 
-  .tabBtn {
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-
-  .comparisonTable th:first-child,
-  .comparisonTable td:first-child {
-    width: 180px;
-    min-width: 180px;
+  .featuresGrid {
+    grid-template-columns: 1fr;
   }
 }

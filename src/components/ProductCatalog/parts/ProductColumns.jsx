@@ -82,7 +82,7 @@ export default function ProductColumns({ products, headerRowRef, getImageSrc, on
               rel="noopener noreferrer"
               className={styles.skuLink}
             >
-              {product.appliance.sku_code}
+              {product.appliance.full_sku}
             </a>
           )}
         </div>

@@ -21,7 +21,7 @@ import { CATEGORY_FILTERS } from './parts/CategoryFilters.jsx';
 import SecurityBundles from '../SecurityBundles/SecurityBundles.jsx';
 import SecuritySuiteTable from '../SecuritySuiteTable/SecuritySuiteTable.jsx';
 import WifiSubscriptions from '../WifiSubscriptions/WifiSubscriptions.jsx';
-import RenewalsSection from '../RenewalsSection/RenewalsSection.jsx';
+import ApplianceRenewals from '../ApplianceRenewals/ApplianceRenewals.jsx';
 
 // ── Helpers ──
 const termLabel = (y) => (y === 1 ? '1 Year' : `${y} Years`);
@@ -72,7 +72,7 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
     (product) => {
       if (!product.appliance) return;
       addItem({
-        sku: product.appliance.sku_code,
+        sku: product.appliance.full_sku,
         name: product.name,
         description: 'Appliance Only',
         unitPrice: product.appliance.msrp,
@@ -89,7 +89,7 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
       const currentSub = subs.getCurrentSub(product.slug);
       if (!currentSub) return;
       addItem({
-        sku: currentSub.sku_code,
+        sku: currentSub.full_sku,
         name: product.name,
         description: `${currentSub.subscription_type} (${termLabel(currentSub.term_years)})`,
         unitPrice: currentSub.msrp,
@@ -160,6 +160,9 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
         />
       </div>
 
+      {/* ═══ RENEWALS, SUPPORT, TRADE-UP, CLOUD, INDIVIDUAL SUBS ═══ */}
+      <ApplianceRenewals activeTab={activeTab} />
+
       {/* ═══ SECURITY BUNDLES / WIFI LICENSE ═══ */}
       {(activeTab === 'tabletop' || activeTab === 'mseries') && (
         <>
@@ -169,9 +172,6 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
       )}
 
       {activeTab === 'wifi' && <WifiSubscriptions />}
-
-      {/* ═══ RENEWALS & UPGRADES ═══ */}
-      <RenewalsSection />
     </div>
   );
 }

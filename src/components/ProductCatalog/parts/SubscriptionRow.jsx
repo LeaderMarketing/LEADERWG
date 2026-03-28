@@ -98,7 +98,7 @@ export default function SubscriptionRow({
                     rel="noopener noreferrer"
                     className={styles.skuLink}
                   >
-                    {currentSub.sku_code}
+                    {currentSub.full_sku}
                   </a>
                 )}
               </>

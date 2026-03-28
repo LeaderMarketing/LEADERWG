@@ -1,0 +1,363 @@
+/* ═══════════════════════════════════════════════════════════
+   RenewalsCatalog — Dedicated Renewals & Upgrades page
+   ═══════════════════════════════════════════════════════════ */
+
+.wrapper {
+  padding: 0 0 2rem;
+}
+
+/* ─── Page header ─── */
+.pageHeader {
+  text-align: center;
+  padding: 2rem 1.25rem 1rem;
+}
+
+.pageTitle {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.pageDesc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ─── Sub-tab bar (pill style) ─── */
+.tabBar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.tabBtn {
+  background: #fff;
+  border: 2px solid #dee2e6;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: #212529;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  border-color: var(--wgrd-red, #e81410);
+  color: var(--wgrd-red, #e81410);
+}
+
+.tabBtnActive {
+  background-color: var(--wgrd-red, #e81410);
+  border-color: var(--wgrd-red, #e81410);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(232, 20, 16, 0.3);
+}
+
+/* ─── Two-column layout for renewal cards ─── */
+.renewalRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── Each card ─── */
+.renewalSection {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.renewalHeader {
+  padding: 16px 20px 12px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #eee;
+}
+
+.renewalTitle {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.renewalDesc {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ─── Card body: config side + image side ─── */
+.renewalBody {
+  display: flex;
+  gap: 0;
+}
+
+.renewalConfigSide {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.renewalImageSide {
+  flex: 0 0 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #fff;
+}
+
+.renewalImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ─── Form controls ─── */
+.fieldGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fieldLabel {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.renewalSelect {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #1e293b;
+  background: #fff;
+  cursor: pointer;
+}
+
+.renewalSelect:focus {
+  outline: none;
+  border-color: var(--wgrd-red, #e81410);
+  box-shadow: 0 0 0 2px rgba(232, 20, 16, 0.15);
+}
+
+/* ─── Price display ─── */
+.renewalPriceRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.renewalPrice {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--wgrd-red, #e81410);
+}
+
+.priceNote {
+  font-family: 'SuisseIntlMono', 'Courier New', monospace;
+  font-size: 10px;
+  color: #888;
+  font-weight: 400;
+}
+
+/* ─── Add to Cart button ─── */
+.addSubBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--wgrd-red, #e81410);
+  color: #fff;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.addSubBtn:hover {
+  background: #b4001e;
+  transform: translateY(-1px);
+}
+
+.addSubBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.renewalConfigSide .addSubBtn {
+  align-self: stretch;
+  justify-content: center;
+}
+
+/* ─── SKU links ─── */
+.skuLink {
+  font-family: 'SuisseIntlMono', monospace;
+  font-size: 10px;
+  color: var(--wgrd-red, #e81410);
+  text-decoration: none;
+}
+
+.skuLink:hover {
+  text-decoration: underline;
+}
+
+.skuCode {
+  font-family: 'SuisseIntlMono', monospace;
+  font-size: 10px;
+  color: #999;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INDIVIDUAL SUBSCRIPTIONS — card grid
+   ═══════════════════════════════════════════════════════════ */
+.indSection {
+  margin-bottom: 2rem;
+}
+
+.indSectionHeader {
+  padding: 1rem 1.25rem;
+  text-align: center;
+}
+
+.indSectionHeader .sectionTitle {
+  color: #1a1a1a;
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.indSectionHeader .sectionDesc {
+  color: #888;
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.indGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.indCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.indCardImageWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px 6px;
+  background: #fff;
+}
+
+.indCardImage {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.indCardBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 14px 14px;
+  gap: 8px;
+  flex: 1;
+  text-align: center;
+}
+
+.indCardName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.indCardDesc {
+  font-size: 0.78rem;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.indCardBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .renewalRow {
+    grid-template-columns: 1fr;
+  }
+
+  .renewalBody {
+    flex-direction: column;
+  }
+
+  .renewalImageSide {
+    flex: 0 0 auto;
+    padding: 16px;
+  }
+
+  .renewalImage {
+    max-width: 160px;
+    height: auto;
+  }
+
+  .indGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tabBtn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .renewalImage {
+    width: 160px;
+    height: auto;
+  }
+
+  .indGrid {
+    grid-template-columns: 1fr;
+  }
+}

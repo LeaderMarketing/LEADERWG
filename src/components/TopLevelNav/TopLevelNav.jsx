@@ -6,11 +6,11 @@ const NAV_ITEMS = [
   { path: '/', label: 'Security Appliances' },
   { path: '/virtual', label: 'Virtual' },
   { path: '/cloud', label: 'Cloud' },
-  { path: '/renewals', label: 'Renewals/Upgrades' },
   { path: '/mdr-ndr', label: 'MDR & NDR' },
   { path: '/endpoint', label: 'Endpoint & Mobile' },
   { path: '/identity', label: 'Identity & Access' },
   { path: '/email', label: 'Email Security' },
+  { path: '/renewals', label: 'Renewals & Upgrades' },
 ];
 
 export default function TopLevelNav() {

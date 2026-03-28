@@ -30,7 +30,7 @@ export default function StickyHeader({
                     rel="noopener noreferrer"
                     className={styles.skuLink}
                   >
-                    {product.appliance.sku_code}
+                    {product.appliance.full_sku}
                   </a>
                 )}
               </div>

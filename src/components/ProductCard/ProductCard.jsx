@@ -86,7 +86,7 @@ export default function ProductCard({ product, onSelectHardware, onSelectSubscri
   const handleAddHardware = () => {
     if (!product.appliance) return;
     addItem({
-      sku: product.appliance.sku_code,
+      sku: product.appliance.full_sku,
       name: product.name,
       description: 'Appliance Only',
       unitPrice: product.appliance.msrp,
@@ -100,7 +100,7 @@ export default function ProductCard({ product, onSelectHardware, onSelectSubscri
   const handleAddSubscription = () => {
     if (!currentSub) return;
     addItem({
-      sku: currentSub.sku_code,
+      sku: currentSub.full_sku,
       name: product.name,
       description: `${currentSub.subscription_type} (${termLabel(currentSub.term_years)})`,
       unitPrice: currentSub.msrp,
@@ -213,7 +213,7 @@ export default function ProductCard({ product, onSelectHardware, onSelectSubscri
                 rel="noopener noreferrer"
                 className={styles.skuLink}
               >
-                {currentSub.sku_code}
+                {currentSub.full_sku}
               </a>
             )}
           </div>
