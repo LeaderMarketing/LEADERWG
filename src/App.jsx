@@ -7,6 +7,8 @@ import ProductCatalog from './components/ProductCatalog/ProductCatalog.jsx';
 import VirtualCatalog from './components/VirtualCatalog/VirtualCatalog.jsx';
 import CloudCatalog from './components/CloudCatalog/CloudCatalog.jsx';
 import MdrNdrCatalog from './components/MdrNdrCatalog/MdrNdrCatalog.jsx';
+import EndpointCatalog from './components/EndpointCatalog/EndpointCatalog.jsx';
+import RenewalsCatalog from './components/RenewalsCatalog/RenewalsCatalog.jsx';
 import QuoteCartPanel from './components/QuoteCartPanel/QuoteCartPanel.jsx';
 import { useQuote } from './context/QuoteContext.jsx';
 
@@ -33,9 +35,9 @@ function App() {
         <Routes>
           <Route path="/" element={<ProductCatalog />} />
           <Route path="/virtual" element={<VirtualCatalog />} />
-          <Route path="/renewals" element={<ComingSoon title="Renewals/Upgrades" />} />
+          <Route path="/renewals" element={<RenewalsCatalog />} />
           <Route path="/mdr-ndr" element={<MdrNdrCatalog />} />
-          <Route path="/endpoint" element={<ComingSoon title="Endpoint & Mobile" />} />
+          <Route path="/endpoint" element={<EndpointCatalog />} />
           <Route path="/cloud" element={<CloudCatalog />} />
           <Route path="/identity" element={<ComingSoon title="Identity & Access" />} />
           <Route path="/email" element={<ComingSoon title="Email Security" />} />
