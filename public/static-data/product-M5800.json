@@ -1,5 +1,5 @@
 {
-  "id": 327,
+  "id": 13,
   "slug": "M5800",
   "name": "Firebox M5800",
   "family": "M-Series",
@@ -7,7 +7,7 @@
   "description": "Enterprise flagship with unrestricted VPN tunnels",
   "image_file": "m5800.jpg",
   "appliance": {
-    "id": 3854,
+    "id": 125,
     "sku_code": "WGM58000",
     "full_sku": "NWG-WGM58000",
     "name": "WatchGuard Firebox M5800 Appliance Only",
@@ -20,7 +20,31 @@
   },
   "subscriptions": [
     {
-      "id": 3857,
+      "id": 996,
+      "sku_code": "WGM58171",
+      "full_sku": "NWG-WGM58171",
+      "name": "WatchGuard APT Blocker 1-yr for Firebox M5800",
+      "msrp": 16084,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?9s9KQiLH9TM=ToXjnMsK9RutUjyZBNq0hg==oLqjNqM+U8akGvY5C+FqrxjgkH8=",
+      "sku_type": "subscription",
+      "subscription_type": "APT Blocker",
+      "term_years": 1
+    },
+    {
+      "id": 997,
+      "sku_code": "WGM58173",
+      "full_sku": "NWG-WGM58173",
+      "name": "WatchGuard APT Blocker 3-yr for Firebox M5800",
+      "msrp": 38610,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?uLYdsrfC4PI=xaLpt3hdtQVHGqjaIYWPXw==Ayfx2MV8FyICtnFYqkW4Ypv/po8=",
+      "sku_type": "subscription",
+      "subscription_type": "APT Blocker",
+      "term_years": 3
+    },
+    {
+      "id": 128,
       "sku_code": "WGM58000071",
       "full_sku": "NWG-WGM58000071",
       "name": "WatchGuard Basic Security Suite for Firebox M5800 - 1-Year",
@@ -32,7 +56,19 @@
       "term_years": 1
     },
     {
-      "id": 3858,
+      "id": 988,
+      "sku_code": "WGM58331",
+      "full_sku": "NWG-WGM58331",
+      "name": "WatchGuard Basic Security Suite Renewal/Upgrade 1-yr for Firebox M5800",
+      "msrp": 32922,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?35ZYHTN9lw4=UBOS/QHxmivK04y5yTQj0w==WpYb+TshvxVPzzPghCbceE0ozTc=",
+      "sku_type": "subscription",
+      "subscription_type": "Basic Security Suite",
+      "term_years": 1
+    },
+    {
+      "id": 129,
       "sku_code": "WGM58000073",
       "full_sku": "NWG-WGM58000073",
       "name": "WatchGuard Basic Security Suite for Firebox M5800 - 3-Year",
@@ -44,7 +80,43 @@
       "term_years": 3
     },
     {
-      "id": 3855,
+      "id": 989,
+      "sku_code": "WGM58333",
+      "full_sku": "NWG-WGM58333",
+      "name": "WatchGuard Basic Security Suite Renewal/Upgrade 3-yr for Firebox M5800",
+      "msrp": 88279,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?K+YzI6aoMFk=2IDEMfMfqamsBZ6fsISK6Q==9ZHMxdiMcGdo7XVho4Y7/BUNoF8=",
+      "sku_type": "subscription",
+      "subscription_type": "Basic Security Suite",
+      "term_years": 3
+    },
+    {
+      "id": 994,
+      "sku_code": "WGM58221",
+      "full_sku": "NWG-WGM58221",
+      "name": "WatchGuard Gold Support Renewal/Upgrade 1-yr for Firebox M5800",
+      "msrp": 17168,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?D09C9mJM+dY=Uax+8nr4ZCoi08j7Sspy3w==ZqpzivuweMO8aaH4go83yB3pf60=",
+      "sku_type": "subscription",
+      "subscription_type": "Gold Support",
+      "term_years": 1
+    },
+    {
+      "id": 995,
+      "sku_code": "WGM58223",
+      "full_sku": "NWG-WGM58223",
+      "name": "WatchGuard Gold Support Renewal/Upgrade 3-yr for Firebox M5800",
+      "msrp": 39978,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?DChOBebykCM=XM2hQkIaGqUKYIgjVgn7pQ==ACGo6oVhjnnTLlTaPpdQ3SLNR5A=",
+      "sku_type": "subscription",
+      "subscription_type": "Gold Support",
+      "term_years": 3
+    },
+    {
+      "id": 126,
       "sku_code": "WGM58000061",
       "full_sku": "NWG-WGM58000061",
       "name": "WatchGuard Standard Support for Firebox M5800 - 1-Year",
@@ -56,7 +128,19 @@
       "term_years": 1
     },
     {
-      "id": 3856,
+      "id": 992,
+      "sku_code": "WGM58201",
+      "full_sku": "NWG-WGM58201",
+      "name": "WatchGuard Standard Support Renewal 1-yr for Firebox M5800",
+      "msrp": 11967,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?bgR7zFItplo=KL8oQZY+JFWSrDwgXDflHg==gyA9UFc6Rlfx8XdksaPvNkb0nH0=",
+      "sku_type": "subscription",
+      "subscription_type": "Standard Support",
+      "term_years": 1
+    },
+    {
+      "id": 127,
       "sku_code": "WGM58000063",
       "full_sku": "NWG-WGM58000063",
       "name": "WatchGuard Standard Support for Firebox M5800 - 3-Year",
@@ -68,7 +152,19 @@
       "term_years": 3
     },
     {
-      "id": 3859,
+      "id": 993,
+      "sku_code": "WGM58203",
+      "full_sku": "NWG-WGM58203",
+      "name": "WatchGuard Standard Support Renewal 3-yr for Firebox M5800",
+      "msrp": 27823,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?tJdysS0Qc/E=RgehYMPZvGm55bWGL+6dvA==tEEXrP4pSuJ6U9m/6dl3IDEyO9A=",
+      "sku_type": "subscription",
+      "subscription_type": "Standard Support",
+      "term_years": 3
+    },
+    {
+      "id": 130,
       "sku_code": "WGM58000081",
       "full_sku": "NWG-WGM58000081",
       "name": "WatchGuard Total Security Suite for Firebox M5800 - 1-Year",
@@ -80,7 +176,19 @@
       "term_years": 1
     },
     {
-      "id": 3860,
+      "id": 990,
+      "sku_code": "WGM58351",
+      "full_sku": "NWG-WGM58351",
+      "name": "WatchGuard Total Security Suite Renewal/Upgrade 1-yr for Firebox M5800",
+      "msrp": 63743,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?hcpy4hpmS/Y=SohlBNVvHsbgzIHHaSUBfA==w2PZjZdANMjyzttCqsUgKLFF0/g=",
+      "sku_type": "subscription",
+      "subscription_type": "Total Security Suite",
+      "term_years": 1
+    },
+    {
+      "id": 131,
       "sku_code": "WGM58000083",
       "full_sku": "NWG-WGM58000083",
       "name": "WatchGuard Total Security Suite for Firebox M5800 - 3-Year",
@@ -90,12 +198,73 @@
       "sku_type": "subscription",
       "subscription_type": "Total Security Suite",
       "term_years": 3
+    },
+    {
+      "id": 991,
+      "sku_code": "WGM58353",
+      "full_sku": "NWG-WGM58353",
+      "name": "WatchGuard Total Security Suite Renewal/Upgrade 3-yr for Firebox M5800",
+      "msrp": 169339,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?IbYgleml1no=K09OoTNB5Ty/McY8bjuLuQ==wwmXAh64AG7mUYbi7/47vmuixHI=",
+      "sku_type": "subscription",
+      "subscription_type": "Total Security Suite",
+      "term_years": 3
     }
   ],
-  "tradeUps": [],
+  "tradeUps": [
+    {
+      "id": 133,
+      "sku_code": "WGM58000201",
+      "full_sku": "NWG-WGM58000201",
+      "name": "Trade Up to WatchGuard Basic Security Suite for M5800 - 1-Year",
+      "msrp": 42602,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?hpJF1ZAXIlA=gi4n1ci/1hKdqF8dLMKe7Q==xKqKWKO50MhX1OnYVemjOqTfVafm7JA=",
+      "sku_type": "trade_up",
+      "subscription_type": "Basic Security Suite",
+      "term_years": 1
+    },
+    {
+      "id": 134,
+      "sku_code": "WGM58000203",
+      "full_sku": "NWG-WGM58000203",
+      "name": "Trade Up to WatchGuard Basic Security Suite for Firebox M5800 - 3-Year",
+      "msrp": 119559,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?ElvqfNWtAEc=Y/EHiYLr/t0wCqP0MbKIkA==h/GFIhdL2IppkmnRJ3HnYgOpgBnejVw=",
+      "sku_type": "trade_up",
+      "subscription_type": "Basic Security Suite",
+      "term_years": 3
+    },
+    {
+      "id": 135,
+      "sku_code": "WGM58000211",
+      "full_sku": "NWG-WGM58000211",
+      "name": "Trade Up to WatchGuard Total Security Suite for Firebox M5800 - 1-Year",
+      "msrp": 102719,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?NcWGD433oP8=hFKa3KI8fYxTRZ+kvaPSMA==7j8ddc+xEW/PYcWkLycjd6TX1c9aFx8=",
+      "sku_type": "trade_up",
+      "subscription_type": "Total Security Suite",
+      "term_years": 1
+    },
+    {
+      "id": 136,
+      "sku_code": "WGM58000213",
+      "full_sku": "NWG-WGM58000213",
+      "name": "Trade Up to WatchGuard Total Security Suite for Firebox M5800 - 3-Year",
+      "msrp": 201489,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?+Z5MMmRkrMI=RPkMmgut0U2+6DTMAWTZ5A==bFt4zyQuuFCtLT3GIt95eXMP/hs05oU=",
+      "sku_type": "trade_up",
+      "subscription_type": "Total Security Suite",
+      "term_years": 3
+    }
+  ],
   "highAvailability": [
     {
-      "id": 3853,
+      "id": 124,
       "sku_code": "WGM580001620",
       "full_sku": "NWG-WGM580001620",
       "name": "WatchGuard High Availability for M5800 - 1-Month Subscription",
@@ -107,7 +276,7 @@
       "term_years": 0
     },
     {
-      "id": 3861,
+      "id": 132,
       "sku_code": "WGM580001601",
       "full_sku": "NWG-WGM580001601",
       "name": "WatchGuard High Availability for M5800 - 1-Year",
@@ -119,7 +288,7 @@
       "term_years": 1
     },
     {
-      "id": 3852,
+      "id": 123,
       "sku_code": "WGM580001603",
       "full_sku": "NWG-WGM580001603",
       "name": "WatchGuard High Availability for M5800 - 3-Year",

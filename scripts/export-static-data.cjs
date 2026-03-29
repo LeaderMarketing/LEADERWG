@@ -24,6 +24,20 @@ const db = initDb();
 // Create output directory
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
+// ── Category labels (must match server/index.js) ─────────
+const CATEGORY_LABELS = {
+  tabletop: 'Firebox Tabletop (T-Series)',
+  mseries:  'Firebox Rackmount (M-Series)',
+  wifi:     'Wi-Fi 6 Access Points',
+  virtual:  'FireboxV Virtual Appliances',
+  cloud:    'Firebox Cloud',
+  mdr_ndr:  'MDR & NDR',
+  endpoint: 'Endpoint & Mobile',
+  identity: 'Identity & Access',
+  email:    'Email Security',
+  renewals: 'Appliance Renewals',
+};
+
 // ── Export /api/categories ────────────────────────────────
 function exportCategories() {
   const groups = db.prepare(`
@@ -32,24 +46,25 @@ function exportCategories() {
     ORDER BY family, name
   `).all();
 
-  const categories = {
-    tabletop: { label: 'Firebox Tabletop (T-Series)', products: [] },
-    mseries:  { label: 'Firebox Rackmount (M-Series)', products: [] },
-    wifi:     { label: 'Wi-Fi 6 Access Points', products: [] },
-  };
+  const categories = {};
 
   for (const g of groups) {
-    const appliance = db.prepare(`
+    if (!categories[g.category]) {
+      categories[g.category] = {
+        label: CATEGORY_LABELS[g.category] || g.family,
+        products: [],
+      };
+    }
+
+    const representative = db.prepare(`
       SELECT sku_code, full_sku, name, msrp, url
       FROM skus
-      WHERE product_group_id = ? AND sku_type = 'appliance'
+      WHERE product_group_id = ? AND sku_type IN ('appliance', 'per_user_subscription')
+      ORDER BY sku_type, name
       LIMIT 1
     `).get(g.id);
 
-    const cat = categories[g.category];
-    if (cat) {
-      cat.products.push({ ...g, appliance: appliance || null });
-    }
+    categories[g.category].products.push({ ...g, appliance: representative || null });
   }
 
   fs.writeFileSync(
@@ -58,6 +73,32 @@ function exportCategories() {
   );
   console.log('  ✓ categories.json');
   return categories;
+}
+
+// ── Export /api/categories/:category ──────────────────────
+function exportCategory(categoryName) {
+  const groups = db.prepare(`
+    SELECT id, slug, name, family, category, description, image_file
+    FROM product_groups WHERE category = ? ORDER BY name
+  `).all(categoryName);
+
+  if (!groups.length) return;
+
+  const result = groups.map(g => {
+    const skus = db.prepare(`
+      SELECT sku_code, full_sku, name, msrp, delivery_method, url,
+             sku_type, subscription_type, term_years
+      FROM skus WHERE product_group_id = ? ORDER BY name
+    `).all(g.id);
+    return { ...g, skus };
+  });
+
+  const data = { label: CATEGORY_LABELS[categoryName] || groups[0].family, products: result };
+  fs.writeFileSync(
+    path.join(OUT_DIR, `category-${categoryName}.json`),
+    JSON.stringify(data, null, 2),
+  );
+  console.log(`  ✓ category-${categoryName}.json`);
 }
 
 // ── Export /api/products/:slug ────────────────────────────
@@ -116,6 +157,12 @@ function exportProduct(slug) {
 console.log('Exporting static data...');
 const categories = exportCategories();
 
+// Export per-category JSON files (for catalog pages)
+for (const categoryName of Object.keys(categories)) {
+  exportCategory(categoryName);
+}
+
+// Export per-product JSON files (for product detail pages)
 let productCount = 0;
 for (const cat of Object.values(categories)) {
   for (const p of cat.products) {
@@ -125,4 +172,4 @@ for (const cat of Object.values(categories)) {
 }
 
 db.close();
-console.log(`\nDone! Exported ${productCount} products to ${OUT_DIR}`);
+console.log(`\nDone! Exported ${Object.keys(categories).length} categories + ${productCount} products to ${OUT_DIR}`);

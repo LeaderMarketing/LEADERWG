@@ -1,0 +1,29 @@
+{
+  "id": 59,
+  "slug": "M440",
+  "name": "Firebox M440",
+  "family": "Renewals",
+  "category": "renewals",
+  "description": "",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [
+    {
+      "id": 915,
+      "sku_code": "WGM44181",
+      "full_sku": "NWG-WGM44181",
+      "name": "WatchGuard Network Discovery 1-yr for Firebox M440",
+      "msrp": 3002,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?7oG5voS3V1Y=xFfG5+HSt2VYZRcOAZ6kSw==Fw0qSEurbtCyUHtZdVu1v39NrUY=",
+      "sku_type": "subscription",
+      "subscription_type": "Network Discovery",
+      "term_years": 1
+    }
+  ],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

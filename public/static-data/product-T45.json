@@ -1,0 +1,101 @@
+{
+  "id": 73,
+  "slug": "T45",
+  "name": "Firebox T45",
+  "family": "Renewals",
+  "category": "renewals",
+  "description": "",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [
+    {
+      "id": 1210,
+      "sku_code": "WGT45171",
+      "full_sku": "NWG-WGT45171",
+      "name": "WatchGuard APT Blocker 1-yr for Firebox T45",
+      "msrp": 433,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?7oy304fYFis=s2c8qLUQ1RzQ43rk1IHQTg==qFhrYxxanc0sO8e55+YoYDqLG54=",
+      "sku_type": "subscription",
+      "subscription_type": "APT Blocker",
+      "term_years": 1
+    },
+    {
+      "id": 1211,
+      "sku_code": "WGT45173",
+      "full_sku": "NWG-WGT45173",
+      "name": "WatchGuard APT Blocker 3-yr for Firebox T45",
+      "msrp": 1030,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?z5LerPFZZ88=Y5yQiCdGbZJco7b2d/mJxQ==E+R+i2zj4DT4R+0kzc+Qa/raNRU=",
+      "sku_type": "subscription",
+      "subscription_type": "APT Blocker",
+      "term_years": 3
+    },
+    {
+      "id": 1212,
+      "sku_code": "WGT45175",
+      "full_sku": "NWG-WGT45175",
+      "name": "WatchGuard APT Blocker 5-yr for Firebox T45",
+      "msrp": 1894,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?GgTNyq6ex4E=MUzBAv/VBPEJUM/8VhaU+A==dwgJVE3pUvB4OFtGVBWSDr6LqZk=",
+      "sku_type": "subscription",
+      "subscription_type": "APT Blocker",
+      "term_years": 5
+    },
+    {
+      "id": 1208,
+      "sku_code": "WGT45261",
+      "full_sku": "NWG-WGT45261",
+      "name": "WatchGuard Gold Support Renewal/Upgrade 1-yr for Firebox T45",
+      "msrp": 459,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?fMs5Cz9n2RU=sbXepq1Mp2WXVwfl8V/85Q==lhf3tIDwo2HYtUZ7jymB4uycqrM=",
+      "sku_type": "subscription",
+      "subscription_type": "Gold Support",
+      "term_years": 1
+    },
+    {
+      "id": 1209,
+      "sku_code": "WGT45263",
+      "full_sku": "NWG-WGT45263",
+      "name": "WatchGuard Gold Support Renewal/Upgrade 3-yr for Firebox T45",
+      "msrp": 1060,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?qx4mke0sI6Q=4rWZVkWBtIeFA4q1xQNMvw==TRYaeCsUvsdVovQv4VDAglSvnmU=",
+      "sku_type": "subscription",
+      "subscription_type": "Gold Support",
+      "term_years": 3
+    },
+    {
+      "id": 1206,
+      "sku_code": "WGT45201",
+      "full_sku": "NWG-WGT45201",
+      "name": "WatchGuard Standard Support Renewal 1-yr for Firebox T45",
+      "msrp": 323,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?DzH9X9FYVns=N0YPS6g/9HH3u3wzYSxdZA==NbIB/dJk5Dt0eVcMYDBjjb1x7wQ=",
+      "sku_type": "subscription",
+      "subscription_type": "Standard Support",
+      "term_years": 1
+    },
+    {
+      "id": 1207,
+      "sku_code": "WGT45203",
+      "full_sku": "NWG-WGT45203",
+      "name": "WatchGuard Standard Support Renewal 3-yr for Firebox T45",
+      "msrp": 739,
+      "delivery_method": "Electronic",
+      "url": "https://partner.leadersystems.com.au/products.html?jZkdeCapxjo=fGDQ97YE9q9XcKmQA9TYuA==OLWoJ2X9WQft269AOPqE+X2mF6g=",
+      "sku_type": "subscription",
+      "subscription_type": "Standard Support",
+      "term_years": 3
+    }
+  ],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

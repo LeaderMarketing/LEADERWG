@@ -1,0 +1,16 @@
+{
+  "id": 49,
+  "slug": "DNSWatchGO",
+  "name": "DNSWatchGO",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "DNS-level protection and content filtering for remote users",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

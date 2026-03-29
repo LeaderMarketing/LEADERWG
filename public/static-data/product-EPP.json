@@ -1,0 +1,16 @@
+{
+  "id": 42,
+  "slug": "EPP",
+  "name": "EPP",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "Endpoint Protection Platform — antivirus and threat prevention",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}
