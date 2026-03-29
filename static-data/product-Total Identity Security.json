@@ -1,0 +1,16 @@
+{
+  "id": 522,
+  "slug": "Total Identity Security",
+  "name": "Total Identity Security",
+  "family": "Identity & Access",
+  "category": "identity",
+  "description": "AuthPoint MFA + dark web monitoring + credentials manager",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

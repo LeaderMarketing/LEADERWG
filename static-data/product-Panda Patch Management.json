@@ -1,0 +1,16 @@
+{
+  "id": 520,
+  "slug": "Panda Patch Management",
+  "name": "Panda Patch Management",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "Legacy Panda automated patch management",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

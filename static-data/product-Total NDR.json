@@ -1,0 +1,16 @@
+{
+  "id": 507,
+  "slug": "Total NDR",
+  "name": "Total NDR",
+  "family": "MDR & NDR",
+  "category": "mdr_ndr",
+  "description": "Full-spectrum network detection and response",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

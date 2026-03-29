@@ -1,0 +1,16 @@
+{
+  "id": 514,
+  "slug": "Patch Management",
+  "name": "Patch Management",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "Automated patch management for OS and third-party apps",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

@@ -1,0 +1,16 @@
+{
+  "id": 523,
+  "slug": "Panda Email Protection",
+  "name": "Panda Email Protection",
+  "family": "Email Security",
+  "category": "email",
+  "description": "Cloud email security with anti-spam and anti-phishing",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

@@ -1,0 +1,16 @@
+{
+  "id": 503,
+  "slug": "Core MDR",
+  "name": "Core MDR",
+  "family": "MDR & NDR",
+  "category": "mdr_ndr",
+  "description": "Managed detection and response for endpoints",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

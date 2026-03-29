@@ -1,0 +1,16 @@
+{
+  "id": 517,
+  "slug": "Passport",
+  "name": "Passport",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "User security bundle: DNSWatchGO + AuthPoint + EPDR",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

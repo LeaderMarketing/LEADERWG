@@ -1,0 +1,16 @@
+{
+  "id": 504,
+  "slug": "Core MDR for Microsoft",
+  "name": "Core MDR for Microsoft",
+  "family": "MDR & NDR",
+  "category": "mdr_ndr",
+  "description": "MDR optimized for Microsoft 365 environments",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

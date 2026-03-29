@@ -1,0 +1,16 @@
+{
+  "id": 521,
+  "slug": "AuthPoint",
+  "name": "AuthPoint",
+  "family": "Identity & Access",
+  "category": "identity",
+  "description": "Cloud-based multi-factor authentication (MFA)",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

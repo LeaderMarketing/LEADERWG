@@ -1,0 +1,16 @@
+{
+  "id": 508,
+  "slug": "ThreatSync+ SaaS",
+  "name": "ThreatSync+ SaaS",
+  "family": "MDR & NDR",
+  "category": "mdr_ndr",
+  "description": "SaaS application threat detection and response",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

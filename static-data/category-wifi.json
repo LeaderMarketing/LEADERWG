@@ -1,0 +1,599 @@
+{
+  "label": "Wi-Fi 6 Access Points",
+  "products": [
+    {
+      "id": 468,
+      "slug": "AP130",
+      "name": "WatchGuard AP130",
+      "family": "Access Points",
+      "category": "wifi",
+      "description": "Entry-level Wi-Fi 6 for small offices and remote workers",
+      "image_file": "AP130.jpg",
+      "skus": [
+        {
+          "sku_code": "WGA13003309",
+          "full_sku": "NWG-WGA13003309",
+          "name": "Points Activation Bundle for WatchGuard AP130",
+          "msrp": 0,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?yAzYavclIqk=lzwCaxrwcwXdfCgC7ZPmPA==b1DwcVrr6RrpknTCLgvZ5V+Rq2YGye4=",
+          "sku_type": "activation_bundle",
+          "subscription_type": null,
+          "term_years": null
+        },
+        {
+          "sku_code": "WGA13022101",
+          "full_sku": "NWG-WGA13022101",
+          "name": "Standard Wi-Fi Management for WatchGuard AP130 - 1-year",
+          "msrp": 118,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?ZpBbzuuqUjw=I48J6YiYTqIFTe6m2WzXaQ==Z7CEBZkEEi2s9VhA62F91xcB29+dJqw=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA13022103",
+          "full_sku": "NWG-WGA13022103",
+          "name": "Standard Wi-Fi Management for WatchGuard AP130 - 3-year",
+          "msrp": 236,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?L8qp9tbwA8I=Gs/zPdzuYNMjRr6c33qbtA==HkBWdXQkwor9G/mx29ZeKX5Xl502c10=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA13022105",
+          "full_sku": "NWG-WGA13022105",
+          "name": "Standard Wi-Fi Management for WatchGuard AP130 - 5-year",
+          "msrp": 354,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?i/fSLK/L3q4=eQPzehxEClHcK5M7vXOE8w==YmrqrgWjpYMz908IgMlAO0uqW64yXGA=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA13022001",
+          "full_sku": "NWG-WGA13022001",
+          "name": "USP Wi-Fi Management for WatchGuard AP130 - 1-year",
+          "msrp": 197,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?05CIyAlPwgo=L4jjdA+tOUXFIUa5PMLmCg==pyhK1GTyQfETiwSSk/4JMaU6g1E2gM4=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA13022003",
+          "full_sku": "NWG-WGA13022003",
+          "name": "USP Wi-Fi Management for WatchGuard AP130 - 3-year",
+          "msrp": 393,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?S3cQyhteXgA=2gAKUjos+znskMYpO15UAA==nUsluvX6B6kQY10YTz7UUe4H9JAlCEk=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA13022005",
+          "full_sku": "NWG-WGA13022005",
+          "name": "USP Wi-Fi Management for WatchGuard AP130 - 5-year",
+          "msrp": 590,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?uZBEMS3R/K8=wZIHpi7ZbJha7MXUa7ZSnw==s/16nR1vIqM2CT3k32/EDUZqkFElOfQ=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA130000",
+          "full_sku": "NWG-WGA130000",
+          "name": "WatchGuard AP130 Appliance Only",
+          "msrp": 550,
+          "delivery_method": "Physical",
+          "url": "https://partner.leadersystems.com.au/products.html?6EVpuIu6FoM=c/1I+JS+hHPXuIbDqHRnKA==S/EIT5FjrgNA/g+xAdkFN4e2/9DB",
+          "sku_type": "appliance",
+          "subscription_type": null,
+          "term_years": null
+        }
+      ]
+    },
+    {
+      "id": 469,
+      "slug": "AP230W",
+      "name": "WatchGuard AP230W",
+      "family": "Access Points",
+      "category": "wifi",
+      "description": "Wall-plate AP with built-in switch for hospitality",
+      "image_file": "AP230W.jpg",
+      "skus": [
+        {
+          "sku_code": "WGA23003309",
+          "full_sku": "NWG-WGA23003309",
+          "name": "Points Activation Bundle for WatchGuard AP230W",
+          "msrp": 0,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?sO/btSyWcnI=+rmtfw6/cRKMD2eFCVJ9ZQ==oQieSOQjkhOoPJdBgrV/jn2/zVMV1ME=",
+          "sku_type": "activation_bundle",
+          "subscription_type": null,
+          "term_years": null
+        },
+        {
+          "sku_code": "WGA23022101",
+          "full_sku": "NWG-WGA23022101",
+          "name": "Standard Wi-Fi Management for WatchGuard AP230W - 1-year",
+          "msrp": 118,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?h78nCOJiUck=GA65zycrZAZgi2EiBBw9ow==Ie+R2sKT1OoF0/8vCx3ZAFtCBHCnR1E=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA23022103",
+          "full_sku": "NWG-WGA23022103",
+          "name": "Standard Wi-Fi Management for WatchGuard AP230W - 3-year",
+          "msrp": 236,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?guotr2Kwm/w=RWKOOng+WW03jBVnO4YkNQ==YT8VAAd/Uoyx/eW3uBg+Y6RukH7PL0c=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA23022105",
+          "full_sku": "NWG-WGA23022105",
+          "name": "Standard Wi-Fi Management for WatchGuard AP230W - 5-year",
+          "msrp": 354,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?39AYrgMvTbg=Mjud9yPNeSrWVsdCOnP4cQ==vx2CWpEmzcqVQ7hjPGUb39pbS+nLyKQ=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA23022001",
+          "full_sku": "NWG-WGA23022001",
+          "name": "USP Wi-Fi Management for WatchGuard AP230W - 1-year",
+          "msrp": 197,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?7WwUGd6Ictw=QW6rLQ1LZ+SYs4uIzqSsNA==y2gyOhztuKqpwafQjWZMAeIT3knhM5E=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA23022003",
+          "full_sku": "NWG-WGA23022003",
+          "name": "USP Wi-Fi Management for WatchGuard AP230W - 3-year",
+          "msrp": 393,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?szs59hoV2UM=Nx7R4lIk/yN9DYwjJHos7w==KlBi+eV1b54OR1MLYQVbdNKN9l3bnyg=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA23022005",
+          "full_sku": "NWG-WGA23022005",
+          "name": "USP Wi-Fi Management for WatchGuard AP230W - 5-year",
+          "msrp": 590,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?Nt2y8PK0Plg=YjyQyLSs/mZrOs/m/wUhuA==9m2HMbz50Owk1UsDSplJzhOKOp8mkU4=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA230000",
+          "full_sku": "NWG-WGA230000",
+          "name": "WatchGuard AP230W Appliance Only",
+          "msrp": 802,
+          "delivery_method": "Physical",
+          "url": "https://partner.leadersystems.com.au/products.html?+hOXrde1yiM=WC55myYIzjlg0eaWGvZ8sw==/l2iKm/jCydEbz4Mjz4xm3FenpL7",
+          "sku_type": "appliance",
+          "subscription_type": null,
+          "term_years": null
+        }
+      ]
+    },
+    {
+      "id": 470,
+      "slug": "AP330",
+      "name": "WatchGuard AP330",
+      "family": "Access Points",
+      "category": "wifi",
+      "description": "Medium-density AP for retail and K-12 schools",
+      "image_file": "AP330.jpg",
+      "skus": [
+        {
+          "sku_code": "WGA33003309",
+          "full_sku": "NWG-WGA33003309",
+          "name": "Points Activation Bundle for WatchGuard AP330",
+          "msrp": 0,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?/meMiK689X0=CYrrlkGvkTFbmpYVnkwFGQ==RWpKIYGguqaBKdBtEtZw9GKPhNP5NlI=",
+          "sku_type": "activation_bundle",
+          "subscription_type": null,
+          "term_years": null
+        },
+        {
+          "sku_code": "WGA33022101",
+          "full_sku": "NWG-WGA33022101",
+          "name": "Standard Wi-Fi Management for WatchGuard AP330 - 1-year",
+          "msrp": 118,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?ksNwVYIZcrs=k4CWXAAiO8KJy+lR+ulLgw==D9MdDUVnyincHsf3kt+olR6O/V9UNCM=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA33022103",
+          "full_sku": "NWG-WGA33022103",
+          "name": "Standard Wi-Fi Management for WatchGuard AP330 - 3-year",
+          "msrp": 236,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?XHTV2LQS028=kmCzCwlJ41Apco9N2gJ0FA==NULN+MbinMe16G29SzpJQUIQB/pL43k=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA33022105",
+          "full_sku": "NWG-WGA33022105",
+          "name": "Standard Wi-Fi Management for WatchGuard AP330 - 5-year",
+          "msrp": 354,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?Um7EqXVOrtM=56fWeT5Iuy0Swd/6lepO2w==2BImiGr3bCTn68pkTeqFZHFpClce+nI=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA33022001",
+          "full_sku": "NWG-WGA33022001",
+          "name": "USP Wi-Fi Management for WatchGuard AP330 - 1-year",
+          "msrp": 197,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?Ha54k7ePBTw=SKUhrqr+Gi3V2C275F+dqA==UviVLM1wqG+mohLgmmFJfz1zWAH3WwI=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA33022003",
+          "full_sku": "NWG-WGA33022003",
+          "name": "USP Wi-Fi Management for WatchGuard AP330 - 3-year",
+          "msrp": 393,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?jBsi5tu/GA8=WV+0KOCCkjwL418nFHtJXg==PM/i+rzgOW3aPyHVkNQtNppy3Uqk6I8=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA33022005",
+          "full_sku": "NWG-WGA33022005",
+          "name": "USP Wi-Fi Management for WatchGuard AP330 - 5-year",
+          "msrp": 590,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?mQ0MQVLAM9I=g0MRkFZG6yIPyPxYLl7W8g==U0vBLN33YWtMtDWuIOR3oO+GYs/7YSU=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA330000",
+          "full_sku": "NWG-WGA330000",
+          "name": "WatchGuard AP330 Appliance Only",
+          "msrp": 970,
+          "delivery_method": "Physical",
+          "url": "https://partner.leadersystems.com.au/products.html?wbhF3IUL39w=NEiDZH5ln1m5MCxAexi2Ww==0jAB01qHFIiot3aQ7PJzmikIUJEs",
+          "sku_type": "appliance",
+          "subscription_type": null,
+          "term_years": null
+        }
+      ]
+    },
+    {
+      "id": 471,
+      "slug": "AP332CR",
+      "name": "WatchGuard AP332CR",
+      "family": "Access Points",
+      "category": "wifi",
+      "description": "Rugged outdoor AP for retail and manufacturing",
+      "image_file": "AP332CER.jpg",
+      "skus": [
+        {
+          "sku_code": "WGA33203309",
+          "full_sku": "NWG-WGA33203309",
+          "name": "Points Activation Bundle for WatchGuard AP332CR",
+          "msrp": 0,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?vwwkyjxjGuc=D8/p1diPfhFIG63OO9roag==xMCzHgWIjyqcJDG/vFhBeI/x9vc3jvk=",
+          "sku_type": "activation_bundle",
+          "subscription_type": null,
+          "term_years": null
+        },
+        {
+          "sku_code": "WGA33222101",
+          "full_sku": "NWG-WGA33222101",
+          "name": "Standard Wi-Fi Management for WatchGuard AP332CR - 1-year",
+          "msrp": 118,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?DrdvNbxql+M=SU6txkFLaXB++uEaLIVOCQ==T4bi4NP1oZNvfg3hplJG55DK0we0bMY=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA33222103",
+          "full_sku": "NWG-WGA33222103",
+          "name": "Standard Wi-Fi Management for WatchGuard AP332CR - 3-year",
+          "msrp": 236,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?IqKa5CwlrRw=tSMWYz+ihZLixx69xZ8NnA==AVCC2wY8eI9A5l1lqg1LV9rjegjC1cM=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA33222105",
+          "full_sku": "NWG-WGA33222105",
+          "name": "Standard Wi-Fi Management for WatchGuard AP332CR - 5-year",
+          "msrp": 354,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?44VUANMHdTA=MBExkB27M0ZQ5mvQD6lX9g==YJ0cg7jlVreU0i9+zVcrhTSeSH7mvfE=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA33222001",
+          "full_sku": "NWG-WGA33222001",
+          "name": "USP Wi-Fi Management for WatchGuard AP332CR - 1-year",
+          "msrp": 197,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?lD45D1CM5n8=yGE4sxKFkcGbpnfS2sZXxQ==E6ZruLgnAKShwV2c54rMVIXertREnqQ=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA33222003",
+          "full_sku": "NWG-WGA33222003",
+          "name": "USP Wi-Fi Management for WatchGuard AP332CR - 3-year",
+          "msrp": 393,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?4XWp5t4pJAM=e1CXIHrzvWDdiMz3h0f4Hg==MazLmeutLNEvpXTU2bgiXg4FS5yysCE=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA33222005",
+          "full_sku": "NWG-WGA33222005",
+          "name": "USP Wi-Fi Management for WatchGuard AP332CR - 5-year",
+          "msrp": 590,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?zeND1G+EPCc=bN3v8e4O4PpR1ODWPkkJbw==x36KKYIhzc5MJleeE46lvJBlpAm6nSs=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA332000",
+          "full_sku": "NWG-WGA332000",
+          "name": "WatchGuard AP332CR Appliance Only",
+          "msrp": 1157,
+          "delivery_method": "Physical",
+          "url": "https://partner.leadersystems.com.au/products.html?evx8XDgtEQA=zaPfBa5+Vsc87bckzCYYcQ==n05Q3FvbgQ3SuKNp3M/GaWKTv9D+",
+          "sku_type": "appliance",
+          "subscription_type": null,
+          "term_years": null
+        }
+      ]
+    },
+    {
+      "id": 472,
+      "slug": "AP430CR",
+      "name": "WatchGuard AP430CR",
+      "family": "Access Points",
+      "category": "wifi",
+      "description": "High-density outdoor AP for stadiums and campuses",
+      "image_file": "AP430CR.jpg",
+      "skus": [
+        {
+          "sku_code": "WGA43003309",
+          "full_sku": "NWG-WGA43003309",
+          "name": "Points Activation Bundle for WatchGuard AP430CR",
+          "msrp": 0,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?y9S3lTUQK4o=JZBoEO/wxTWvNlPhJ6J3aA==vzrSgdyr78KaswDws+LWary8fO1VS1A=",
+          "sku_type": "activation_bundle",
+          "subscription_type": null,
+          "term_years": null
+        },
+        {
+          "sku_code": "WGA43022101",
+          "full_sku": "NWG-WGA43022101",
+          "name": "Standard Wi-Fi Management for WatchGuard AP430CR - 1-year",
+          "msrp": 118,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?pnSCkNSRkuw=ubx8ANb1ETL0Yg8UR4O+CQ==wIMnEoDrznB8xnT0ipyffUsQAST2NUw=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA43022103",
+          "full_sku": "NWG-WGA43022103",
+          "name": "Standard Wi-Fi Management for WatchGuard AP430CR - 3-year",
+          "msrp": 236,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?F4c17fvfk2U=BBXz7c9PQ0TthpIQXTtQUg==TBohlrC2dMGIkznZQG66FQ6KQ7IIcSk=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA43022105",
+          "full_sku": "NWG-WGA43022105",
+          "name": "Standard Wi-Fi Management for WatchGuard AP430CR - 5-year",
+          "msrp": 354,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?gQBCcJFzZrE=E4YpOFE129pyOXLTC+SHtQ==ORan3c4o/ViQq31M5rOMiGp/Uzl3zQo=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA43022001",
+          "full_sku": "NWG-WGA43022001",
+          "name": "USP Wi-Fi Management for WatchGuard AP430CR - 1-year",
+          "msrp": 197,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?kL+jpgvn55E=zinYUhICQxo5S8viTyV2rA==NNGVT9TnYKxKDVdI6V1UYfe0HvZE6yA=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA43022003",
+          "full_sku": "NWG-WGA43022003",
+          "name": "USP Wi-Fi Management for WatchGuard AP430CR - 3-year",
+          "msrp": 393,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?PzlTA+VKqvs=K2PvC5e5wv7yuQBCjOWErQ==aZHx0OQqSTuSRCy61zLdhIND+5sdits=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA43022005",
+          "full_sku": "NWG-WGA43022005",
+          "name": "USP Wi-Fi Management for WatchGuard AP430CR - 5-year",
+          "msrp": 590,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?yFiv+IuNBm8=FqdqAv/wrZnWClE3ZMHVig==XgTDPnDuH2fm+NpJYh7ff/VMqtxh5zc=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA430000",
+          "full_sku": "NWG-WGA430000",
+          "name": "WatchGuard AP430CR Appliance Only",
+          "msrp": 2152,
+          "delivery_method": "Physical",
+          "url": "https://partner.leadersystems.com.au/products.html?fc5j5BkoWHY=oNv0mHAddQeDw/dCwXNbvg==5XjaTqBzOetV4MRYYamtZoZOl10d",
+          "sku_type": "appliance",
+          "subscription_type": null,
+          "term_years": null
+        }
+      ]
+    },
+    {
+      "id": 473,
+      "slug": "AP432",
+      "name": "WatchGuard AP432",
+      "family": "Access Points",
+      "category": "wifi",
+      "description": "High-density 4x4 AP for large campuses",
+      "image_file": "AP432.jpg",
+      "skus": [
+        {
+          "sku_code": "WGA43203309",
+          "full_sku": "NWG-WGA43203309",
+          "name": "Points Activation Bundle for WatchGuard AP432",
+          "msrp": 0,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?0IjY+MSQ0Ec=PVtM/XM/UHdNikuO20EhmA==6sl2yDiZTFXEWSfl1MgjS5ZizJ4QrIQ=",
+          "sku_type": "activation_bundle",
+          "subscription_type": null,
+          "term_years": null
+        },
+        {
+          "sku_code": "WGA43222101",
+          "full_sku": "NWG-WGA43222101",
+          "name": "Standard Wi-Fi Management for WatchGuard AP432 - 1-year",
+          "msrp": 118,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?gQ3J3vU/FEU=bpMz72a11Wm2+FkZak4Hjg==66CF/G+F9q1zji9Sfq6Fj/LQ0H6kKlU=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA43222103",
+          "full_sku": "NWG-WGA43222103",
+          "name": "Standard Wi-Fi Management for WatchGuard AP432 - 3-year",
+          "msrp": 236,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?t8rgOob+awM=04uGgxK2TI395HRogCIDSg==btGk5kPiBar0JoCew6xMSv+CefrXo5c=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA43222105",
+          "full_sku": "NWG-WGA43222105",
+          "name": "Standard Wi-Fi Management for WatchGuard AP432 - 5-year",
+          "msrp": 354,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?vmb5xRgv/RY=cK9PTDmfLCPLZKcsAiYK2Q==8JBMME0mQkdMwyGrYBrkjvHVarBLbx4=",
+          "sku_type": "subscription",
+          "subscription_type": "Standard Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA43222001",
+          "full_sku": "NWG-WGA43222001",
+          "name": "USP Wi-Fi Management for WatchGuard AP432 - 1-year",
+          "msrp": 197,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?565oCfNQ9Wo=fgEJ4QENDTab9tuMdKmvfg==qEXSBdrvUp74bGqL45oF4EoBgJLU9CY=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 1
+        },
+        {
+          "sku_code": "WGA43222003",
+          "full_sku": "NWG-WGA43222003",
+          "name": "USP Wi-Fi Management for WatchGuard AP432 - 3-year",
+          "msrp": 393,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?WfJ/hK7uCFk=4+nucdDorR07cRgD6N3tUw==0//3zxiXcIRFxwN2iEbhrARy7PntuSg=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 3
+        },
+        {
+          "sku_code": "WGA43222005",
+          "full_sku": "NWG-WGA43222005",
+          "name": "USP Wi-Fi Management for WatchGuard AP432 - 5-year",
+          "msrp": 590,
+          "delivery_method": "Electronic",
+          "url": "https://partner.leadersystems.com.au/products.html?wFYwZB43Amo=OwoHsq0sR/NvZ8LD+KXa7A==X+1vaIt/emBgkyUCp39SIEpAo+Vgw44=",
+          "sku_type": "subscription",
+          "subscription_type": "USP Wi-Fi",
+          "term_years": 5
+        },
+        {
+          "sku_code": "WGA432000",
+          "full_sku": "NWG-WGA432000",
+          "name": "WatchGuard AP432 Appliance Only",
+          "msrp": 1187,
+          "delivery_method": "Physical",
+          "url": "https://partner.leadersystems.com.au/products.html?A1sbM3vwCRI=P6L9Q8/KWjlyeRgiimFJEw==g4exg6byYSIJs6kPb7QH7d0qs0tl",
+          "sku_type": "appliance",
+          "subscription_type": null,
+          "term_years": null
+        }
+      ]
+    }
+  ]
+}
