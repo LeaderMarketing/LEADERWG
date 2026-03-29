@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShoppingCartSimple } from '@phosphor-icons/react';
 import styles from './ApplianceRenewals.module.css';
 import { useApplianceRenewals } from './useApplianceRenewals.js';
 import { useQuote } from '../../context/QuoteContext.jsx';
 import { formatPrice } from '../../data/productPrices.js';
 import BannerCarousel from './BannerCarousel.jsx';
-import { SKU_URLS } from './skuUrls.js';
 
 /* ─── SKU link (mirrors VirtualCatalog pattern) ─── */
-function SkuLink({ sku }) {
+function SkuLink({ sku, url }) {
   if (!sku) return null;
-  const url = SKU_URLS[sku] || '';
   if (url) {
     return (
       <a href={url} target="_blank" rel="noopener noreferrer" className={styles.skuLink}>
@@ -44,6 +42,7 @@ function RenewalCard({
     getAvailableTerms,
     getSkuForSelection,
     getPriceForSelection,
+    getUrlForSelection,
     getAvailableOptions,
   } = data;
 
@@ -55,6 +54,7 @@ function RenewalCard({
   const activeTerm = state.term || availableTerms[0];
   const sku = getSkuForSelection(selectedModel, activeServiceType, activeTerm);
   const price = getPriceForSelection(selectedModel, activeServiceType, activeTerm);
+  const url = getUrlForSelection(selectedModel, activeServiceType, activeTerm);
   const imageUrl = sku ? `https://www.leadersystems.com.au/Images/${sku}.jpg` : null;
 
   return (
@@ -125,7 +125,7 @@ function RenewalCard({
             <ShoppingCartSimple size={14} weight="bold" />
             Add to Cart
           </button>
-          <SkuLink sku={sku} />
+          <SkuLink sku={sku} url={url} />
         </div>
         <div className={styles.renewalImageSide}>
           {imageUrl && (
@@ -157,7 +157,7 @@ const SUB_DESCRIPTIONS = {
 };
 
 function IndividualSubCard({ sub, allModels, data, onAdd }) {
-  const { getAvailableTerms, getSkuForSelection, getPriceForSelection } = data;
+  const { getAvailableTerms, getSkuForSelection, getPriceForSelection, getUrlForSelection } = data;
 
   // Filter to models that actually have this subscription
   const availableModels = allModels.filter(
@@ -165,8 +165,22 @@ function IndividualSubCard({ sub, allModels, data, onAdd }) {
   );
   const [selectedModel, setSelectedModel] = useState(availableModels[0] || allModels[0]);
 
+  // Reset selection when available models change (data load or tab switch)
+  useEffect(() => {
+    if (availableModels.length > 0 && !availableModels.includes(selectedModel)) {
+      setSelectedModel(availableModels[0]);
+    }
+  }, [availableModels, selectedModel]);
+
   const terms = getAvailableTerms(selectedModel, sub.key);
   const [selectedTerm, setSelectedTerm] = useState(terms[0] || '1 Year');
+
+  // Reset term when terms change
+  useEffect(() => {
+    if (terms.length > 0 && !terms.includes(selectedTerm)) {
+      setSelectedTerm(terms[0]);
+    }
+  }, [terms, selectedTerm]);
 
   const handleModelChange = (e) => {
     const model = e.target.value;
@@ -177,6 +191,7 @@ function IndividualSubCard({ sub, allModels, data, onAdd }) {
 
   const sku = getSkuForSelection(selectedModel, sub.key, selectedTerm);
   const price = getPriceForSelection(selectedModel, sub.key, selectedTerm);
+  const skuUrl = getUrlForSelection(selectedModel, sub.key, selectedTerm);
   const imageUrl = sku ? `https://www.leadersystems.com.au/Images/${sku}.jpg` : null;
 
   if (availableModels.length === 0) return null;
@@ -237,7 +252,7 @@ function IndividualSubCard({ sub, allModels, data, onAdd }) {
           <ShoppingCartSimple size={14} weight="bold" />
           Add to Cart
         </button>
-        <SkuLink sku={sku} />
+        <SkuLink sku={sku} url={skuUrl} />
       </div>
     </div>
   );
@@ -250,6 +265,7 @@ function IndividualSubCard({ sub, allModels, data, onAdd }) {
 export default function ApplianceRenewals({ activeTab }) {
   const data = useApplianceRenewals();
   const {
+    loading,
     T_SERIES_MODELS,
     M_SERIES_MODELS,
     SECTIONS,
@@ -260,6 +276,7 @@ export default function ApplianceRenewals({ activeTab }) {
 
   // Only show for tabletop/mseries tabs (not wifi)
   if (activeTab === 'wifi') return null;
+  if (loading) return <div className={styles.wrapper}><p>Loading renewals…</p></div>;
 
   const showT = activeTab === 'tabletop';
   const showM = activeTab === 'mseries';

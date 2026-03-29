@@ -1,0 +1,16 @@
+{
+  "id": 348,
+  "slug": "Advanced Reporting Tool",
+  "name": "Advanced Reporting Tool",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "Advanced security reporting and analytics",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

@@ -1,0 +1,16 @@
+{
+  "id": 346,
+  "slug": "Full Encryption",
+  "name": "Full Encryption",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "Full disk encryption add-on for endpoint protection",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

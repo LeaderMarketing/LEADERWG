@@ -66,11 +66,21 @@ This starts both the Vite dev server (frontend, port 5173) and the Express API (
 │   │   │   ├── ProductCatalog.jsx
 │   │   │   ├── hooks/                     # useProductData, useSubscriptions, etc.
 │   │   │   └── parts/                     # ProductColumns, SubscriptionRow, SpecsSection
+│   │   ├── ApplianceRenewals/             # Renewal cards (embedded in ProductCatalog)
+│   │   ├── RenewalsCatalog/               # Renewals/Upgrades tab (all appliance families)
 │   │   ├── VirtualCatalog/                # Virtual tab (FireboxV)
 │   │   ├── CloudCatalog/                  # Cloud tab (Firebox Cloud)
+│   │   ├── EndpointCatalog/               # Endpoint & Mobile tab
+│   │   ├── IdentityCatalog/               # Identity & Access tab
+│   │   ├── EmailCatalog/                  # Email Security tab
+│   │   ├── MdrNdrCatalog/                 # MDR & XDR tab
 │   │   ├── TopLevelNav/                   # Navigation bar
 │   │   ├── QuoteCartPanel/                # Quote cart + PDF export
 │   │   └── ...
+│   ├── hooks/
+│   │   ├── useCatalogApi.js               # Generic fetch hook (API + static-JSON fallback)
+│   │   ├── useApplianceCatalog.js         # Shared hook for appliance-style catalogs
+│   │   └── usePerUserCatalog.js           # Shared hook for per-user subscription catalogs
 │   ├── context/
 │   │   └── QuoteContext.jsx               # Quote cart state (React Context)
 │   └── data/
@@ -78,28 +88,29 @@ This starts both the Vite dev server (frontend, port 5173) and the Express API (
 │       ├── featureSpecs.shared.cjs        # Product specs (shared by frontend + backend)
 │       ├── featureSpecs.js                # ESM wrapper for the above
 │       ├── productPrices.js               # Price lookups (reads WGdata CSV)
-│       ├── productSkus.js                 # SKU code mapping entry point
+│       ├── productSkus.js                 # SKU code mapping (T-Series, M-Series, Wi-Fi only)
 │       └── productSkus/
 │           ├── tabletop.js                # T-Series SKU codes
 │           ├── mSeries.js                 # M-Series SKU codes
-│           ├── wifi.js                    # Wi-Fi AP SKU codes
-│           └── fireboxV.js               # FireboxV SKU codes
+│           └── wifi.js                    # Wi-Fi AP SKU codes
 │
 ├── server/
-│   ├── index.js                           # Express API (3 endpoints)
+│   ├── index.js                           # Express API (4 endpoints)
 │   ├── seed.js                            # Builds SQLite DB from CSV sources
 │   ├── db.js                              # SQLite schema
 │   ├── products.db                        # Auto-generated database (do not edit)
 │   └── data/
-│       └── product-catalog.csv            # Product structure (groups, URLs, delivery method)
+│       └── product-catalog.csv            # ★ ALL 1,262 SKUs — structure, URLs, grouping
 │
 ├── scripts/
-│   └── export-static-data.cjs            # DB → static JSON for GitHub Pages
+│   ├── export-static-data.cjs            # DB → static JSON for GitHub Pages
+│   └── generate-full-catalog.cjs         # Helpers for building product-catalog.csv
 │
 ├── public/
 │   └── static-data/                       # Pre-exported JSON (GitHub Pages fallback)
 │       ├── categories.json
-│       └── product-{slug}.json
+│       ├── category-{slug}.json           # Per-category data (10 categories)
+│       └── product-{slug}.json            # Per-product data (75 products)
 │
 └── dist/                                  # Vite build output
 ```
@@ -125,48 +136,60 @@ There are no other price files. If you see prices that are wrong, you need a fre
 | File | Lives in | Purpose | How often it changes |
 |------|----------|---------|---------------------|
 | `WGdata_*.csv` | `src/data/` | **Pricing** — RRP for every SKU | Whenever prices change |
-| `product-catalog.csv` | `server/data/` | **Product structure** — which SKUs exist, their grouping, and partner order URLs | Only when adding/removing products |
+| `product-catalog.csv` | `server/data/` | **Product structure** — all 1,262 SKUs, their grouping, and partner order URLs | Only when adding/removing products |
 
-The product catalog CSV defines *what products exist* (names, product families, groups like "M290", delivery method, partner ordering URLs). It does **not** contain prices — those come exclusively from the WGdata CSV.
+The product catalog CSV defines *what products exist* (names, product families, groups, delivery method, partner ordering URLs) for all product categories — appliances, virtual, cloud, endpoint, identity, email, MDR/NDR, and renewals. It does **not** contain prices — those come exclusively from the WGdata CSV.
+
+**product-catalog.csv format** (6 columns):
+
+```
+SKU, Name, Method of Delivery, Product Family, Product Group, url in dealershop
+```
+
+| Column | Example | Purpose |
+|--------|---------|---------|
+| `SKU` | `NWG-WGM290000` | Full SKU code (matches WGdata STOCK CODE for price lookup) |
+| `Name` | `WatchGuard Firebox M290` | Display name |
+| `Method of Delivery` | `Physical` or `Electronic` | How the product is fulfilled |
+| `Product Family` | `M-Series`, `Endpoint`, etc. | Groups into categories |
+| `Product Group` | `M290`, `AuthPoint`, etc. | Groups SKUs into a single product page |
+| `url in dealershop` | `https://partner.leadersystems...` | Encrypted permanent link to Leader Systems dealer shop |
+
+The dealer shop URLs are encrypted, auto-generated permanent links. Each SKU maps to a unique URL on the Leader Systems partner site. If URLs need bulk updating (e.g. site migration), update the URL column in this CSV and re-seed.
+
+> **TODO:** Build a `scripts/check-dealer-urls.cjs` validation script that checks all dealer shop URLs for dead links (HEAD request, report non-200 responses).
 
 ### How data flows to the frontend
 
 ```
-                    ┌──────────────────────┐
-                    │  WGdata_*.csv        │
-                    │  (pricing — RRP)     │
-                    └──────────┬───────────┘
-                               │
-              ┌────────────────┼────────────────┐
-              │                │                 │
-              ▼                ▼                 ▼
-   ┌──────────────────┐  ┌──────────┐   ┌──────────────┐
-   │  seed.js          │  │ product  │   │ productPrices│
-   │  + product-       │  │ Prices.js│   │ .js (Vite    │
-   │  catalog.csv      │  │ (browser │   │  glob import)│
-   │                   │  │  import) │   │              │
-   └────────┬──────────┘  └────┬─────┘   └──────┬───────┘
-            │                  │                  │
-            ▼                  ▼                  ▼
-   ┌─────────────────┐  ┌──────────┐   ┌──────────────┐
-   │  SQLite DB       │  │ Virtual  │   │ Cloud        │
-   │  → Express API   │  │ Catalog  │   │ Catalog      │
-   │  → static JSON   │  │ tab      │   │ tab          │
-   └────────┬─────────┘  └──────────┘   └──────────────┘
-            │
-            ▼
-   ┌─────────────────┐
-   │ Security        │
-   │ Appliances tab  │
-   │ (+ Wi-Fi APs)   │
-   └─────────────────┘
+   ┌──────────────────────┐   ┌──────────────────────┐
+   │  product-catalog.csv │   │  WGdata_*.csv        │
+   │  (1,262 SKUs + URLs) │   │  (pricing — RRP)     │
+   └──────────┬───────────┘   └──────────┬───────────┘
+              │                           │
+              └─────────┬─────────────────┘
+                        ▼
+              ┌──────────────────┐
+              │  seed.js          │
+              │  → SQLite DB      │
+              └────────┬──────────┘
+                       │
+              ┌────────┼────────────┐
+              ▼                     ▼
+   ┌─────────────────┐   ┌──────────────────┐
+   │  Express API     │   │  static JSON     │
+   │  (port 3001)     │   │  (GitHub Pages)  │
+   └────────┬─────────┘   └────────┬─────────┘
+            └────────┬─────────────┘
+                     ▼
+   ┌─────────────────────────────────┐
+   │  All catalog tabs               │
+   │  useCatalogApi → usePerUser /   │
+   │  useApplianceCatalog hooks      │
+   └─────────────────────────────────┘
 ```
 
-**Security Appliances tab:** The backend `seed.js` combines `product-catalog.csv` (structure) with `WGdata_*.csv` (prices) to populate the SQLite database. The Express API serves this data. On GitHub Pages, pre-exported static JSON files are used instead.
-
-**Virtual / Cloud tabs:** `productPrices.js` reads the same `WGdata_*.csv` directly in the browser via Vite glob import. SKU codes come from `src/data/productSkus/*.js`.
-
-Both paths read pricing from the same WGdata CSV — the difference is only in *when* it's read (server startup vs browser load).
+`seed.js` combines `product-catalog.csv` (structure, URLs) with `WGdata_*.csv` (prices) to populate the SQLite database. The Express API serves category endpoints. On GitHub Pages, pre-exported static JSON files are used instead. All catalog components fetch data through shared hooks (`useCatalogApi` → `usePerUserCatalog` or `useApplianceCatalog`).
 
 ### How the backend serves data
 
@@ -174,7 +197,8 @@ Both paths read pricing from the same WGdata CSV — the difference is only in *
 
 | Endpoint | Returns |
 |----------|---------|
-| `GET /api/categories` | Product groups with appliance SKU for all tabs |
+| `GET /api/categories` | All categories with product groups |
+| `GET /api/categories/:category` | All product groups + SKUs for a category |
 | `GET /api/products/:slug` | Full product detail — all SKUs, specs, prices |
 | `GET /api/products/:slug/subscriptions` | Subscriptions only (grouped by type) |
 
@@ -216,8 +240,8 @@ product_features id, product_group_id, feature_category, feature_name,
 The console will confirm:
 ```
 Seeded successfully:
-  29 product groups
-  339 SKUs (331 with prices, 8 showing TBC)
+  75 product groups
+  1262 SKUs (1253 with prices, 9 showing TBC)
   337 feature entries
   pricing source: WGdata_20260325_101329.csv
 ```
@@ -277,10 +301,19 @@ This file is shared between the frontend UI and the backend seed. After editing:
    npm run export-data
    ```
 
-### To the Virtual / Cloud tabs
+### To any other tab (Virtual, Cloud, Endpoint, Identity, Email, MDR/NDR, Renewals)
 
-1. Add SKU code mappings to the relevant file in `src/data/productSkus/`
-2. Prices are resolved automatically from the WGdata CSV
+All product data for these tabs lives in `product-catalog.csv`. To add a new SKU:
+
+1. **Add rows to `server/data/product-catalog.csv`** — one row per SKU with the correct Product Family and Product Group
+2. **Ensure the WGdata CSV has prices** for the new SKUs
+3. **Re-seed and export:**
+   ```bash
+   node server/seed.js
+   npm run export-data
+   ```
+
+The frontend hooks (`useApplianceCatalog`, `usePerUserCatalog`) automatically pick up new data from the API.
 
 ---
 
@@ -322,13 +355,13 @@ npm run preview
 | Tab | Route | Status | Component | Data source |
 |-----|-------|--------|-----------|-------------|
 | Security Appliances | `/` | Live | `ProductCatalog` | SQLite DB / static JSON |
-| Virtual | `/virtual` | Live | `VirtualCatalog` | WGdata CSV (browser) |
-| Cloud | `/cloud` | Live | `CloudCatalog` | WGdata CSV (browser) |
-| Renewals/Upgrades | `/renewals` | Coming soon | — | — |
-| MDR & XDR | `/mdr-xdr` | Coming soon | — | — |
-| Endpoint & Mobile | `/endpoint` | Coming soon | — | — |
-| Identity & Access | `/identity` | Coming soon | — | — |
-| Email Security | `/email` | Coming soon | — | — |
+| Virtual | `/virtual` | Live | `VirtualCatalog` | SQLite DB / static JSON |
+| Cloud | `/cloud` | Live | `CloudCatalog` | SQLite DB / static JSON |
+| Renewals/Upgrades | `/renewals` | Live | `RenewalsCatalog` | SQLite DB / static JSON |
+| MDR & XDR | `/mdr-xdr` | Live | `MdrNdrCatalog` | SQLite DB / static JSON |
+| Endpoint & Mobile | `/endpoint` | Live | `EndpointCatalog` | SQLite DB / static JSON |
+| Identity & Access | `/identity` | Live | `IdentityCatalog` | SQLite DB / static JSON |
+| Email Security | `/email` | Live | `EmailCatalog` | SQLite DB / static JSON |
 
 ### Security Appliances sub-tabs
 

@@ -1,0 +1,16 @@
+{
+  "id": 343,
+  "slug": "EDR",
+  "name": "EDR",
+  "family": "Endpoint & Mobile",
+  "category": "endpoint",
+  "description": "Endpoint Detection and Response — advanced threat hunting",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

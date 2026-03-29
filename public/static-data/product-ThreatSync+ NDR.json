@@ -1,0 +1,16 @@
+{
+  "id": 339,
+  "slug": "ThreatSync+ NDR",
+  "name": "ThreatSync+ NDR",
+  "family": "MDR & NDR",
+  "category": "mdr_ndr",
+  "description": "Network detection and response with AI correlation",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

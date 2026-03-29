@@ -1,0 +1,16 @@
+{
+  "id": 338,
+  "slug": "Total MDR",
+  "name": "Total MDR",
+  "family": "MDR & NDR",
+  "category": "mdr_ndr",
+  "description": "Comprehensive managed detection and response",
+  "image_file": null,
+  "appliance": null,
+  "subscriptions": [],
+  "tradeUps": [],
+  "highAvailability": [],
+  "activationBundles": [],
+  "specSections": [],
+  "features": {}
+}

@@ -1,8 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { fireboxApplianceSkus } from '../../data/productSkus/fireboxAppliances.js';
-import { fireboxVProductSkus } from '../../data/productSkus/fireboxV.js';
-import { fireboxCloudProductSkus } from '../../data/productSkus/fireboxCloud.js';
-import { getPriceBySku } from '../../data/productPrices.js';
+import { useApplianceCatalog } from '../../hooks/useApplianceCatalog.js';
 
 // ── Tab definitions ──
 export const TABS = [
@@ -12,53 +9,10 @@ export const TABS = [
   { key: 'cloud', label: 'Firebox Cloud' },
 ];
 
-// ── Model lists per tab ──
-const T_SERIES_MODELS = Object.keys(fireboxApplianceSkus)
-  .filter((k) => k.startsWith('T'))
-  .sort((a, b) => {
-    const numA = parseInt(a.replace(/\D/g, ''), 10);
-    const numB = parseInt(b.replace(/\D/g, ''), 10);
-    return numA - numB || a.localeCompare(b);
-  });
-
-const M_SERIES_MODELS = Object.keys(fireboxApplianceSkus)
-  .filter((k) => k.startsWith('M'))
-  .sort((a, b) => {
-    const numA = parseInt(a.replace(/\D/g, ''), 10);
-    const numB = parseInt(b.replace(/\D/g, ''), 10);
-    return numA - numB || a.localeCompare(b);
-  });
-
-const VIRTUAL_MODELS = Object.keys(fireboxVProductSkus).sort();
-const CLOUD_MODELS = Object.keys(fireboxCloudProductSkus).sort();
-
-// ── Unified SKU lookup — maps tab → SKU data source ──
-function getSkuSource(tab) {
-  switch (tab) {
-    case 'tabletop': return fireboxApplianceSkus;
-    case 'mseries': return fireboxApplianceSkus;
-    case 'virtual': return fireboxVProductSkus;
-    case 'cloud': return fireboxCloudProductSkus;
-    default: return {};
-  }
-}
-
-function getModels(tab) {
-  switch (tab) {
-    case 'tabletop': return T_SERIES_MODELS;
-    case 'mseries': return M_SERIES_MODELS;
-    case 'virtual': return VIRTUAL_MODELS;
-    case 'cloud': return CLOUD_MODELS;
-    default: return [];
-  }
-}
-
 export function getModelPrefix(tab) {
   switch (tab) {
     case 'tabletop': return 'Firebox';
     case 'mseries': return 'Firebox';
-    case 'virtual': return '';
-    case 'cloud': return '';
     default: return '';
   }
 }
@@ -78,7 +32,7 @@ export const SECTIONS = {
     { label: 'Trade Up to Total Security', key: 'Trade Up Total Security' },
   ],
   cloud: [
-    { label: 'Cloud 1-Month Data Retention', key: 'Cloud 1-Month Data Retention' },
+    { label: 'Cloud 1-Month Data Retention', key: 'Cloud Data Retention' },
   ],
   individual: [
     { label: 'WebBlocker', key: 'WebBlocker' },
@@ -92,28 +46,88 @@ export const SECTIONS = {
   ],
 };
 
-// ── Filter models that have at least one SKU in a given section for a tab ──
-function modelsForSection(tab, sectionId) {
-  const models = getModels(tab);
-  const source = getSkuSource(tab);
-  const serviceKeys = SECTIONS[sectionId].map((o) => o.key);
-  return models.filter((model) =>
-    serviceKeys.some((svc) => source[model]?.[svc]),
-  );
+function sortModels(models) {
+  return [...models].sort((a, b) => {
+    const numA = parseInt(a.replace(/\D/g, ''), 10);
+    const numB = parseInt(b.replace(/\D/g, ''), 10);
+    return numA - numB || a.localeCompare(b);
+  });
 }
 
 export function useRenewalsData() {
+  // Fetch all 5 categories that contain renewal-relevant data:
+  // - renewals: legacy T/M models (T15, T20, M270, M370, etc.)
+  // - tabletop: current T-series (T25, T45, T85-PoE, etc.)
+  // - mseries: current M-series (M290, M390, M495, etc.)
+  // - virtual: FireboxV models
+  // - cloud: Firebox Cloud models
+  const renewalsCatalog = useApplianceCatalog('renewals');
+  const tabletopCatalog = useApplianceCatalog('tabletop');
+  const mseriesCatalog = useApplianceCatalog('mseries');
+  const virtualCatalog = useApplianceCatalog('virtual');
+  const cloudCatalog = useApplianceCatalog('cloud');
+
   const [activeTab, setActiveTab] = useState('tabletop');
   const [cardState, setCardState] = useState({});
 
-  const models = useMemo(() => getModels(activeTab), [activeTab]);
-  const skuSource = useMemo(() => getSkuSource(activeTab), [activeTab]);
+  // Merge T/M lookups from renewals + tabletop + mseries
+  const applianceLookups = useMemo(() => {
+    const merged = {};
+    for (const lookups of [renewalsCatalog.lookups, tabletopCatalog.lookups, mseriesCatalog.lookups]) {
+      for (const [model, services] of Object.entries(lookups)) {
+        if (!merged[model]) merged[model] = {};
+        for (const [svc, terms] of Object.entries(services)) {
+          if (!merged[model][svc]) merged[model][svc] = {};
+          Object.assign(merged[model][svc], terms);
+        }
+      }
+    }
+    return merged;
+  }, [renewalsCatalog.lookups, tabletopCatalog.lookups, mseriesCatalog.lookups]);
+
+  // Derive model lists from merged data
+  const { tModels, mModels, vModels, cModels } = useMemo(() => {
+    const allApplianceKeys = Object.keys(applianceLookups);
+    return {
+      tModels: sortModels(allApplianceKeys.filter(k => k.startsWith('T'))),
+      mModels: sortModels(allApplianceKeys.filter(k => k.startsWith('M'))),
+      vModels: virtualCatalog.models.map(m => m.key).sort(),
+      cModels: cloudCatalog.models.map(m => m.key).sort(),
+    };
+  }, [applianceLookups, virtualCatalog.models, cloudCatalog.models]);
+
+  // Select the right lookups and model list for the active tab
+  const { lookups, models } = useMemo(() => {
+    switch (activeTab) {
+      case 'tabletop': return { lookups: applianceLookups, models: tModels };
+      case 'mseries': return { lookups: applianceLookups, models: mModels };
+      case 'virtual': return { lookups: virtualCatalog.lookups, models: vModels };
+      case 'cloud': return { lookups: cloudCatalog.lookups, models: cModels };
+      default: return { lookups: applianceLookups, models: [] };
+    }
+  }, [activeTab, applianceLookups, virtualCatalog.lookups, cloudCatalog.lookups, tModels, mModels, vModels, cModels]);
+
   const modelPrefix = getModelPrefix(activeTab);
+
+  const getAvailableTerms = useCallback((modelKey, serviceType) => {
+    return Object.keys(lookups[modelKey]?.[serviceType] || {});
+  }, [lookups]);
+
+  const getSkuForSelection = useCallback((modelKey, serviceType, term) => {
+    return lookups[modelKey]?.[serviceType]?.[term]?.sku || null;
+  }, [lookups]);
+
+  const getPriceForSelection = useCallback((modelKey, serviceType, term) => {
+    return lookups[modelKey]?.[serviceType]?.[term]?.price || null;
+  }, [lookups]);
+
+  const getUrlForSelection = useCallback((modelKey, serviceType, term) => {
+    return lookups[modelKey]?.[serviceType]?.[term]?.url || '';
+  }, [lookups]);
 
   const getCardState = useCallback(
     (cardId) => {
-      const sectionModels = models;
-      const firstModel = sectionModels[0] || '';
+      const firstModel = models[0] || '';
       const defaults = { model: firstModel, serviceType: '', term: '1 Year' };
       return cardState[cardId] ? { ...defaults, ...cardState[cardId] } : defaults;
     },
@@ -128,37 +142,26 @@ export function useRenewalsData() {
       if (field === 'model' || field === 'serviceType') {
         const svcKey = field === 'serviceType' ? value : updated.serviceType;
         const modelKey = field === 'model' ? value : updated.model;
-        const src = getSkuSource(activeTab);
-        const terms = Object.keys(src[modelKey]?.[svcKey] || {});
+        const terms = getAvailableTerms(modelKey, svcKey);
         updated.term = terms[0] || '1 Year';
       }
 
       return { ...prev, [cardId]: updated };
     });
-  }, [activeTab]);
-
-  const getAvailableTerms = useCallback((model, serviceType) => {
-    return Object.keys(skuSource[model]?.[serviceType] || {});
-  }, [skuSource]);
-
-  const getSkuForSelection = useCallback((model, serviceType, term) => {
-    return skuSource[model]?.[serviceType]?.[term] || null;
-  }, [skuSource]);
-
-  const getPriceForSelection = useCallback((model, serviceType, term) => {
-    const sku = skuSource[model]?.[serviceType]?.[term];
-    return sku ? getPriceBySku(sku) : null;
-  }, [skuSource]);
+  }, [getAvailableTerms]);
 
   const getAvailableOptions = useCallback((model, sectionId) => {
     return SECTIONS[sectionId].filter(
-      (opt) => skuSource[model]?.[opt.key],
+      (opt) => lookups[model]?.[opt.key],
     );
-  }, [skuSource]);
+  }, [lookups]);
 
   const getModelsForSection = useCallback((sectionId) => {
-    return modelsForSection(activeTab, sectionId);
-  }, [activeTab]);
+    const serviceKeys = SECTIONS[sectionId].map((o) => o.key);
+    return models.filter((model) =>
+      serviceKeys.some((svc) => lookups[model]?.[svc]),
+    );
+  }, [models, lookups]);
 
   return useMemo(
     () => ({
@@ -173,8 +176,15 @@ export function useRenewalsData() {
       getAvailableTerms,
       getSkuForSelection,
       getPriceForSelection,
+      getUrlForSelection,
       getAvailableOptions,
+      loading: renewalsCatalog.loading || tabletopCatalog.loading || mseriesCatalog.loading || virtualCatalog.loading || cloudCatalog.loading,
+      error: renewalsCatalog.error || tabletopCatalog.error || mseriesCatalog.error || virtualCatalog.error || cloudCatalog.error,
     }),
-    [activeTab, setActiveTab, models, modelPrefix, getModelsForSection, getCardState, updateCardState, getAvailableTerms, getSkuForSelection, getPriceForSelection, getAvailableOptions],
+    [activeTab, setActiveTab, models, modelPrefix, getModelsForSection, getCardState, updateCardState,
+     getAvailableTerms, getSkuForSelection, getPriceForSelection, getUrlForSelection,
+     getAvailableOptions, renewalsCatalog.loading, tabletopCatalog.loading, mseriesCatalog.loading,
+     virtualCatalog.loading, cloudCatalog.loading, renewalsCatalog.error, tabletopCatalog.error,
+     mseriesCatalog.error, virtualCatalog.error, cloudCatalog.error],
   );
 }
