@@ -564,12 +564,12 @@ function NdrContent() {
 export default function MdrNdrCatalog() {
   const [activeTab, setActiveTab] = useState('mdr');
   const data = useMdrNdrData();
-  const { PRODUCTS } = data;
+  const { products } = data;
   const { addItem } = useQuote();
   const handleAdd = (item) => addItem(item);
 
-  const mdrProducts = PRODUCTS.filter((p) => p.group === 'mdr');
-  const ndrProducts = PRODUCTS.filter((p) => p.group === 'ndr');
+  const mdrProducts = products.filter((p) => p.group === 'mdr');
+  const ndrProducts = products.filter((p) => p.group === 'ndr');
   const activeProducts = activeTab === 'mdr' ? mdrProducts : ndrProducts;
   const content = TAB_CONTENT[activeTab];
 
