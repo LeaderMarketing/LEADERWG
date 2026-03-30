@@ -1,9 +1,10 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import styles from './ProductCatalog.module.css';
 import { useQuote } from '../../context/QuoteContext.jsx';
 
 // Hooks
-import { useProductData, useSubscriptions, useDragScroll, useStickyHeader } from './hooks/index.js';
+import { useProductData, useSubscriptions, useStickyHeader } from './hooks/index.js';
 
 // Sub-components
 import {
@@ -61,8 +62,60 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
   }, [products, activeTab, filterOn]);
 
   // ── Behaviours ──
-  useDragScroll(scrollRef, [products]);
   const { headerRowRef, stickyScrollRef, isSticky } = useStickyHeader(scrollRef, [products]);
+
+  // ── Scroll indicators ──
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollIndicators = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollIndicators();
+    el.addEventListener('scroll', updateScrollIndicators, { passive: true });
+    const ro = new ResizeObserver(updateScrollIndicators);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener('scroll', updateScrollIndicators);
+      ro.disconnect();
+    };
+  }, [updateScrollIndicators, filteredProducts]);
+
+  // Scroll by 2 card widths (220px column + 4px gap = 224px each)
+  // Manual smooth scroll — native behavior:'smooth' is unreliable in some browsers
+  const scrollAnimRef = useRef(null);
+  const handleScrollArrow = useCallback((dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (scrollAnimRef.current) cancelAnimationFrame(scrollAnimRef.current);
+
+    const CARD_WIDTH = 224;
+    const SCROLL_CARDS = 2;
+    const distance = dir * CARD_WIDTH * SCROLL_CARDS;
+    const start = el.scrollLeft;
+    const target = Math.max(0, Math.min(start + distance, el.scrollWidth - el.clientWidth));
+    const duration = 350;
+    const startTime = performance.now();
+
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.scrollLeft = start + (target - start) * ease;
+      if (progress < 1) {
+        scrollAnimRef.current = requestAnimationFrame(step);
+      }
+    };
+    scrollAnimRef.current = requestAnimationFrame(step);
+  }, []);
 
   // ── Grid columns (shared across all rows) ──
   const gridCols = `200px repeat(${filteredProducts.length}, 220px)`;
@@ -136,28 +189,53 @@ export default function ProductCatalog({ onSelectHardware, onSelectSubscription 
       <CategoryFilters activeTab={activeTab} filterOn={filterOn} setFilterOn={setFilterOn} />
 
       {/* ═══ COMPARISON GRID ═══ */}
-      <div className={styles.tableWrapper} ref={scrollRef}>
-        <div className={styles.grid} style={{ gridTemplateColumns: gridCols }}>
-          <ProductColumns
+      <div className={styles.scrollContainer}>
+        {canScrollLeft && <div className={styles.scrollShadowLeft} />}
+        {canScrollRight && <div className={styles.scrollShadowRight} />}
+        {canScrollLeft && (
+          <button
+            className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`}
+            onMouseDown={(e) => e.stopPropagation()}
+            onClick={() => handleScrollArrow(-1)}
+            aria-label="Scroll left"
+          >
+            <CaretLeft size={18} weight="bold" />
+          </button>
+        )}
+        {canScrollRight && (
+          <button
+            className={`${styles.scrollArrow} ${styles.scrollArrowRight}`}
+            onMouseDown={(e) => e.stopPropagation()}
+            onClick={() => handleScrollArrow(1)}
+            aria-label="Scroll right"
+          >
+            <CaretRight size={18} weight="bold" />
+          </button>
+        )}
+
+        <div className={styles.tableWrapper} ref={scrollRef}>
+          <div className={styles.grid} style={{ gridTemplateColumns: gridCols }}>
+            <ProductColumns
+              products={filteredProducts}
+              headerRowRef={headerRowRef}
+              getImageSrc={getImageSrc}
+              onAddHardware={handleAddHardware}
+            />
+            <SubscriptionRow
+              products={filteredProducts}
+              {...subs}
+              onAddSubscription={handleAddSubscription}
+            />
+          </div>
+
+          <SpecsSection
+            activeTab={activeTab}
             products={filteredProducts}
-            headerRowRef={headerRowRef}
-            getImageSrc={getImageSrc}
-            onAddHardware={handleAddHardware}
-          />
-          <SubscriptionRow
-            products={filteredProducts}
-            {...subs}
-            onAddSubscription={handleAddSubscription}
+            gridCols={gridCols}
+            specsOpen={specsOpen}
+            setSpecsOpen={setSpecsOpen}
           />
         </div>
-
-        <SpecsSection
-          activeTab={activeTab}
-          products={filteredProducts}
-          gridCols={gridCols}
-          specsOpen={specsOpen}
-          setSpecsOpen={setSpecsOpen}
-        />
       </div>
 
       {/* ═══ RENEWALS, SUPPORT, TRADE-UP, CLOUD, INDIVIDUAL SUBS ═══ */}

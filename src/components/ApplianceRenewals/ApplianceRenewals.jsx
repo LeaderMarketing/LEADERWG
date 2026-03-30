@@ -107,7 +107,7 @@ function RenewalCard({
           )}
           <div className={styles.renewalPriceRow}>
             <span className={styles.renewalPrice}>{formatPrice(price)}</span>
-            <span className={styles.priceNote}>MSRP ex.GST</span>
+            <span className={styles.priceNote}>MSRP</span>
           </div>
           <button
             className={styles.addSubBtn}
@@ -234,7 +234,7 @@ function IndividualSubCard({ sub, allModels, data, onAdd }) {
         )}
         <div className={styles.renewalPriceRow}>
           <span className={styles.renewalPrice}>{formatPrice(price)}</span>
-          <span className={styles.priceNote}>MSRP ex.GST</span>
+          <span className={styles.priceNote}>MSRP</span>
         </div>
         <button
           className={`${styles.addSubBtn} ${styles.indCardBtn}`}

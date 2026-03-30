@@ -1,7 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   ShoppingCartSimple,
   ShieldCheck,
+  CaretLeft,
+  CaretRight,
   CaretDown,
   ShoppingBagOpen,
   ArrowsClockwise,
@@ -20,10 +22,10 @@ import BannerCarousel from './BannerCarousel.jsx';
 
 // Model → product image mapping (local public assets)
 const MODEL_IMAGES = {
-  'FireboxV Small': '/WatchGuardBOM/fireboxv images/s.jpg',
-  'FireboxV Medium': '/WatchGuardBOM/fireboxv images/m.jpg',
-  'FireboxV Large': '/WatchGuardBOM/fireboxv images/l.jpg',
-  'FireboxV XLarge': '/WatchGuardBOM/fireboxv images/xl.jpg',
+  'FireboxV Small': '/LEADERWG/fireboxv images/s.jpg',
+  'FireboxV Medium': '/LEADERWG/fireboxv images/m.jpg',
+  'FireboxV Large': '/LEADERWG/fireboxv images/l.jpg',
+  'FireboxV XLarge': '/LEADERWG/fireboxv images/xl.jpg',
 };
 
 // Spec slug mapping (model key → featureSpecs key)
@@ -56,38 +58,6 @@ const SECTION_NAV = [
   { id: 'tradeup', label: 'Trade-Up', Icon: TrendUp },
   { id: 'individual', label: 'Individual Subs', Icon: ListChecks },
 ];
-
-/* ─── Drag-scroll for horizontal scroll container ─── */
-function useDragScroll(ref) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    let isDown = false, startX = 0, scrollLeft = 0;
-    const down = (e) => {
-      if (e.target.closest('button, select, a, input')) return;
-      isDown = true;
-      startX = e.pageX - el.offsetLeft;
-      scrollLeft = el.scrollLeft;
-      el.style.cursor = 'grabbing';
-    };
-    const end = () => { isDown = false; el.style.cursor = 'grab'; };
-    const move = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX) * 1.5;
-    };
-    el.addEventListener('mousedown', down);
-    el.addEventListener('mouseleave', end);
-    el.addEventListener('mouseup', end);
-    el.addEventListener('mousemove', move);
-    return () => {
-      el.removeEventListener('mousedown', down);
-      el.removeEventListener('mouseleave', end);
-      el.removeEventListener('mouseup', end);
-      el.removeEventListener('mousemove', move);
-    };
-  }, [ref]);
-}
 
 /* ═══════════════════════════════════════════════════════════
    Card-based accordion section (cloud, trade-up, individual)
@@ -413,9 +383,50 @@ export default function VirtualCatalog() {
   const { MODELS, SECTIONS, selections, setSelection, getAvailableTerms, getSkuForSelection, getUrlForSelection, getPriceForSelection } = data;
   const { addItem } = useQuote();
   const scrollRef = useRef(null);
+  const scrollAnimRef = useRef(null);
   const [specsOpen, setSpecsOpen] = useState(true);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  useDragScroll(scrollRef);
+  const updateScrollIndicators = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollIndicators();
+    el.addEventListener('scroll', updateScrollIndicators, { passive: true });
+    const ro = new ResizeObserver(updateScrollIndicators);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener('scroll', updateScrollIndicators);
+      ro.disconnect();
+    };
+  }, [updateScrollIndicators]);
+
+  const handleScrollArrow = useCallback((dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (scrollAnimRef.current) cancelAnimationFrame(scrollAnimRef.current);
+    const CARD_WIDTH = 224;
+    const distance = dir * CARD_WIDTH * 2;
+    const start = el.scrollLeft;
+    const target = Math.max(0, Math.min(start + distance, el.scrollWidth - el.clientWidth));
+    const duration = 350;
+    const startTime = performance.now();
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.scrollLeft = start + (target - start) * ease;
+      if (progress < 1) scrollAnimRef.current = requestAnimationFrame(step);
+    };
+    scrollAnimRef.current = requestAnimationFrame(step);
+  }, []);
 
   const specSections = SECTION_DEFS.fireboxV || [];
   const gridCols = `200px repeat(${MODELS.length}, 220px)`;
@@ -424,7 +435,26 @@ export default function VirtualCatalog() {
 
   return (
     <div className={styles.catalog}>
-      {/* ─── Hero Section Navigation ─── */}
+      {/* ─── Hero Banner ─── */}
+      <div className={styles.bannerWrap}>
+        <div className={`${styles.bannerFallback} ${styles.bannerFallbackVirtual}`} />
+        <div className={styles.bannerOverlay}>
+          <h2 className={styles.bannerHeadline}>FireboxV Virtual Appliances</h2>
+          <p className={styles.bannerDescription}>
+            FireboxV delivers enterprise-grade security in a virtualised form factor, ideal for
+            cloud deployments, virtual data centres, and multi-tenant environments. All models
+            include the same comprehensive security services available on physical Firebox appliances.
+          </p>
+          <div className={styles.bannerPlatforms}>
+            <span className={styles.bannerPlatformLabel}>Supported Hypervisors</span>
+            <span className={styles.bannerPlatformPill}>VMware ESXi</span>
+            <span className={styles.bannerPlatformPill}>Microsoft Hyper-V</span>
+            <span className={styles.bannerPlatformPill}>KVM (Linux)</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Sticky Section Navigation ─── */}
       <nav className={styles.sectionNav}>
         {SECTION_NAV.map(({ id, label, Icon }) => (
           <button
@@ -438,15 +468,20 @@ export default function VirtualCatalog() {
         ))}
       </nav>
 
-      <div className={styles.header}>
-        <h1>FireboxV Virtual Appliances</h1>
-        <p className={styles.intro}>
-          WatchGuard FireboxV brings best-in-class network security to virtualised environments.
-          Choose a size based on your user count and performance needs.
-        </p>
-      </div>
-
       {/* ═══ COMPARISON GRID ═══ */}
+      <div className={styles.scrollContainer}>
+        {canScrollLeft && <div className={styles.scrollShadowLeft} />}
+        {canScrollRight && <div className={styles.scrollShadowRight} />}
+        {canScrollLeft && (
+          <button className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`} onMouseDown={(e) => e.stopPropagation()} onClick={() => handleScrollArrow(-1)} aria-label="Scroll left">
+            <CaretLeft size={18} weight="bold" />
+          </button>
+        )}
+        {canScrollRight && (
+          <button className={`${styles.scrollArrow} ${styles.scrollArrowRight}`} onMouseDown={(e) => e.stopPropagation()} onClick={() => handleScrollArrow(1)} aria-label="Scroll right">
+            <CaretRight size={18} weight="bold" />
+          </button>
+        )}
       <div className={styles.tableWrapper} ref={scrollRef}>
         <div className={styles.grid} style={{ gridTemplateColumns: gridCols }}>
           {/* ── Product Header Row ── */}
@@ -573,6 +608,7 @@ export default function VirtualCatalog() {
           </div>
         </div>
       </div>
+      </div> {/* end scrollContainer */}
 
       {/* ═══ RENEWAL CONFIGURATORS (50/50 two-column) ═══ */}
       <div className={styles.renewalRow}>
@@ -626,22 +662,6 @@ export default function VirtualCatalog() {
       {/* ═══ INFO SECTIONS ═══ */}
       <div className={styles.infoSection} id="security-suites">
         <SecuritySuiteTable />
-
-        <div className={styles.infoBlock}>
-          <h3>About WatchGuard FireboxV</h3>
-          <p>
-            FireboxV delivers enterprise-grade security in a virtualised form factor, making it
-            ideal for cloud deployments, virtual data centres, and multi-tenant environments.
-            All FireboxV models include the same comprehensive security services available on
-            physical Firebox appliances.
-          </p>
-          <h3>Supported Hypervisors</h3>
-          <ul className={styles.hypervisorList}>
-            <li>VMware ESXi</li>
-            <li>Microsoft Hyper-V</li>
-            <li>KVM (Linux)</li>
-          </ul>
-        </div>
       </div>
     </div>
   );

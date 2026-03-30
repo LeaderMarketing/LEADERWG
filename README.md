@@ -2,7 +2,7 @@
 
 A React + Vite product catalogue and quote-building tool for WatchGuard hardware, subscriptions, and cloud/virtual products. Sold through the Leader Systems partner channel.
 
-Live site: **https://leadermarketing.github.io/WatchGuard/**
+Live site: **https://leadermarketing.github.io/LEADERWG/**
 
 ---
 

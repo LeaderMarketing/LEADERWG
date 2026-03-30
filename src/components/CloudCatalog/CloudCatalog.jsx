@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   ShoppingCartSimple,
+  CaretLeft,
+  CaretRight,
   CaretDown,
   ShoppingBagOpen,
   ArrowsClockwise,
@@ -16,6 +18,16 @@ import { formatPrice } from '../../data/productPrices.js';
 import SecuritySuiteTable from '../SecuritySuiteTable/SecuritySuiteTable.jsx';
 import { SECTION_DEFS, getSpecValue } from '../../data/featureSpecs.shared.js';
 import CloudBannerCarousel from './CloudBannerCarousel.jsx';
+
+const BASE_URL = import.meta.env.BASE_URL;
+
+// Model → product image mapping (local public assets)
+const MODEL_IMAGES = {
+  'Firebox Cloud Small': `${BASE_URL}fireboxcloud images/FIREBOXCLOUD S.jpg`,
+  'Firebox Cloud Medium': `${BASE_URL}fireboxcloud images/FIREBOXCLOUD M.jpg`,
+  'Firebox Cloud Large': `${BASE_URL}fireboxcloud images/FIREBOXCLOUD L.jpg`,
+  'Firebox Cloud XLarge': `${BASE_URL}fireboxcloud images/FIREBOXCLOUD XL.jpg`,
+};
 
 // Spec slug mapping (model key → featureSpecs key)
 const SPEC_SLUGS = {
@@ -47,38 +59,6 @@ const SECTION_NAV = [
   { id: 'tradeup', label: 'Trade-Up', Icon: TrendUp },
   { id: 'individual', label: 'Individual Subs', Icon: ListChecks },
 ];
-
-/* ─── Drag-scroll for horizontal scroll container ─── */
-function useDragScroll(ref) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    let isDown = false, startX = 0, scrollLeft = 0;
-    const down = (e) => {
-      if (e.target.closest('button, select, a, input')) return;
-      isDown = true;
-      startX = e.pageX - el.offsetLeft;
-      scrollLeft = el.scrollLeft;
-      el.style.cursor = 'grabbing';
-    };
-    const end = () => { isDown = false; el.style.cursor = 'grab'; };
-    const move = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX) * 1.5;
-    };
-    el.addEventListener('mousedown', down);
-    el.addEventListener('mouseleave', end);
-    el.addEventListener('mouseup', end);
-    el.addEventListener('mousemove', move);
-    return () => {
-      el.removeEventListener('mousedown', down);
-      el.removeEventListener('mouseleave', end);
-      el.removeEventListener('mouseup', end);
-      el.removeEventListener('mousemove', move);
-    };
-  }, [ref]);
-}
 
 /* ═══════════════════════════════════════════════════════════
    Card-based accordion section (cloud, trade-up, individual)
@@ -400,10 +380,50 @@ export default function CloudCatalog() {
   const { MODELS, SECTIONS, selections, setSelection, getAvailableTerms, getSkuForSelection, getUrlForSelection, getPriceForSelection } = data;
   const { addItem } = useQuote();
   const scrollRef = useRef(null);
-
+  const scrollAnimRef = useRef(null);
   const [specsOpen, setSpecsOpen] = useState(true);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  useDragScroll(scrollRef);
+  const updateScrollIndicators = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollIndicators();
+    el.addEventListener('scroll', updateScrollIndicators, { passive: true });
+    const ro = new ResizeObserver(updateScrollIndicators);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener('scroll', updateScrollIndicators);
+      ro.disconnect();
+    };
+  }, [updateScrollIndicators]);
+
+  const handleScrollArrow = useCallback((dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (scrollAnimRef.current) cancelAnimationFrame(scrollAnimRef.current);
+    const CARD_WIDTH = 224;
+    const distance = dir * CARD_WIDTH * 2;
+    const start = el.scrollLeft;
+    const target = Math.max(0, Math.min(start + distance, el.scrollWidth - el.clientWidth));
+    const duration = 350;
+    const startTime = performance.now();
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.scrollLeft = start + (target - start) * ease;
+      if (progress < 1) scrollAnimRef.current = requestAnimationFrame(step);
+    };
+    scrollAnimRef.current = requestAnimationFrame(step);
+  }, []);
 
   const specSections = SECTION_DEFS.fireboxCloud || [];
   const gridCols = `200px repeat(${MODELS.length}, 220px)`;
@@ -411,7 +431,26 @@ export default function CloudCatalog() {
 
   return (
     <div className={styles.catalog}>
-      {/* ─── Hero Section Navigation ─── */}
+      {/* ─── Hero Banner ─── */}
+      <div className={styles.bannerWrap}>
+        <div className={`${styles.bannerFallback} ${styles.bannerFallbackCloud}`} />
+        <div className={styles.bannerOverlay}>
+          <h2 className={styles.bannerHeadline}>Firebox Cloud</h2>
+          <p className={styles.bannerDescription}>
+            Firebox Cloud extends WatchGuard's enterprise-grade network security into public cloud
+            environments. Purpose-built for AWS and Microsoft Azure, it provides comprehensive
+            security services — including stateful firewalling, intrusion prevention, application
+            control, and advanced threat detection.
+          </p>
+          <div className={styles.bannerPlatforms}>
+            <span className={styles.bannerPlatformLabel}>Supported Cloud Platforms</span>
+            <span className={styles.bannerPlatformPill}>Amazon Web Services (AWS)</span>
+            <span className={styles.bannerPlatformPill}>Microsoft Azure</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Sticky Section Navigation ─── */}
       <nav className={styles.sectionNav}>
         {SECTION_NAV.map(({ id, label, Icon }) => (
           <button
@@ -425,22 +464,31 @@ export default function CloudCatalog() {
         ))}
       </nav>
 
-      <div className={styles.header}>
-        <h1>Firebox Cloud</h1>
-        <p className={styles.intro}>
-          WatchGuard Firebox Cloud delivers enterprise-grade network security purpose-built for
-          public cloud environments. Deploy in AWS or Microsoft Azure with the same comprehensive
-          security services available on physical and virtual Firebox appliances.
-        </p>
-      </div>
-
       {/* ═══ COMPARISON GRID ═══ */}
+      <div className={styles.scrollContainer}>
+        {canScrollLeft && <div className={styles.scrollShadowLeft} />}
+        {canScrollRight && <div className={styles.scrollShadowRight} />}
+        {canScrollLeft && (
+          <button className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`} onMouseDown={(e) => e.stopPropagation()} onClick={() => handleScrollArrow(-1)} aria-label="Scroll left">
+            <CaretLeft size={18} weight="bold" />
+          </button>
+        )}
+        {canScrollRight && (
+          <button className={`${styles.scrollArrow} ${styles.scrollArrowRight}`} onMouseDown={(e) => e.stopPropagation()} onClick={() => handleScrollArrow(1)} aria-label="Scroll right">
+            <CaretRight size={18} weight="bold" />
+          </button>
+        )}
       <div className={styles.tableWrapper} ref={scrollRef}>
         <div className={styles.grid} style={{ gridTemplateColumns: gridCols }}>
           {/* ── Product Header Row ── */}
           <div className={styles.headerLabel} />
           {MODELS.map((model) => (
             <div key={model.key} className={styles.productCard}>
+              <img
+                src={MODEL_IMAGES[model.key]}
+                alt={`Firebox Cloud ${model.label}`}
+                className={styles.productImage}
+              />
               <div className={styles.productName}>Firebox Cloud {model.label}</div>
               <div className={styles.productDesc}>{model.description}</div>
             </div>
@@ -554,6 +602,7 @@ export default function CloudCatalog() {
           </div>
         </div>
       </div>
+      </div> {/* end scrollContainer */}
 
       {/* ═══ RENEWAL CONFIGURATORS (50/50 two-column) ═══ */}
       <div className={styles.renewalRow}>
@@ -607,21 +656,6 @@ export default function CloudCatalog() {
       {/* ═══ INFO SECTIONS ═══ */}
       <div className={styles.infoSection} id="security-suites">
         <SecuritySuiteTable />
-
-        <div className={styles.infoBlock}>
-          <h3>About WatchGuard Firebox Cloud</h3>
-          <p>
-            Firebox Cloud extends WatchGuard's enterprise-grade network security into public cloud
-            environments. Purpose-built for AWS and Microsoft Azure, it provides the same
-            comprehensive security services — including stateful firewalling, intrusion prevention,
-            application control, and advanced threat detection — that protect physical and virtual networks.
-          </p>
-          <h3>Supported Cloud Platforms</h3>
-          <ul className={styles.hypervisorList}>
-            <li>Amazon Web Services (AWS)</li>
-            <li>Microsoft Azure</li>
-          </ul>
-        </div>
       </div>
     </div>
   );

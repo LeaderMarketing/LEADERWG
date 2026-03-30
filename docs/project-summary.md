@@ -1,7 +1,7 @@
 # WatchGuard Product Configurator — Executive Summary
 
 **Prepared:** March 2026
-**Status:** Production (live at [leadermarketing.github.io/WatchGuard](https://leadermarketing.github.io/WatchGuard/))
+**Status:** Production (live at [leadermarketing.github.io/LEADERWG](https://leadermarketing.github.io/LEADERWG/))
 
 ---
 

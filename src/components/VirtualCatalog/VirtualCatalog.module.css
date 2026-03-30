@@ -10,14 +10,114 @@
   margin: 0 auto;
 }
 
-/* ─── Hero Section Navigation ─── */
+/* ─── Hero Banner ─── */
+.bannerWrap {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  margin-bottom: 1.25rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bannerFallback {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.bannerFallbackVirtual {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b2a4a 40%, #2d5f8a 100%);
+}
+
+.bannerFallbackCloud {
+  background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 40%, #2980b9 100%);
+}
+
+.bannerOverlay {
+  position: relative;
+  z-index: 2;
+  padding: 40px 48px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 260px;
+}
+
+.bannerOverlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bannerHeadline {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 12px;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.bannerDescription {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin: 0 0 16px;
+  text-align: left;
+}
+
+.bannerPlatforms {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.bannerPlatformLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+}
+
+.bannerPlatformPill {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+/* ─── Hero Section Navigation (sticky glass pill) ─── */
 .sectionNav {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
   margin-bottom: 1.25rem;
-  padding: 12px 0;
+  padding: 10px 20px;
+  position: sticky;
+  top: 10px;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 9999px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease;
 }
 
 .navItem {
@@ -66,37 +166,71 @@
 /* ═══════════════════════════════════════════════════════════
    SCROLLABLE TABLE WRAPPER (matches Security Appliances)
    ═══════════════════════════════════════════════════════════ */
+.scrollContainer {
+  position: relative;
+}
+
+.scrollShadowLeft,
+.scrollShadowRight {
+  position: absolute;
+  top: 0;
+  height: 530px;
+  width: 48px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.scrollShadowLeft {
+  left: 200px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.scrollShadowRight {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.scrollArrow {
+  position: absolute;
+  top: 105px;
+  z-index: 20;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--wgrd-red, #e81410);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.scrollArrow:hover {
+  background: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.scrollArrowLeft {
+  left: 208px;
+}
+
+.scrollArrowRight {
+  right: 8px;
+}
+
 .tableWrapper {
   overflow-x: auto;
-  cursor: grab;
   margin-bottom: 2rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .tableWrapper::-webkit-scrollbar {
-  height: 6px;
-}
-
-.tableWrapper::-webkit-scrollbar-track {
-  background: #eeeff1;
-  border-radius: 0;
-}
-
-.tableWrapper::-webkit-scrollbar-thumb {
-  background: var(--wgrd-red, #e81410);
-  border-radius: 4px;
-  border-top: 1px solid #eeeff1;
-  border-bottom: 1px solid #eeeff1;
-}
-
-.tableWrapper::-webkit-scrollbar-button {
   display: none;
-  width: 0;
-  height: 0;
-}
-
-.tableWrapper {
-  scrollbar-width: thin;
-  scrollbar-color: var(--wgrd-red, #e81410) #eeeff1;
 }
 
 /* ─── CSS Grid ─── */
@@ -912,13 +1046,27 @@
     grid-template-columns: 1fr;
   }
 
+  .bannerOverlay {
+    padding: 24px 20px;
+    min-height: 200px;
+  }
+
+  .bannerHeadline {
+    font-size: 1.2rem;
+  }
+
+  .bannerDescription {
+    font-size: 0.8rem;
+  }
+
   .sectionNav {
     gap: 4px;
     justify-content: flex-start;
     overflow-x: auto;
     flex-wrap: nowrap;
-    padding: 8px 0;
+    padding: 8px 16px;
     -webkit-overflow-scrolling: touch;
+    border-radius: 9999px;
   }
 
   .navItem {

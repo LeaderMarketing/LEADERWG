@@ -47,12 +47,31 @@
 .bannerOverlay {
   position: relative;
   z-index: 2;
-  padding: 40px 48px;
-  max-width: 600px;
+  padding: 40px 56px;
+  max-width: 55%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 260px;
+}
+
+.bannerImageArea {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+}
+
+.bannerImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .bannerOverlay::before {
@@ -585,8 +604,44 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   METRICS BAR
+   MDR STATS HIGHLIGHTS BAR
    ═══════════════════════════════════════════════════════════ */
+.statsBar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 2.5rem;
+  padding: 32px 24px;
+}
+
+.statCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.statIcon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.statValue {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.statSubtext {
+  font-size: 0.82rem;
+  color: #888;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Keep old metricsBar for NDR which still uses it */
 .metricsBar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -830,6 +885,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .statsBar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .advantagesLayout {
     grid-template-columns: 1fr;
   }
@@ -870,8 +929,17 @@
     min-width: unset;
   }
 
+  .statsBar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .bannerOverlay {
     padding: 24px 20px;
+    max-width: 100%;
     min-height: 200px;
+  }
+
+  .bannerImageArea {
+    display: none;
   }
 }

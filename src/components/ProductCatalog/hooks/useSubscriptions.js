@@ -9,6 +9,13 @@ import { useState, useCallback, useEffect } from 'react';
  * @param {Object} productDetails – { [slug]: { subscriptions: [...], ... } }
  * @param {string} activeTab – triggers a reset when the tab changes
  */
+// Only show new security suites — renewals/upgrades live in the Renewals section below
+// Only show new security suites — renewals/upgrades live in the Renewals section below
+const NEW_SUITE_TYPES = [
+  'Standard Support', 'Basic Security Suite', 'Total Security Suite',
+  'Standard Wi-Fi', 'USP Wi-Fi',
+];
+
 export default function useSubscriptions(productDetails, activeTab) {
   // { [slug]: { subType: string, termYears: number } }
   const [selections, setSelections] = useState({});
@@ -21,17 +28,13 @@ export default function useSubscriptions(productDetails, activeTab) {
   // Initialise defaults whenever productDetails arrives for a slug
   useEffect(() => {
     if (!productDetails) return;
-    const PREFERRED_ORDER = ['Standard Support', 'Basic Security Suite', 'Total Security Suite'];
     setSelections((prev) => {
       const next = { ...prev };
       Object.entries(productDetails).forEach(([slug, data]) => {
         if (next[slug]) return; // already initialised
-        const types = [...new Set((data.subscriptions || []).map((s) => s.subscription_type))];
-        types.sort((a, b) => {
-          const ai = PREFERRED_ORDER.indexOf(a);
-          const bi = PREFERRED_ORDER.indexOf(b);
-          return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-        });
+        const types = [...new Set((data.subscriptions || []).map((s) => s.subscription_type))]
+          .filter((t) => NEW_SUITE_TYPES.includes(t));
+        types.sort((a, b) => NEW_SUITE_TYPES.indexOf(a) - NEW_SUITE_TYPES.indexOf(b));
         next[slug] = { subType: types[0] || '', termYears: 1 };
       });
       return next;
@@ -61,13 +64,9 @@ export default function useSubscriptions(productDetails, activeTab) {
     (slug) => {
       const d = productDetails[slug];
       if (!d?.subscriptions) return [];
-      const PREFERRED_ORDER = ['Standard Support', 'Basic Security Suite', 'Total Security Suite'];
-      const types = [...new Set(d.subscriptions.map((s) => s.subscription_type))];
-      return types.sort((a, b) => {
-        const ai = PREFERRED_ORDER.indexOf(a);
-        const bi = PREFERRED_ORDER.indexOf(b);
-        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-      });
+      const types = [...new Set(d.subscriptions.map((s) => s.subscription_type))]
+        .filter((t) => NEW_SUITE_TYPES.includes(t));
+      return types.sort((a, b) => NEW_SUITE_TYPES.indexOf(a) - NEW_SUITE_TYPES.indexOf(b));
     },
     [productDetails],
   );

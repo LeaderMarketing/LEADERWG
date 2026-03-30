@@ -190,6 +190,18 @@ function MdrNdrBanner({ activeTab, setActiveTab }) {
         <h2 className={styles.bannerHeadline}>{content.headline}</h2>
         <p className={styles.bannerDescription}>{content.description}</p>
       </div>
+
+      {/* MDR hero image — right side */}
+      {activeTab === 'mdr' && (
+        <div className={styles.bannerImageArea}>
+          <img
+            src={`${BASE_URL}MDR images/mdr_header_1.webp`}
+            alt="WatchGuard MDR Dashboard"
+            className={styles.bannerImage}
+          />
+        </div>
+      )}
+
       <button
         className={`${styles.bannerNav} ${styles.bannerNavLeft}`}
         onClick={() => {
@@ -510,27 +522,45 @@ function AttackSurfaceSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   Performance Metrics
+   MDR Stats Highlights
    ═══════════════════════════════════════════════════════════ */
-function MetricsBar() {
+const MDR_STATS = [
+  {
+    icon: 'false positive.webp',
+    stat: '< 1 False Positive',
+    subtext: 'per month',
+  },
+  {
+    icon: 'average 6 alerts.webp',
+    stat: 'Average 6 Alerts',
+    subtext: 'per month',
+  },
+  {
+    icon: '6 minutes.webp',
+    stat: '6 Minutes',
+    subtext: 'mean time to first response on critical alerts',
+  },
+  {
+    icon: '10 milliseconds.webp',
+    stat: '10 Milliseconds',
+    subtext: 'to auto-block threats',
+  },
+];
+
+function MdrStatsBar() {
   return (
-    <div className={styles.metricsBar}>
-      <div className={styles.metric}>
-        <span className={styles.metricValue}>&lt;6 min</span>
-        <span className={styles.metricLabel}>Mean time to respond</span>
-      </div>
-      <div className={styles.metric}>
-        <span className={styles.metricValue}>&lt;1</span>
-        <span className={styles.metricLabel}>False positive per month</span>
-      </div>
-      <div className={styles.metric}>
-        <span className={styles.metricValue}>AI-driven</span>
-        <span className={styles.metricLabel}>Threat hunting + automation</span>
-      </div>
-      <div className={styles.metric}>
-        <span className={styles.metricValue}>24/7</span>
-        <span className={styles.metricLabel}>Global SOC coverage</span>
-      </div>
+    <div className={styles.statsBar}>
+      {MDR_STATS.map((item) => (
+        <div key={item.stat} className={styles.statCol}>
+          <img
+            src={`${BASE_URL}MDR images/MDR icon highlights/${item.icon}`}
+            alt=""
+            className={styles.statIcon}
+          />
+          <span className={styles.statValue}>{item.stat}</span>
+          <span className={styles.statSubtext}>{item.subtext}</span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -733,7 +763,7 @@ export default function MdrNdrCatalog() {
         <>
           <MdrComparisonTable />
           <ProtectMoreSection />
-          <MetricsBar />
+          <MdrStatsBar />
           <KeyCapabilitiesSection />
           <WhyWatchGuardSection />
           <AttackSurfaceSection />

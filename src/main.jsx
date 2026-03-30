@@ -7,7 +7,7 @@ import './global.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/WatchGuardBOM">
+    <BrowserRouter basename="/LEADERWG">
       <QuoteProvider>
         <App />
       </QuoteProvider>

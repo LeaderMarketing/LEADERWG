@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-WatchGuard Product Configurator — a React+Vite product catalog and quote builder for WatchGuard hardware, subscriptions, and cloud/virtual products sold through the Leader Systems partner channel. Live at https://leadermarketing.github.io/WatchGuard/.
+WatchGuard Product Configurator — a React+Vite product catalog and quote builder for WatchGuard hardware, subscriptions, and cloud/virtual products sold through the Leader Systems partner channel. Live at https://leadermarketing.github.io/LEADERWG/.
 
 ## Commands
 
@@ -63,7 +63,7 @@ Static JSON must be committed before pushing. GitHub Actions runs `npm ci` + `np
 
 ## Key Patterns
 
-- **Vite base path**: `/WatchGuardBOM/` (configured in `vite.config.mjs`). All routes are relative to this.
+- **Vite base path**: `/LEADERWG/` (configured in `vite.config.mjs`). All routes are relative to this.
 - **Quote cart**: `QuoteContext.jsx` (React Context + useReducer). Persists across tabs. `addItem({ sku, name, description, unitPrice })` is the standard interface. PDF export via jsPDF.
 - **`formatPrice(null)` returns `'TBC'`** — when data is loading, all lookups return null. Always guard with a loading check before rendering prices, or users see a flash of "TBC" on every price.
 - **seed.js parses CSV from both ends** — `fields[0]` and `fields[1]` from the left, `fields[-1]`, `fields[-2]`, etc. from the right. This handles unquoted prices with commas (e.g. `$2,300.00`) that split into extra fields. If you change CSV columns, understand this parser.
