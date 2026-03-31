@@ -64,7 +64,7 @@ This app has two deployment targets with different purposes:
 
 | Environment | Platform | URL | Backend | Purpose |
 |-------------|----------|-----|---------|---------|
-| **Production** | Railway | *(custom domain TBD)* | Express + SQLite (live) | The real, production-grade app with live database |
+| **Production** | Railway | [leaderwg-production.up.railway.app](https://leaderwg-production.up.railway.app/) | Express + SQLite (live) | The real, production-grade app with live database |
 | **Staging** | GitHub Pages | [leadermarketing.github.io/LEADERWG](https://leadermarketing.github.io/LEADERWG/) | None (static JSON) | Static preview for internal testing — no backend, data is pre-exported JSON snapshots |
 
 ### Production — Railway
@@ -75,18 +75,6 @@ Railway runs the full application: Express API + SQLite database + built React f
 1. Railway runs `npm run railway:build` which seeds the database and builds the Vite frontend
 2. `npm start` launches Express in production mode, serving both the API (`/api/*`) and the built frontend
 3. The React app fetches data from `/api` on the same origin — no CORS, no fallback needed
-
-**First-time Railway setup:**
-1. Create a Railway account at [railway.com](https://railway.com)
-2. Create a new project and connect this GitHub repository
-3. Railway auto-detects the `railway.json` config — no manual settings needed
-4. Railway assigns a public URL (e.g. `your-app.up.railway.app`) immediately
-5. When ready, add a custom domain in Railway's project settings (just a DNS record change)
-
-**Handoff to the Leader Marketing team:**
-- Transfer the Railway project to the team's Railway account, or invite them as members
-- They only need to manage the custom domain DNS and billing
-- Code changes deploy automatically on push to `main` — no manual intervention needed
 
 ### Staging — GitHub Pages
 
