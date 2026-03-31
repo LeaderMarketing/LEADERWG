@@ -167,7 +167,8 @@ if (IS_PRODUCTION) {
   const distPath = path.join(__dirname, '..', 'dist');
   app.use(express.static(distPath));
   // SPA fallback — serve index.html for any non-API route
-  app.get('*', (_req, res) => {
+  // Express 5 requires named wildcard parameters (bare '*' is invalid)
+  app.get('/{*splat}', (_req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
