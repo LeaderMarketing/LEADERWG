@@ -2,7 +2,7 @@
 
 A React + Vite product catalogue and quote-building tool for WatchGuard hardware, subscriptions, and cloud/virtual products. Sold through the Leader Systems partner channel.
 
-Live site: **https://leadermarketing.github.io/LEADERWG/**
+Staging preview (static): **https://leadermarketing.github.io/LEADERWG/**
 
 ---
 
@@ -10,12 +10,13 @@ Live site: **https://leadermarketing.github.io/LEADERWG/**
 
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
+- [Deployment](#deployment)
 - [Project Structure](#project-structure)
 - [Data Architecture](#data-architecture)
 - [Updating Prices](#updating-prices)
 - [Updating Product Specs](#updating-product-specs)
 - [Adding New Products](#adding-new-products)
-- [Deploying to GitHub Pages](#deploying-to-github-pages)
+- [Deploying to GitHub Pages (Staging)](#deploying-to-github-pages-staging)
 
 ---
 
@@ -28,7 +29,8 @@ Live site: **https://leadermarketing.github.io/LEADERWG/**
 | Database | SQLite via `better-sqlite3` |
 | Icons | Phosphor Icons |
 | PDF export | jsPDF + jsPDF-AutoTable |
-| Deployment | GitHub Pages via `gh-pages` |
+| Production hosting | Railway (Node.js + SQLite) |
+| Staging preview | GitHub Pages (static JSON, no backend) |
 
 ---
 
@@ -53,6 +55,53 @@ This starts both the Vite dev server (frontend, port 5173) and the Express API (
 | `npm run build` | Vite production build |
 | `npm run preview` | Preview the production build locally |
 | `npm run deploy` | export-data + build + push to `gh-pages` branch |
+
+---
+
+## Deployment
+
+This app has two deployment targets with different purposes:
+
+| Environment | Platform | URL | Backend | Purpose |
+|-------------|----------|-----|---------|---------|
+| **Production** | Railway | *(custom domain TBD)* | Express + SQLite (live) | The real, production-grade app with live database |
+| **Staging** | GitHub Pages | [leadermarketing.github.io/LEADERWG](https://leadermarketing.github.io/LEADERWG/) | None (static JSON) | Static preview for internal testing — no backend, data is pre-exported JSON snapshots |
+
+### Production — Railway
+
+Railway runs the full application: Express API + SQLite database + built React frontend, all in a single service. Pushes to `main` trigger automatic deploys.
+
+**How it works:**
+1. Railway runs `npm run railway:build` which seeds the database and builds the Vite frontend
+2. `npm start` launches Express in production mode, serving both the API (`/api/*`) and the built frontend
+3. The React app fetches data from `/api` on the same origin — no CORS, no fallback needed
+
+**First-time Railway setup:**
+1. Create a Railway account at [railway.com](https://railway.com)
+2. Create a new project and connect this GitHub repository
+3. Railway auto-detects the `railway.json` config — no manual settings needed
+4. Railway assigns a public URL (e.g. `your-app.up.railway.app`) immediately
+5. When ready, add a custom domain in Railway's project settings (just a DNS record change)
+
+**Handoff to the Leader Marketing team:**
+- Transfer the Railway project to the team's Railway account, or invite them as members
+- They only need to manage the custom domain DNS and billing
+- Code changes deploy automatically on push to `main` — no manual intervention needed
+
+### Staging — GitHub Pages
+
+GitHub Pages serves a **flat, static preview** of the app. There is no backend — all data comes from pre-exported JSON files in `public/static-data/`. This is purely for internal colleagues to preview and interact with the UI before production deployment.
+
+See [Deploying to GitHub Pages (Staging)](#deploying-to-github-pages-staging) for instructions.
+
+### Key differences between environments
+
+| Aspect | Production (Railway) | Staging (GitHub Pages) |
+|--------|---------------------|----------------------|
+| Data source | Live SQLite database via Express API | Pre-exported static JSON files |
+| Data freshness | Always current (re-seeds on deploy) | Snapshot from last `npm run export-data` |
+| Base URL path | `/` | `/LEADERWG/` |
+| API calls | `/api/*` on same origin | Skipped entirely — loads JSON directly |
 
 ---
 
@@ -317,9 +366,11 @@ The frontend hooks (`useApplianceCatalog`, `usePerUserCatalog`) automatically pi
 
 ---
 
-## Deploying to GitHub Pages
+## Deploying to GitHub Pages (Staging)
 
-The site deploys to the `gh-pages` branch. GitHub Actions builds automatically on every push to `main`.
+> **Note:** GitHub Pages is for **staging/preview only** — it serves static JSON with no backend. Production runs on Railway with a live database. See [Deployment](#deployment) for details.
+
+The staging preview deploys to the `gh-pages` branch. GitHub Actions builds automatically on every push to `main`.
 
 ### Workflow
 

@@ -1,5 +1,6 @@
 // Express API server for WatchGuard BOM Configurator
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { initDb } = require('./db');
 const { seedIfNeeded } = require('./seed');
@@ -7,6 +8,7 @@ const { SECTION_DEFS } = require('../src/data/featureSpecs.shared.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 app.use(cors());
 app.use(express.json());
@@ -158,7 +160,19 @@ app.get('/api/products/:slug/subscriptions', (req, res) => {
   res.json(grouped);
 });
 
+// ── Serve frontend in production ──────────────────────────
+// On Railway, Express serves both the API and the built Vite frontend.
+// In local dev, Vite's dev server handles the frontend separately.
+if (IS_PRODUCTION) {
+  const distPath = path.join(__dirname, '..', 'dist');
+  app.use(express.static(distPath));
+  // SPA fallback — serve index.html for any non-API route
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
 // ── Start ─────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`WatchGuard API running on http://localhost:${PORT}`);
+  console.log(`WatchGuard API running on http://localhost:${PORT}${IS_PRODUCTION ? ' (production)' : ''}`);
 });
