@@ -22,10 +22,10 @@ import BannerCarousel from './BannerCarousel.jsx';
 
 // Model → product image mapping (local public assets)
 const MODEL_IMAGES = {
-  'FireboxV Small': '/LEADERWG/fireboxv images/s.jpg',
-  'FireboxV Medium': '/LEADERWG/fireboxv images/m.jpg',
-  'FireboxV Large': '/LEADERWG/fireboxv images/l.jpg',
-  'FireboxV XLarge': '/LEADERWG/fireboxv images/xl.jpg',
+  'FireboxV Small': `${import.meta.env.BASE_URL}fireboxv images/s.jpg`,
+  'FireboxV Medium': `${import.meta.env.BASE_URL}fireboxv images/m.jpg`,
+  'FireboxV Large': `${import.meta.env.BASE_URL}fireboxv images/l.jpg`,
+  'FireboxV XLarge': `${import.meta.env.BASE_URL}fireboxv images/xl.jpg`,
 };
 
 // Spec slug mapping (model key → featureSpecs key)

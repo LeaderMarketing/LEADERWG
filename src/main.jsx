@@ -7,7 +7,7 @@ import './global.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/LEADERWG">
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <QuoteProvider>
         <App />
       </QuoteProvider>
