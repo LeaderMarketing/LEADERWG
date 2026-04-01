@@ -427,7 +427,7 @@
 }
 
 .comparisonTable thead {
-  background: linear-gradient(90deg, #270b0a 0%, #880d0c 40%, #e81410 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   color: #fff;
 }
 
@@ -648,7 +648,7 @@
   gap: 16px;
   margin-bottom: 2.5rem;
   padding: 24px;
-  background: linear-gradient(90deg, #270b0a 0%, #880d0c 40%, #e81410 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border-radius: 12px;
 }
 
@@ -731,7 +731,7 @@
 }
 
 .testimonialColumn {
-  background: linear-gradient(90deg, #270b0a 0%, #880d0c 40%, #e81410 100%);
+  background: linear-gradient(135deg, #c41210 0%, #e81410 40%, #a00e0c 100%);
   border: none;
   border-radius: 12px;
   padding: 28px 24px;
