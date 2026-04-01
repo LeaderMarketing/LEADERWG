@@ -1,5 +1,5 @@
 {
-  "id": 526,
+  "id": 59,
   "slug": "M440",
   "name": "Firebox M440",
   "family": "Renewals",
@@ -9,7 +9,7 @@
   "appliance": null,
   "subscriptions": [
     {
-      "id": 6080,
+      "id": 915,
       "sku_code": "WGM44181",
       "full_sku": "NWG-WGM44181",
       "name": "WatchGuard Network Discovery 1-yr for Firebox M440",
