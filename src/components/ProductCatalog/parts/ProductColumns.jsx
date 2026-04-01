@@ -73,7 +73,7 @@ export default function ProductColumns({ products, headerRowRef, getImageSrc, on
             title="Add appliance to quote cart"
           >
             <ShoppingCartSimple size={14} weight="bold" />
-            Add to Cart
+            Add to Quote
           </button>
           {product.appliance?.url && (
             <a

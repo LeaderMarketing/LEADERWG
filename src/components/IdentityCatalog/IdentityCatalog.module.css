@@ -109,7 +109,7 @@
   width: 100%;
   height: 200px;
   overflow: hidden;
-  background: #f0f2f5;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,7 +261,7 @@
   font-style: italic;
 }
 
-/* ─── Add to Cart Button ─── */
+/* ─── Add to Quote Button ─── */
 .addBtn {
   display: inline-flex;
   align-items: center;

@@ -135,12 +135,13 @@ function ServiceSection({ id, title, description, sectionId, options, data, onAd
                         name: `FireboxV ${model.label}`,
                         description: `${serviceType} (${term})`,
                         unitPrice: price || 0,
+                        image: MODEL_IMAGES[model.key],
                       })
                     }
                     title="Add to quote cart"
                   >
                     <ShoppingCartSimple size={14} weight="bold" />
-                    Add to Cart
+                    Add to Quote
                   </button>
                   <SkuLink sku={sku} url={url} />
                 </div>
@@ -231,12 +232,13 @@ function RenewalConfigurator({ id, title, description, sectionId, options, data,
                 name: `FireboxV ${MODELS.find((m) => m.key === selectedModel)?.label}`,
                 description: `${activeServiceType} (${activeTerm})`,
                 unitPrice: price || 0,
+                image: imageUrl || MODEL_IMAGES[selectedModel],
               })
             }
             title="Add to quote cart"
           >
             <ShoppingCartSimple size={14} weight="bold" />
-            Add to Cart
+            Add to Quote
           </button>
           <SkuLink sku={sku} url={url} />
         </div>
@@ -337,12 +339,13 @@ function IndividualSubCard({ sub, data, onAdd }) {
               name: `FireboxV ${MODELS.find((m) => m.key === selectedModel)?.label}`,
               description: `${sub.label} (${selectedTerm})`,
               unitPrice: price || 0,
+              image: imageUrl || MODEL_IMAGES[selectedModel],
             })
           }
           title="Add to quote cart"
         >
           <ShoppingCartSimple size={14} weight="bold" />
-          Add to Cart
+          Add to Quote
         </button>
         <SkuLink sku={sku} url={url} />
       </div>
@@ -559,12 +562,13 @@ export default function VirtualCatalog() {
                       name: `FireboxV ${model.label}`,
                       description: `${serviceType} (${term})`,
                       unitPrice: price || 0,
+                      image: MODEL_IMAGES[model.key],
                     })
                   }
                   title="Add to quote cart"
                 >
                   <ShoppingCartSimple size={14} weight="bold" />
-                  Add to Cart
+                  Add to Quote
                 </button>
                 <SkuLink sku={sku} url={url} />
               </div>

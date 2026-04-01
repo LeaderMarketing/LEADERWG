@@ -127,12 +127,13 @@ function ProductCard({ product, data, onAdd, variant }) {
                   name: product.label,
                   description: `${tier} licenses (${term})`,
                   unitPrice: price || 0,
+                  image: imageUrl,
                 })
               }
               title="Add to quote cart"
             >
               <ShoppingCartSimple size={14} weight="bold" />
-              Add to Cart
+              Add to Quote
             </button>
             <SkuLink sku={sku} url={url} />
           </div>
@@ -208,12 +209,13 @@ function ProductCard({ product, data, onAdd, variant }) {
               name: product.label,
               description: `${tier} licenses (${term})`,
               unitPrice: price || 0,
+              image: imageUrl,
             })
           }
           title="Add to quote cart"
         >
           <ShoppingCartSimple size={14} weight="bold" />
-          Add to Cart
+          Add to Quote
         </button>
         <SkuLink sku={sku} url={url} />
       </div>

@@ -123,7 +123,7 @@ function RenewalCard({
             title="Add to quote cart"
           >
             <ShoppingCartSimple size={14} weight="bold" />
-            Add to Cart
+            Add to Quote
           </button>
           <SkuLink sku={sku} url={url} />
         </div>
@@ -243,7 +243,7 @@ function IndividualSubCard({ sub, allModels, data, onAdd }) {
           title="Add to quote cart"
         >
           <ShoppingCartSimple size={14} weight="bold" />
-          Add to Cart
+          Add to Quote
         </button>
         <SkuLink sku={sku} url={skuUrl} />
       </div>

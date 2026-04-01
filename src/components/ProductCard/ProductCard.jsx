@@ -141,7 +141,7 @@ export default function ProductCard({ product, onSelectHardware, onSelectSubscri
           title="Add hardware to quote cart"
         >
           <ShoppingCartSimple size={16} weight="bold" />
-          Add to Cart
+          Add to Quote
         </button>
       </div>
 
@@ -225,7 +225,7 @@ export default function ProductCard({ product, onSelectHardware, onSelectSubscri
             title="Add subscription to quote cart"
           >
             <ShoppingCartSimple size={16} weight="bold" />
-            Add to Cart
+            Add to Quote
           </button>
         </div>
       )}

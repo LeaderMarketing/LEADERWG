@@ -118,12 +118,13 @@ function RenewalCard({
                 name: `${modelPrefix} ${selectedModel}`,
                 description: `${activeServiceType} (${activeTerm})`,
                 unitPrice: price || 0,
+                image: imageUrl,
               })
             }
             title="Add to quote cart"
           >
             <ShoppingCartSimple size={14} weight="bold" />
-            Add to Cart
+            Add to Quote
           </button>
           <SkuLink sku={sku} url={url} />
         </div>
@@ -245,12 +246,13 @@ function IndividualSubCard({ sub, allModels, data, onAdd }) {
               name: `Firebox ${selectedModel}`,
               description: `${sub.label} (${selectedTerm})`,
               unitPrice: price || 0,
+              image: imageUrl,
             })
           }
           title="Add to quote cart"
         >
           <ShoppingCartSimple size={14} weight="bold" />
-          Add to Cart
+          Add to Quote
         </button>
         <SkuLink sku={sku} url={skuUrl} />
       </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { ShoppingCartSimple } from '@phosphor-icons/react';
 import styles from './TopLevelNav.module.css';
+import { useQuote } from '../../context/QuoteContext.jsx';
 
 const NAV_ITEMS = [
   { path: '/', label: 'Security Appliances' },
@@ -13,7 +15,9 @@ const NAV_ITEMS = [
   { path: '/renewals', label: 'Renewals & Upgrades' },
 ];
 
-export default function TopLevelNav() {
+export default function TopLevelNav({ onCartClick }) {
+  const { state: quoteState } = useQuote();
+
   return (
     <nav className={styles.topNav}>
       <div className={styles.navInner}>
@@ -29,6 +33,17 @@ export default function TopLevelNav() {
             {item.label}
           </NavLink>
         ))}
+        <button
+          type="button"
+          className={`${styles.cartBtn} ${quoteState.itemCount > 0 ? styles.cartBtnActive : ''}`}
+          onClick={onCartClick}
+          aria-label="Open quote cart"
+        >
+          <ShoppingCartSimple size={18} weight="fill" />
+          {quoteState.itemCount > 0 && (
+            <span className={styles.cartBadge}>{quoteState.itemCount}</span>
+          )}
+        </button>
       </div>
     </nav>
   );

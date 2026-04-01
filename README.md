@@ -1,8 +1,12 @@
 # WatchGuard Product Configurator
 
-A React + Vite product catalogue and quote-building tool for WatchGuard hardware, subscriptions, and cloud/virtual products. Sold through the Leader Systems partner channel.
+A React + Vite product catalogue and quote-building tool for WatchGuard hardware, subscriptions, and cloud/virtual products. Built for the Leader Systems partner channel — resellers use this to browse the full WatchGuard portfolio and build quotes to send to Leader account managers.
 
 Staging preview (static): **https://leadermarketing.github.io/LEADERWG/**
+
+### Website Skin
+
+The app features a full-page background "skin" promoting WatchGuard events (currently IMPACT 2026). The skin image (`public/banners/impact_skin.jpg`) is displayed as a fixed background behind the centered 1140px content area, visible on left and right margins on wide screens. Clicking the skin or the sticky bottom banner links to the event registration page. The skin is hidden on screens narrower than 1200px. To update the skin, replace `public/banners/impact_skin.jpg` and update the target URL in `src/App.jsx` (`SKIN_URL` constant).
 
 ---
 

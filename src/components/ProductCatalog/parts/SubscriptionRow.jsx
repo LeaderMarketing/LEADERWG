@@ -88,7 +88,7 @@ export default function SubscriptionRow({
                   title="Add subscription to quote cart"
                 >
                   <ShoppingCartSimple size={14} weight="bold" />
-                  Add to Cart
+                  Add to Quote
                 </button>
 
                 {currentSub?.url && (
