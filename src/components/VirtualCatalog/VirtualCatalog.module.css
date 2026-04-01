@@ -29,11 +29,11 @@
 }
 
 .bannerFallbackVirtual {
-  background: linear-gradient(135deg, #0d1b2a 0%, #1b2a4a 40%, #2d5f8a 100%);
+  background: linear-gradient(90deg, #270b0a 0%, #880d0c 40%, #e81410 100%);
 }
 
 .bannerFallbackCloud {
-  background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 40%, #2980b9 100%);
+  background: linear-gradient(90deg, #270b0a 0%, #880d0c 40%, #e81410 100%);
 }
 
 .bannerOverlay {

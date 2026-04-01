@@ -65,7 +65,7 @@
 }
 
 .comparisonTable thead {
-  background: #d50505;
+  background: linear-gradient(90deg, #270b0a 0%, #880d0c 40%, #e81410 100%);
   color: #fff;
 }
 
